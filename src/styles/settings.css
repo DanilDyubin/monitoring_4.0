@@ -1,0 +1,58 @@
+html {
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'ALS Hauss', 'ALS Gorizont Expanded 2.1', sans-serif;
+  font-weight: 400;
+  background-color: #ffffff;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  text-decoration: none;
+  margin: 0;
+  padding: 0;
+}
+
+ul,
+li {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+p {
+  margin: 0;
+  padding: 0;
+}
+
+button {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  padding: 0;
+}
+
+/* убираем цвет автозаполнения в браузерах */
+input:-webkit-autofill {
+  box-shadow: 0 0 0 1000px #f2fbff inset !important;
+  background-color: #f2fbff !important;
+  -webkit-text-fill-color: #131313;
+}

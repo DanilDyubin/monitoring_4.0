@@ -1,0 +1,71 @@
+.card {
+  height: 130px;
+  width: 100%;
+  display: flex;
+  text-decoration: none;
+  margin-bottom: 24px;
+}
+
+.content {
+  padding: 24px;
+}
+
+.address {
+  margin-bottom: 12px;
+  font-family: 'ALS Gorizont Expanded 2.1';
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 120%;
+  color: var(--color-text);
+}
+
+.img {
+  height: 130px;
+  flex: 0 0 175px; // запрещаем сжатие блока
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-secondary);
+  color: var(--color-blue);
+}
+
+.img-icon {
+  font-size: 64px;
+}
+
+.wrapper {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.info-icon {
+  color: var(--color-text-gray);
+  font-size: 20px;
+}
+
+.uin {
+  position: relative;
+  font-family: 'ALS Hauss';
+  font-weight: 400;
+  font-size: 18px;
+  color: var(--color-text);
+  &::after {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 0;
+    right: -14px;
+    height: 23px;
+    width: 2px;
+    background-color: #f0f0f6;
+  }
+}
+
+.floors {
+  margin-left: 12px;
+  font-family: 'ALS Hauss';
+  font-weight: 400;
+  font-size: 18px;
+  color: var(--color-text-gray);
+}
