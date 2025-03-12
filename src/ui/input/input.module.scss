@@ -1,0 +1,53 @@
+.input-field {
+  height: 56px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 18px 20px 18px 24px;
+  border: 2px solid transparent;
+  background-color: var(--color-bg-btn-gray);
+  transition: all 0.2s ease-in-out;
+}
+
+.small {
+  width: 702px;
+}
+
+.big {
+  width: 802px;
+}
+
+.input {
+  height: 20px;
+  flex-grow: 1;
+  font-family: 'ALS Hauss';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 20px;
+  color: var(--color-text);
+  background-color: transparent;
+  border: none;
+  outline: none;
+}
+
+.input-field:focus-within {
+  border: 2px solid var(--color-primary);
+}
+
+.icon-close {
+  opacity: 0;
+  pointer-events: none;
+  font-size: 26px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.input:not(:placeholder-shown) ~ .icon-close {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.icon-sliders {
+  font-size: 24px;
+}

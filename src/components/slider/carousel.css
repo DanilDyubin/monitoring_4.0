@@ -1,0 +1,71 @@
+.carousel {
+  position: relative;
+  width: 100%;
+  margin: auto;
+}
+
+.mySwiper {
+  height: 248px;
+  max-width: 1088px;
+  overflow: hidden;
+}
+
+.image-block {
+  height: 216px;
+  overflow: hidden;
+  margin: 0 auto;
+  /* border: 5px solid transparent; */
+  /* box-sizing: border-box; */
+  outline: none;
+}
+
+.image-block img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+.mySwiper-button-prev1,
+.mySwiper-button-next1,
+.mySwiper-button-prev,
+.mySwiper-button-next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10000;
+  height: 44px;
+  width: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-bg-btn-gray);
+  color: var(--color-text-gray);
+  border-radius: 50px;
+  transition: all 0.3s ease;
+}
+
+.mySwiper-button-prev {
+  left: 0;
+}
+
+.mySwiper-button-next {
+  right: 0;
+}
+
+.swiper-button-disabled {
+  opacity: 0.4;
+}
+
+.mySwiper-button-icon {
+  font-size: 24px;
+  color: var(--color-black);
+}
+
+.swiper-slide-active .image-block {
+  outline: 5px solid var(--color-primary);
+  outline-offset: -5px;
+}
+
+.mySwiper .swiper-slide-thumb-active {
+  filter: brightness(50%);
+  /* opacity: 0.4; */
+}

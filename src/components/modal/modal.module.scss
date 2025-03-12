@@ -20,8 +20,8 @@
 }
 
 .content {
-  border-radius: 12px;
-  overflow: hidden;
+  overflow-y: scroll;
+  max-width: 80vw;
+  max-height: 95vh;
   background-color: var(--color-white);
-  width: 80vw;
 }

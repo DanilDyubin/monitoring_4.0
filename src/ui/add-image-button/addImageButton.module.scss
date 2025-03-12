@@ -1,14 +1,20 @@
-.button {
+.btn {
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-shrink: 0;
   width: 227px;
   height: 216px;
   background: var(--color-secondary);
 }
 
-.button.disabled {
+.btn.disabled {
   background: var(--color-bg-btn-gray);
   color: var(--color-text-gray);
   pointer-events: none;
+}
+
+.btn.big {
+  width: 430px;
+  height: 409px;
 }

@@ -22,7 +22,7 @@ import 'swiper/css/thumbs';
 import 'swiper/css/free-mode';
 import 'swiper/css/grid';
 import 'swiper/css/scrollbar';
-import './slider.css';
+// import './slider.css';
 
 const Slider = (props) => {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
@@ -81,6 +81,7 @@ const Slider = (props) => {
           slidesPerView={1}
           loop={true}
           autoHeight={false}
+          spaceBetween={30}
           navigation={{
             prevEl: '.swiper-button-prev',
             nextEl: '.swiper-button-next',

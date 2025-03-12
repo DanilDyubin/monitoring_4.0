@@ -5,14 +5,20 @@ const NavigationMenu = ({ id }) => {
   return (
     <div className={s.container}>
       <NavLink
-        to={`/report/${id}`}
+        to={`/report/${id}/total`}
         end
-        className={({ isActive }) => (isActive ? `${s.link} ${s.active}` : s.link)}>
+        className={({ isActive }) =>
+          isActive ? `${s.link} ${s.active}` : s.link
+        }
+      >
         Общий отчёт
       </NavLink>
       <NavLink
         to={`/report/${id}/single`}
-        className={({ isActive }) => (isActive ? `${s.link} ${s.active}` : s.link)}>
+        className={({ isActive }) =>
+          isActive ? `${s.link} ${s.active}` : s.link
+        }
+      >
         Отчёт по каждому снимку
       </NavLink>
     </div>

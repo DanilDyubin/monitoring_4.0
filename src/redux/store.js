@@ -2,12 +2,14 @@ import { configureStore } from '@reduxjs/toolkit';
 import calendar from './slices/calendarSlice';
 import schedule from './slices/scheduleSlice';
 import report from './slices/reportSlice';
+import project from './slices/projectSlice';
 
 export const store = configureStore({
   reducer: {
     calendar,
     schedule,
     report,
+    project,
   },
 });
 

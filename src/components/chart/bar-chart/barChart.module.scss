@@ -1,0 +1,111 @@
+.bar-chart {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.lines {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  bottom: 7px;
+  left: 0;
+  z-index: -1;
+}
+
+.line {
+  margin-top: 87px;
+  width: 100%;
+  height: 2px;
+  background-color: var(--color-bg);
+  //   background-color: red;
+}
+
+.list {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+
+.item {
+  width: 62px;
+  margin: 0 auto;
+  //   background-color: rgb(199, 197, 197);
+}
+
+.bar {
+  height: 444px;
+  display: flex;
+  align-items: flex-end;
+  font-family: var(--font-main);
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 130%;
+  color: var(--color-tet);
+  //   background-color: rgb(199, 197, 197);
+  //   outline: 3px solid var(--color-primary);
+  //   outline-offset: 2px;
+
+  &__plan {
+    height: 100%;
+    flex: 1;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    background-color: var(--color-bar);
+  }
+
+  &__fact {
+    height: 30%;
+    flex: 1;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    background-color: yellow;
+  }
+}
+
+.item-title {
+  min-height: 26px;
+  margin-top: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-main);
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 130%;
+  text-align: center;
+  color: var(--color-text);
+}
+
+.opacity {
+  //   filter: brightness(0.4);
+  filter: brightness(1.6);
+}
+
+// .hovered {
+//   background-color: rgb(199, 197, 197);
+//   border-left: 2px solid rgb(199, 197, 197);
+//   border-right: 2px solid rgb(199, 197, 197);
+// }
+
+.hovered {
+  position: relative;
+  background-color: rgb(199, 197, 197);
+  box-shadow: -8px 0 0 rgb(199, 197, 197), 8px 0 0 rgb(199, 197, 197),
+    0 -2px 0 rgb(199, 197, 197);
+}
+
+.hovered::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -8px;
+  width: calc(100% + 16px);
+  height: 2px; /* Толщина верхней линии */
+  background-color: rgb(199, 197, 197);
+}

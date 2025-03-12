@@ -4,14 +4,17 @@ import Subtitle from '../../../components/subtitle/Subtitle';
 import TimeLineSinglePage from '../../../components/time-line/time-line-single-page/TimeLineSinglePage';
 import TimeLineTotalPage from '../../../components/time-line/time-line-total-page/TimeLineTotalPage';
 import TimeLineTotalPageStyled from '../../../components/time-line/time-line-total-page/TimeLineTotalPageStyled';
+import ProjectForm from '../../../components/project-form/ProjectForm';
+import Carousel from '../../../components/slider/Carousel';
 
 const ReportPageTotal = () => {
   return (
     <div>
-      <ImageBlock />
-      <div style={{ marginTop: '80px', marginBottom: '24px' }}>
-        <Subtitle />
-      </div>
+      <Subtitle subtitle="Основная информация" />
+      <ProjectForm />
+      <Carousel />
+      <Subtitle subtitle="График строительных работ" />
+
       {/* <TimeLineTotalPage /> */}
       <TimeLineTotalPageStyled />
     </div>

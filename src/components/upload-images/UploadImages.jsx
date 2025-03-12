@@ -124,7 +124,11 @@ const UploadImages = () => {
               Перетащите фотографии сюда
               <br /> или
             </h3>
-            <Button title="Выберите файл" variant="secondaryHovered" onClick={open} />
+            <Button
+              title="Выберите файл"
+              variant="secondaryHovered"
+              onClick={open}
+            />
           </div>
         )}
       </div>

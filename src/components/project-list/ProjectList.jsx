@@ -1,9 +1,18 @@
+import { useDispatch } from 'react-redux';
+
+import { setOpenModal } from '../../redux/slices/projectSlice';
 import ProjectCard from '../project-card/ProjectCard';
 import Button from '../../ui/button/Button';
 
 import s from './projectList.module.scss';
 
 const ProjectList = ({ currentItems }) => {
+  const dispatch = useDispatch();
+
+  const onModalOpen = () => {
+    dispatch(setOpenModal(true));
+  };
+
   return (
     <div className={s.container}>
       <ul className={s.list}>
@@ -16,6 +25,7 @@ const ProjectList = ({ currentItems }) => {
         title="Создать новый проект"
         size="big"
         variant="secondaryHovered"
+        onClick={onModalOpen}
       />
     </div>
   );

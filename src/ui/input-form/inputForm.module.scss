@@ -1,0 +1,38 @@
+.form {
+}
+
+.input-field {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.label {
+  font-family: 'ALS Hauss';
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 130%;
+  color: var(--color-text);
+}
+
+.input {
+  margin-top: 8px;
+  font-family: 'ALS Hauss';
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 130%;
+  color: var(--color-text);
+  border: 1px solid #c6d2e3;
+  outline: none;
+  align-items: center;
+  padding: 16px;
+  height: 56px;
+  background: var(--color-white);
+  // &:focus {
+  //   background: var(--color-bg);
+  // }
+}
+
+.input.readOnly {
+  color: var(--color-text-gray);
+}

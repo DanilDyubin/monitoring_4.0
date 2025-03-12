@@ -2,18 +2,33 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 0 auto;
   padding: 12px 24px;
   height: 56px;
   font-family: 'ALS Hauss';
   font-weight: 500;
   font-size: 18px;
   line-height: 110%;
-  transition: all 0.2s ease-out;
+  transition: all 0.3s ease-out;
+}
+
+.btn.auto {
+  padding: 12px 32px;
+}
+
+.btn.auto-big {
+  padding: 12px 32px;
 }
 
 .btn.small {
   width: 182px;
+}
+
+.btn.s {
+  width: 220px;
+}
+
+.btn.medium {
+  width: 249px;
 }
 
 .btn.big {
@@ -21,8 +36,14 @@
 }
 
 .btn.primary {
-  background-color: var(--color-secondary);
-  color: var(--color-primary);
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  &:hover {
+    background-color: var(--color-primary-light);
+  }
+  &:active {
+    background-color: var(--color-deep-blue);
+  }
 }
 
 .btn.secondary {
@@ -36,6 +57,9 @@
   &:hover {
     color: var(--color-white);
     background-color: var(--color-primary);
+  }
+  &:active {
+    background-color: var(--color-deep-blue);
   }
 }
 

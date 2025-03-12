@@ -14,7 +14,8 @@ import s from './reportPage.module.scss';
 import ReportDocumentViewer from '../pdf-page/ReportDocumentViewer';
 
 const ReportPage = () => {
-  const { id } = useParams();
+  // const { id } = useParams();
+  const id = 171717; // временно
 
   const formData = useSelector((state) => state.report.formData);
   const stages = useSelector((state) => state.report.total.stages || []);
@@ -22,17 +23,18 @@ const ReportPage = () => {
   const reportByImage = useSelector(
     (state) => state.report.groupsReportByImage
   );
-  const loadingPage = useSelector((state) => state.report.loadingPage);
+  // const loadingPage = useSelector((state) => state.report.loadingPage);
+  const loadingPage = false; // временно
   const { pollStageDetection } = useSendRequest();
   const isDataLoaded = formData && stages && reportByImage;
-  console.log(stages);
+
   const navigate = useNavigate();
 
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    pollStageDetection(id);
-  }, [id]);
+  // useEffect(() => {
+  //   pollStageDetection(id);
+  // }, [id]);
 
   // if (!id) {
   //   return <PageSkeleton />;
@@ -53,11 +55,11 @@ const ReportPage = () => {
           <div className={s.navigation}>
             <NavigationMenu id={id} />{' '}
           </div>
-          <ReportDocumentViewer
+          {/* <ReportDocumentViewer
             formData={formData}
             stages={stagesSort}
             reportByImage={reportByImage}
-          />
+          /> */}
           <div>
             <Outlet />
           </div>
