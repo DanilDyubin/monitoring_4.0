@@ -1,9 +1,10 @@
-import { groupRendererWithoutColls } from './custom-group/CustomGroup';
-import { CustomSidebarHeaderWithoutColls } from './custom-sidebar-header/CustomSidebarHeader';
+import { groupRendererColored } from './custom-group/CustomGroup';
+import { CustomItemMain } from './custom-items/CustomItems';
+import { CustomSidebarHeaderMain } from './custom-sidebar-header/CustomSidebarHeader';
 import React, { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setOpen, setGroupId } from '../../redux/slices/calendarSlice';
-import { clearItems } from '../../redux/slices/scheduleSlice';
+import { clearItems, deleteItem } from '../../redux/slices/scheduleSlice';
 import moment from 'moment';
 import 'moment/locale/ru';
 import Timeline, {
@@ -16,8 +17,6 @@ import Timeline, {
   CursorMarker,
 } from 'react-calendar-timeline';
 
-import { FaSearchPlus, FaSearchMinus } from 'react-icons/fa';
-import { CiZoomOut, CiZoomIn } from 'react-icons/ci';
 import { TfiZoomIn, TfiZoomOut } from 'react-icons/tfi';
 import { RiDeleteBinLine } from 'react-icons/ri';
 import { GoTrash } from 'react-icons/go';
@@ -25,19 +24,19 @@ import { GoTrash } from 'react-icons/go';
 import Calendar from '../calendar/Calendar';
 
 import '../../styles/timeLine.css';
-// import './style.scss';
-// import './styles.scss';
 
 moment.locale('ru');
 
-const TimeLineExampleLocale = () => {
-  //   const [groupId, setGroupId] = useState(null);
-
+const TimeLine = () => {
   const open = useSelector((state) => state.calendar.open);
   const sliceItems = useSelector((state) => state.schedule.items);
   const sliceGroups = useSelector((state) => state.schedule.groups);
   const sliceCurrentDate = useSelector((state) => state.schedule.currentDate);
-  console.log(`sliceItems - ${JSON.stringify(sliceItems)}`);
+
+  const fixedItemsIds = sliceItems.map((item) => ({
+    ...item,
+    id: String(item.id),
+  })); // для react-timeline-calendar нужно перевести id в строку (иначе id 0 будет восприниматься как false)
 
   const dispatch = useDispatch();
 
@@ -57,9 +56,8 @@ const TimeLineExampleLocale = () => {
 
   const itemHandler = (itemId, e, time) => {
     // вызывается при клике на временной интервал
-    // console.log('Item ID:', itemId);
-    // console.log('Event:', e);
-    // console.log('Time:', time);
+    console.log('Клик по item с id:', itemId);
+    dispatch(deleteItem(Number(itemId)));
   };
 
   const canvasHandler = (groupId, time, e) => {
@@ -75,16 +73,12 @@ const TimeLineExampleLocale = () => {
     dispatch(clearItems());
   };
 
-  //   console.log(moment());
-  //   console.log(moment().format('MMMM-DD-YYYY'));
-  //   console.log(moment().get('day'));
-  //   console.log(moment('1732752000000'));
-  console.log(`Ref - ${timelineRef.current}`);
-
   const onVisibleTimeChange = () => {
     // когда введена дата съемки, перебрасываем пользователя на CustomMarker
     if (sliceCurrentDate && timelineRef.current) {
-      const visibleTimeStart = moment(sliceCurrentDate).add(-15, 'days').valueOf(); // видимые 15 дней до currentDate
+      const visibleTimeStart = moment(sliceCurrentDate)
+        .add(-15, 'days')
+        .valueOf(); // видимые 15 дней до currentDate
       const visibleTimeEnd = moment(sliceCurrentDate).add(15, 'days').valueOf(); // 15 дней после currentDate
 
       timelineRef.current.updateScrollCanvas(visibleTimeStart, visibleTimeEnd);
@@ -96,40 +90,19 @@ const TimeLineExampleLocale = () => {
   }, [sliceCurrentDate]);
 
   return (
-    <div id="calendar" className="timelinecomponent">
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'flex-end',
-          alignItems: 'center',
-          gap: '5px',
-          // background: '#daeaff',
-          // borderRadius: '5px',
-          width: '140px',
-          padding: '4px 6px',
-          marginLeft: 'auto',
-          marginBottom: '3px',
-        }}>
-        {/* <FaSearchPlus onClick={handleZoomIn} style={{ fontSize: '24px', cursor: 'pointer' }} />
-        <FaSearchMinus onClick={handleZoomOut} style={{ fontSize: '24px', cursor: 'pointer' }} /> */}
-        {/* <CiZoomIn onClick={handleZoomIn} style={{ fontSize: '28px', cursor: 'pointer' }} />
-        <CiZoomOut onClick={handleZoomOut} style={{ fontSize: '24px', cursor: 'pointer' }} /> */}
-        <GoTrash
-          onClick={handleClear}
-          style={{ fontSize: '24px', cursor: 'pointer', marginRight: '10px', color: '#131313' }}
-        />
-        <TfiZoomIn
-          onClick={handleZoomIn}
-          style={{ fontSize: '24px', cursor: 'pointer', color: '#131313' }}
-        />
-        <TfiZoomOut
-          onClick={handleZoomOut}
-          style={{ fontSize: '24px', cursor: 'pointer', color: '#131313' }}
-        />
+    <div id="calendar" className="timeLineComponent">
+      <div className="timeLineIcons">
+        <GoTrash className="timeLineIcon trash" onClick={handleClear} />
+        <TfiZoomIn className="timeLineIcon" onClick={handleZoomIn} />
+        <TfiZoomOut className="timeLineIcon" onClick={handleZoomOut} />
       </div>
       <Timeline
-        groups={sliceGroups}
-        items={sliceItems}
+        groups={sliceGroups} // названия этапов
+        items={fixedItemsIds} // временные отрезки
+        lineHeight={40} // высота линии календаря (задает высоту item или линии под которую будет подстраиваться св-во itemHeightRatio={1}, важно учитывать ее и height у group, т/к при stackItems могут быть конфликты отрисовки из-за разных размеров)
+        itemHeightRatio={1} // сколько процентов занимает item от линии
+        canMove={false} // запретить перемещение items
+        canResize={false} // запретить изменение размера
         // defaultTimeStart={moment().startOf('date')}
         defaultTimeStart={moment().startOf('day')} //  moment().startOf('day')
         defaultTimeEnd={moment().startOf('day').add(1, 'month').toDate()}
@@ -137,37 +110,31 @@ const TimeLineExampleLocale = () => {
         // visibleTimeEnd={moment().startOf('day').add(1, 'month').toDate()}
         // defaultTimeStart={moment().add(-12, 'hour')}
         // defaultTimeEnd={moment().add(12, 'hour')}
-        itemHeightRatio={1} // изменяет высоту элементов
         // stackItems // 1 item под вторым
-        canMove={false} // запретить перемещение
-        canResize={true} // запретить изменение размера
         // canSelect={true}
         // minZoom={1000 * 60 * 60 * 24 * 90}
-        sidebarWidth={296}
+        sidebarWidth={223} // ширина левого сайдбара
         // minZoom={moment.duration(1, 'day').asMilliseconds()}
         // maxZoom={moment.duration(5, 'year').asMilliseconds()}
         // onItemSelect={itemHandler}
+        onItemClick={itemHandler}
         onCanvasClick={canvasHandler}
-        groupRenderer={groupRendererWithoutColls}
+        groupRenderer={groupRendererColored}
+        itemRenderer={CustomItemMain}
         minZoom={60 * 60 * 1000 * 24 * 14}
         maxZoom={1000 * 60 * 60 * 24 * 360}
-        ref={timelineRef}>
+        ref={timelineRef}
+      >
         <TimelineHeaders>
           <SidebarHeader>
             {({ getRootProps }) => {
-              return <CustomSidebarHeaderWithoutColls getRootProps={getRootProps} />;
+              return <CustomSidebarHeaderMain getRootProps={getRootProps} />;
             }}
           </SidebarHeader>
           <DateHeader unit="primaryHeader" />
           <DateHeader />
         </TimelineHeaders>
         <TimelineMarkers>
-          {/* <TodayMarker>
-            {({ styles, date }) => {
-              const newStyles = { ...styles, backgroundColor: '#036bfd', zIndex: '100' };
-              return <div style={newStyles} className="todayMarkerLocale"></div>; // {moment(date).format('DD MM YY')}
-            }}
-          </TodayMarker> */}
           <CustomMarker date={sliceCurrentDate}>
             {({ styles }) => {
               const newStyles = {
@@ -186,4 +153,4 @@ const TimeLineExampleLocale = () => {
   );
 };
 
-export default TimeLineExampleLocale;
+export default TimeLine;

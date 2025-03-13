@@ -12,12 +12,15 @@ export const CustomSidebarHeader = ({ getRootProps }) => {
           alignItems: 'center',
         },
       })}
-      className={s['custom-sidebar-header']}>
+      className={s['custom-sidebar-header']}
+    >
       <div className={s['custom-sidebar-header__title']}>Этапы</div>
       <div className={s['custom-sidebar-header__subtitles']}>
         <div className={s['custom-sidebar-header__subtitles-plan']}>План</div>
         <div className={s['custom-sidebar-header__subtitles-fact']}>Факт</div>
-        <div className={s['custom-sidebar-header__subtitles-deviation']}>Отклонение</div>
+        <div className={s['custom-sidebar-header__subtitles-deviation']}>
+          Отклонение
+        </div>
       </div>
     </div>
   );
@@ -33,9 +36,28 @@ export const CustomSidebarHeaderWithoutColls = ({ getRootProps }) => {
           alignItems: 'center',
         },
       })}
-      className={s['custom-sidebar-header']}>
+      className={s['custom-sidebar-header']}
+    >
       <div className={s['custom-sidebar-header__title']}>Этапы</div>
-      <div className={s['custom-sidebar-header__subtitles-done']}>Выполнено</div>
+      <div className={s['custom-sidebar-header__subtitles-done']}>
+        Выполнено
+      </div>
+    </div>
+  );
+};
+
+export const CustomSidebarHeaderMain = ({ getRootProps }) => {
+  return (
+    <div
+      {...getRootProps({
+        style: {
+          display: 'flex',
+          alignItems: 'center',
+        },
+      })}
+      className={s['custom-sidebar-header']}
+    >
+      <div className={s['custom-sidebar-header__title']}>Этапы</div>
     </div>
   );
 };

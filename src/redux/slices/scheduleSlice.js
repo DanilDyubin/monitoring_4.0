@@ -4,6 +4,7 @@ const initialState = {
   imgsIds: [], //'1e3b6309-1fc9-402d-ba67-23822cfcacf1', 'fb5dcafc-e446-4d21-84ca-d09e604ec98f'
   currentDate: null,
   items: [],
+  nextItemId: 0,
   groups: [
     {
       id: 0,
@@ -139,52 +140,46 @@ export const scheduleSlice = createSlice({
     },
     addItem(state, action) {
       const newItem = action.payload;
+      newItem.id = state.nextItemId; // добавляем уникальный id
+      state.nextItemId = state.nextItemId + 1;
+      state.items.push(newItem);
 
-      // Находим, есть ли уже item с таким id
-      const existingIndex = state.items.findIndex((item) => item.id === newItem.id);
+      // // Находим, есть ли уже item с таким id
+      // const existingIndex = state.items.findIndex((item) => item.id === newItem.id);
 
-      if (existingIndex === -1) {
-        // Если нет такого id, то обавляем в конец
-        state.items = [...state.items, newItem];
-      } else {
-        // Удаляем старый item
-        const filtered = state.items.filter((item) => item.id !== newItem.id);
-
-        // И добавляем новый
-        state.items = [...filtered, newItem];
-      }
-
-      // const indexItem = state.items.findIndex((item) => item.id === action.payload.id);
-      // if (indexItem !== -1) {
-      //   state.items[indexItem] = action.payload;
-      //   // state.items = [...state.items, action.payload]; // если пользователь меняет уже существующий item в таймлайне, нужно в items передавать полностью новый массив с новым item (библиотека требует иммутабильности, иначе будут баги)
+      // if (existingIndex === -1) {
+      //   // Если нет такого id, то обавляем в конец
+      //   state.items = [...state.items, newItem];
       // } else {
-      //   state.items.push(action.payload);
-      //   // state.items = [...state.items, action.payload];
+      //   // Удаляем старый item
+      //   const filtered = state.items.filter((item) => item.id !== newItem.id);
+
+      //   // И добавляем новый
+      //   state.items = [...filtered, newItem];
       // }
 
-      // добавление процентов "выполнено" в поле done
-      const findGroup = state.groups.find((obj) => obj.id === action.payload.id);
-      if (findGroup && state.currentDate && action.payload.start_time && action.payload.end_time) {
-        const { start_time, end_time } = action.payload;
-        const current = state.currentDate;
+      // // добавление процентов "выполнено" в поле done
+      // const findGroup = state.groups.find((obj) => obj.id === action.payload.id);
+      // if (findGroup && state.currentDate && action.payload.start_time && action.payload.end_time) {
+      //   const { start_time, end_time } = action.payload;
+      //   const current = state.currentDate;
 
-        // Проверка границ
-        let donePercent;
-        if (current <= start_time) {
-          donePercent = 0;
-        } else if (current >= end_time) {
-          donePercent = 100;
-        } else {
-          const totalTime = end_time - start_time;
-          const overTime = current - start_time;
-          donePercent = (overTime / totalTime) * 100;
-        }
+      //   // Проверка границ
+      //   let donePercent;
+      //   if (current <= start_time) {
+      //     donePercent = 0;
+      //   } else if (current >= end_time) {
+      //     donePercent = 100;
+      //   } else {
+      //     const totalTime = end_time - start_time;
+      //     const overTime = current - start_time;
+      //     donePercent = (overTime / totalTime) * 100;
+      //   }
 
-        findGroup.done = donePercent;
-        newItem.done = donePercent;
-        // findGroup.done = Math.round(donePercent);
-      }
+      //   findGroup.done = donePercent;
+      //   newItem.done = donePercent;
+      //   // findGroup.done = Math.round(donePercent);
+      // }
     },
     clearItems(state) {
       state.items = [];
@@ -192,7 +187,9 @@ export const scheduleSlice = createSlice({
     },
     deleteItem(state, action) {
       state.items = state.items.filter((item) => item.id !== action.payload);
-      const findGroup = state.groups.find((group) => group.id === action.payload);
+      const findGroup = state.groups.find(
+        (group) => group.id === action.payload
+      );
       if (findGroup) {
         findGroup.done = 0;
       }

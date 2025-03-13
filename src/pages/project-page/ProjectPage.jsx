@@ -1,5 +1,6 @@
 import ProjectForm from '../../components/project-form/ProjectForm';
 import Subtitle from '../../components/subtitle/Subtitle';
+import TimeLine from '../../components/time-line/TimeLine';
 import s from './projectPage.module.scss';
 
 const ProjectPage = () => {
@@ -10,6 +11,7 @@ const ProjectPage = () => {
         <ProjectForm />
       </div>
       <Subtitle subtitle="График строительных работ" />
+      <TimeLine />
     </div>
   );
 };

@@ -26,7 +26,9 @@ export const groupRendererWithoutColls = ({ group }) => {
   return (
     <div className={s['custom-group']}>
       <div className={s['custom-group__title']}>{group.title}</div>
-      <div className={s['custom-group__values-done']}>{`${Math.round(group.done)}%`}</div>
+      <div className={s['custom-group__values-done']}>{`${Math.round(
+        group.done
+      )}%`}</div>
     </div>
   );
 };
@@ -38,7 +40,18 @@ export const groupRendererSinglePage = ({ group }) => {
         <div className={s.color} style={{ background: `${group.color}` }}></div>
         <div className={s['custom-group__title']}>{group.title}</div>
       </div>
-      <div className={s['custom-group__values-done']}>{`${Math.round(group.done)}%`}</div>
+      <div className={s['custom-group__values-done']}>{`${Math.round(
+        group.done
+      )}%`}</div>
+    </div>
+  );
+};
+
+export const groupRendererColored = ({ group }) => {
+  return (
+    <div className={s['colored-group']}>
+      <div className={s.color} style={{ background: `${group.color}` }}></div>
+      <div className={s['custom-group__title']}>{group.title}</div>
     </div>
   );
 };

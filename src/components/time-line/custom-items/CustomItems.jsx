@@ -83,7 +83,12 @@ import { IoMdCloseCircle } from 'react-icons/io';
 import { RiCloseCircleLine } from 'react-icons/ri';
 import './customItems.scss';
 
-export const CustomItem = ({ item, itemContext, getItemProps, timelineContext }) => {
+export const CustomItem = ({
+  item,
+  itemContext,
+  getItemProps,
+  timelineContext,
+}) => {
   // console.log(`Item ${JSON.stringify(item)}`);
   // console.log(`ItemContext ${JSON.stringify(itemContext)}`);
   // console.log(`timelineContext ${JSON.stringify(timelineContext)}`);
@@ -111,20 +116,29 @@ export const CustomItem = ({ item, itemContext, getItemProps, timelineContext })
   } else if (startTime > currentDate) {
     percentWidthDoneLine = 0;
   } else {
-    percentWidthDoneLine = ((currentDate - startTime) / (endTime - startTime)) * 100;
+    percentWidthDoneLine =
+      ((currentDate - startTime) / (endTime - startTime)) * 100;
   }
   // const percentWidthDoneLine = ((currentDate - startTime) / (endTime - startTime)) * 100;
 
   return (
     <div {...getItemProps(item.itemProps)}>
-      <div className={`${itemContext.selected ? 'custom-item item-selected' : 'custom-item'}`}>
+      <div
+        className={`${
+          itemContext.selected ? 'custom-item item-selected' : 'custom-item'
+        }`}
+      >
         <div
           className="color-done"
           style={{
             width: `${percentWidthDoneLine}%`,
             background: `${itemContext.dimensions.order.group.color}`,
-          }}></div>
-        <div className="rct-item-content" style={{ maxHeight: `${itemContext.dimensions.height}` }}>
+          }}
+        ></div>
+        <div
+          className="rct-item-content"
+          style={{ maxHeight: `${itemContext.dimensions.height}` }}
+        >
           {itemContext.selected ? (
             <div className="item-delete">
               УДАЛИТЬ
@@ -169,7 +183,8 @@ export const CustomItemTotalPage = ({
   } else if (startTime > currentDate) {
     percentWidthDoneLine = 0;
   } else {
-    percentWidthDoneLine = ((currentDate - startTime) / (endTime - startTime)) * 100;
+    percentWidthDoneLine =
+      ((currentDate - startTime) / (endTime - startTime)) * 100;
   }
 
   return (
@@ -182,8 +197,12 @@ export const CustomItemTotalPage = ({
           style={{
             width: `${percentWidthDoneLine}%`,
             backgroundColor: `${item.color}`,
-          }}></div>
-        <div className="rct-item-content" style={{ maxHeight: `${itemContext.dimensions.height}` }}>
+          }}
+        ></div>
+        <div
+          className="rct-item-content"
+          style={{ maxHeight: `${itemContext.dimensions.height}` }}
+        >
           {itemContext.title}
         </div>
       </div>
@@ -224,7 +243,8 @@ export const CustomItemSinglePage = ({
   } else if (startTime > currentDate) {
     percentWidthDoneLine = 0;
   } else {
-    percentWidthDoneLine = ((currentDate - startTime) / (endTime - startTime)) * 100;
+    percentWidthDoneLine =
+      ((currentDate - startTime) / (endTime - startTime)) * 100;
   }
 
   return (
@@ -240,13 +260,48 @@ export const CustomItemSinglePage = ({
 
             // width: `${itemContext.dimensions.order.group.done}%`,
             // backgroundColor: `${itemContext.dimensions.order.group.color}`,
-          }}></div>
-        <div className="rct-item-content" style={{ maxHeight: `${itemContext.dimensions.height}` }}>
+          }}
+        ></div>
+        <div
+          className="rct-item-content"
+          style={{ maxHeight: `${itemContext.dimensions.height}` }}
+        >
           {itemContext.title}
         </div>
       </div>
 
       {itemContext.useResizeHandle ? <div {...rightResizeProps} /> : ''}
+    </div>
+  );
+};
+
+export const CustomItemMain = ({
+  item,
+  itemContext,
+  getItemProps,
+  timelineContext,
+}) => {
+  return (
+    <div {...getItemProps(item.itemProps)}>
+      <div
+        className={`${
+          itemContext.selected ? 'custom-item item-selected' : 'custom-item'
+        }`}
+      >
+        <div
+          className="rct-item-content"
+          style={{ maxHeight: `${itemContext.dimensions.height}` }}
+        >
+          {itemContext.selected ? (
+            <div className="item-delete">
+              УДАЛИТЬ
+              <IoMdCloseCircle className="item-delete--icon" />{' '}
+            </div>
+          ) : (
+            item.title
+          )}
+        </div>
+      </div>
     </div>
   );
 };

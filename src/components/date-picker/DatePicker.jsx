@@ -19,6 +19,7 @@ const DatePicker = () => {
   const currentDate = useSelector((state) => state.schedule.currentDate); // получаем дату съемки
   const groups = useSelector((state) => state.schedule.groups);
   const groupId = useSelector((state) => state.calendar.groupId); // получаем id группы для которой ввели даты на таймлайне
+  const items = useSelector((state) => state.schedule.items);
 
   const dispatch = useDispatch();
 
@@ -62,12 +63,12 @@ const DatePicker = () => {
   const handleAddItem = () => {
     if (isDateSelected) {
       const newItem = {
-        id: groupId,
+        // id: groupId,
         group: groupId, // обязательно для привязки item к group
         group_title: group.title,
         color: group.color,
         color_light: group.color_light,
-        current_date: currentDate,
+        // current_date: currentDate,
         title: `${moment(selected.from).format('DD.MM')} — ${moment(
           selected.to
         ).format('DD.MM')}`,
@@ -76,7 +77,7 @@ const DatePicker = () => {
         itemProps: {
           // className: 'bordernone',
           style: {
-            background: group.color_light,
+            background: group.color,
             border: 'none',
             color: '#131313',
             fontWeight: '400',
