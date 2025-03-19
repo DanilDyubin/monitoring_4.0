@@ -24,7 +24,7 @@ import 'swiper/css/grid';
 import 'swiper/css/scrollbar';
 // import './slider.css';
 
-const Slider = (props) => {
+const SwiperSlider = (props) => {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
 
   const dispatch = useDispatch();
@@ -140,4 +140,4 @@ const Slider = (props) => {
   );
 };
 
-export default Slider;
+export default SwiperSlider;

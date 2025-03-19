@@ -6,6 +6,8 @@ import ProjectList from '../../components/project-list/ProjectList';
 
 import s from './customPage.module.scss';
 import Modal from '../../components/modal/Modal';
+import Button from '../../ui/button/Button';
+import CreateProjectForm from '../../components/forms/create-project-form/CreateProjectForm';
 
 const data = [
   {
@@ -91,18 +93,35 @@ const data = [
 const CustomPage = () => {
   const [openModal, setOpenModal] = useState(false);
 
+  const onModalOpen = () => {
+    setOpenModal(true);
+  };
+
+  const onModalClose = () => {
+    setOpenModal(false);
+  };
+
   return (
     <div className="container">
       <div className={s.form}>
         <SearchForm />
       </div>
-      <Pagination
-        itemsPerPage={4}
-        data={data}
-        Component={ProjectList}
-        onClick={setOpenModal}
-      />
-      <Modal active={openModal} setActive={setOpenModal} />
+      <Pagination itemsPerPage={4} data={data}>
+        {(currentItems) => (
+          <>
+            <ProjectList currentItems={currentItems} />
+            <Button
+              title="Создать новый проект"
+              size="big"
+              variant="secondaryHovered"
+              onClick={onModalOpen}
+            />
+          </>
+        )}
+      </Pagination>
+      <Modal active={openModal} onClose={onModalClose}>
+        <CreateProjectForm onCloseModal={onModalClose} />
+      </Modal>
     </div>
   );
 };

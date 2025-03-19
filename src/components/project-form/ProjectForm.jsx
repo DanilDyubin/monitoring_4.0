@@ -41,19 +41,18 @@
 import InformationItem from './information-item/InformationItem';
 import s from './projectForm.module.scss';
 
-const ProjectForm = () => {
-  const name = 'Наименование объекта';
-  const floors = '10';
-  const address =
-    'КОРПУСА N 6 В КВАРТАЛЕ N 57 ПО УЛИЦЕ ВАСИЛИСЫ КОЖИНОЙ ВО ВЛАДЕНИИ N 14 РАЙОНА ФИЛЕВСКИЙ ПАРК (ЗАПАДНЫЙ АДМИНИСТРАТИВНЫЙ ОКРУГ)';
-  // const valueAddress =
-  //   address.length > 106 ? address.slice(0, 106) + '...' : address;
+const ProjectForm = ({ formData }) => {
+  // const name = 'Наименование объекта';
+  // const floors = '10';
+  // const address =
+  //   'КОРПУСА N 6 В КВАРТАЛЕ N 57 ПО УЛИЦЕ ВАСИЛИСЫ КОЖИНОЙ ВО ВЛАДЕНИИ N 14 РАЙОНА ФИЛЕВСКИЙ ПАРК (ЗАПАДНЫЙ АДМИНИСТРАТИВНЫЙ ОКРУГ)';
 
+  const { UIN, address, info } = formData;
   return (
     <div className={s['object-information']}>
       <div className={s.wrapper}>
-        <InformationItem label="Наименование объекта" value={name} />
-        <InformationItem label="Этажность" value={floors} />
+        <InformationItem label="Наименование объекта" value={UIN} />
+        <InformationItem label="Этажность" value={info} />
       </div>
       <InformationItem label="Адрес" value={address} />
     </div>

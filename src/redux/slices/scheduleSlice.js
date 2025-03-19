@@ -126,6 +126,171 @@ const initialState = {
     //   color: '#B2FFE4',
     // },
   ],
+  testItems: [
+    {
+      group: 0,
+      group_title: 'Земляные работы',
+      color: '#FF8080',
+      color_light: '#FFD9D9',
+      title: '24.02 — 05.03',
+      start_time: 1740344400000,
+      end_time: 1741208399999,
+      id: 10,
+      itemProps: {
+        style: {
+          background: 'green',
+          border: 'none',
+          color: '#131313',
+          fontWeight: '400',
+          fontSize: '16px',
+        },
+      },
+    },
+    {
+      group: 0,
+      group_title: 'Земляные работы',
+      color: '#FF8080',
+      color_light: '#FFD9D9',
+      title: '24.02 — 05.03',
+      start_time: 1740344400000,
+      end_time: 1741208399999,
+      id: '0',
+      itemProps: {
+        style: {
+          background: 'red',
+          border: 'none',
+          color: '#131313',
+          fontWeight: '400',
+          fontSize: '16px',
+        },
+      },
+    },
+
+    {
+      group: 0,
+      group_title: 'Земляные работы',
+      color: '#FF8080',
+      color_light: '#FFD9D9',
+      title: '08.03 — 15.03',
+      start_time: 1741381200000,
+      end_time: 1742072399999,
+      id: 1,
+    },
+    {
+      group: 0,
+      group_title: 'Земляные работы',
+      color: '#FF8080',
+      color_light: '#FFD9D9',
+      title: '08.03 — 15.03',
+      start_time: 1741381200000,
+      end_time: 1742072399999,
+      id: 12,
+    },
+
+    {
+      group: 0,
+      group_title: 'Земляные работы',
+      color: '#FF8080',
+      color_light: '#FFD9D9',
+      title: '21.03 — 30.03',
+      start_time: 1742504400000,
+      end_time: 1743368399999,
+      id: 2,
+    },
+    {
+      group: 0,
+      group_title: 'Земляные работы',
+      color: '#FF8080',
+      color_light: '#FFD9D9',
+      title: '24.02 — 05.03',
+      start_time: 1740344400000,
+      end_time: 1742072399999,
+      id: 11,
+      itemProps: {
+        style: {
+          background: 'red',
+          border: 'none',
+          color: '#131313',
+          fontWeight: '400',
+          fontSize: '16px',
+        },
+      },
+    },
+
+    {
+      group: 1,
+      group_title: 'Шпунтовое ограждение',
+      color: '#80E6CB',
+      color_light: '#D9F8EF',
+      title: '24.02 — 29.03',
+      start_time: 1740344400000,
+      end_time: 1743281999999,
+      id: 3,
+    },
+
+    {
+      group: 2,
+      group_title: 'Распорная система',
+      color: '#8080FF',
+      color_light: '#D9D9FF',
+      title: '24.02 — 21.03',
+      start_time: 1740344400000,
+      end_time: 1742590799999,
+      id: 4,
+    },
+
+    {
+      group: 2,
+      group_title: 'Распорная система',
+      color: '#8080FF',
+      color_light: '#D9D9FF',
+      title: '06.04 — 12.04',
+      start_time: 1743886800000,
+      end_time: 1744491599999,
+      id: 5,
+    },
+
+    {
+      group: 3,
+      group_title: 'Устройство фундамента',
+      color: '#FFFF80',
+      color_light: '#FFFFD9',
+      title: '03.03 — 28.03',
+      start_time: 1740949200000,
+      end_time: 1743195599999,
+      id: 6,
+    },
+
+    {
+      group: 4,
+      group_title: 'Монолит',
+      color: '#80FFFF',
+      color_light: '#D9FFFF',
+      title: '14.02 — 21.02',
+      start_time: 1739480400000,
+      end_time: 1740171599999,
+      id: 7,
+    },
+
+    {
+      group: 4,
+      group_title: 'Монолит',
+      color: '#80FFFF',
+      color_light: '#D9FFFF',
+      title: '11.03 — 28.03',
+      start_time: 1741640400000,
+      end_time: 1743195599999,
+      id: 8,
+    },
+    //     id(pin):0
+    // group(pin):0
+    // color(pin):"#FF8080"
+    // current_date(pin):1741986000000
+    // plan(pin):70.370370400536
+    // title(pin):"24.02 — 22.03"
+    // start_time(pin):1740344400000
+    // end_time(pin):1742677199999
+  ],
 };
 
 export const scheduleSlice = createSlice({

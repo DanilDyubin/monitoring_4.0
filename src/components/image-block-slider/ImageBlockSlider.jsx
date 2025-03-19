@@ -1,4 +1,4 @@
-import Slider from '../slider/Slider';
+import SwiperSlider from '../slider/SwiperSlider';
 import s from './imageBlockSlider.module.scss';
 import Locker from '../../ui/locker/Locker';
 
@@ -9,7 +9,7 @@ const ImageBlock = ({ images }) => {
     <div className={s['image-block']}>
       <div className={s['image-block__images']}>
         <div className={s['image-block__images-item']}>
-          <Slider />
+          <SwiperSlider />
         </div>
         {images.map((img, i) => (
           <div className={s['image-block__images-item']} key={i}>

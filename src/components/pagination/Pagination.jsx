@@ -6,7 +6,7 @@ import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from 'react-icons/md';
 
 import './pagination.scss';
 
-const Pagination = ({ itemsPerPage, data, Component }) => {
+const Pagination = ({ itemsPerPage, data, children }) => {
   const [currentItems, setCurrentItems] = useState([]);
   const [pageCount, setPageCount] = useState(0);
   const [itemOffset, setItemOffset] = useState(0); // index первого item на currentPage
@@ -29,7 +29,7 @@ const Pagination = ({ itemsPerPage, data, Component }) => {
 
   return (
     <>
-      <Component currentItems={currentItems} />
+      {children(currentItems)}
       <ReactPaginate
         nextLabel={<MdKeyboardArrowRight />}
         onPageChange={handlePageClick}

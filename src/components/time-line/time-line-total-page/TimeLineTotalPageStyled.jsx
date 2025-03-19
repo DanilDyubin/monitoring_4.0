@@ -1,5 +1,5 @@
-import { groupRenderer } from '../custom-group/CustomGroup';
-import { CustomItemTotalPage } from '../custom-items/CustomItems';
+import { groupRendererTest } from '../custom-group/CustomGroup';
+import { CustomItemTotalPageTest } from '../custom-items/CustomItems';
 import { CustomSidebarHeader } from '../custom-sidebar-header/CustomSidebarHeader';
 import React, { useRef } from 'react';
 import { useSelector } from 'react-redux';
@@ -22,15 +22,18 @@ import '../../../styles/timeLine.css';
 moment.locale('ru');
 
 const TimeLineTotalPageStyled = () => {
-  const open = useSelector((state) => state.calendar.open);
+  // const open = useSelector((state) => state.calendar.open);
   // const sliceItems = useSelector((state) => state.schedule.items);
   // const sliceGroups = useSelector((state) => state.schedule.groups);
-  const reportGroups = useSelector((state) => state.report.groupsReport);
-  const reportItems = useSelector((state) => state.report.itemsReport);
+  // const reportGroups = useSelector((state) => state.report.groupsReport);
+  const reportGroupsTest = useSelector((state) => state.schedule.groups);
+  // const reportItems = useSelector((state) => state.report.itemsReport);
+  const testItems = useSelector((state) => state.schedule.testItems);
   // const filteredItems = reportItems.filter((stage) => stage.start_time !== null);
-  const sliceCurrentDate = useSelector((state) => state.schedule.currentDate);
-  const currentDate = useSelector((state) => state.report.total.current_date);
-  const total = useSelector((state) => state.report.total);
+  // const sliceCurrentDate = useSelector((state) => state.schedule.currentDate);
+  // const currentDate = useSelector((state) => state.report.total.current_date);
+  const currentDateTest = 1741986000000;
+  // const total = useSelector((state) => state.report.total);
 
   const timelineRef = useRef(null);
 
@@ -68,29 +71,30 @@ const TimeLineTotalPageStyled = () => {
         <TfiZoomOut onClick={handleZoomOut} className="timeLineIcon" />
       </div>
       <Timeline
-        groups={reportGroups}
-        items={reportItems}
-        lineHeight={40} // высота линии календаря
+        groups={reportGroupsTest}
+        items={testItems}
+        lineHeight={20} // высота линии календаря
         itemHeightRatio={1} // сколько процентов занимает item от линии
-        itemRenderer={CustomItemTotalPage} // добавляем кастомный компонент item
+        itemRenderer={CustomItemTotalPageTest} // добавляем кастомный компонент item
+        groupRenderer={groupRendererTest} // добавляем кастомный компонент group
         canMove={false} // запретить перемещение
-        canResize={true} // запретить изменение размера
-        defaultTimeStart={moment(currentDate).add(-15, 'days').startOf('day')} //  moment().startOf('day')
-        defaultTimeEnd={moment(currentDate).add(15, 'days').toDate()}
+        canResize={false} // запретить изменение размера
+        defaultTimeStart={moment(currentDateTest)
+          .add(-15, 'days')
+          .startOf('day')} //  moment().startOf('day')
+        defaultTimeEnd={moment(currentDateTest).add(15, 'days').toDate()}
         // defaultTimeStart={moment().startOf('date')}
         // visibleTimeStart={sliceCurrentDate || moment().startOf('day')}
         // visibleTimeEnd={moment().startOf('day').add(1, 'month').toDate()}
         // defaultTimeStart={moment().add(-12, 'hour')}
         // defaultTimeEnd={moment().add(12, 'hour')}
-        // stackItems // 1 item под вторым
-
-        // canSelect={false}
+        stackItems // 1 item под вторым
+        canSelect={false}
         // minZoom={1000 * 60 * 60 * 24 * 90}
-        sidebarWidth={460}
+        sidebarWidth={320}
         // minZoom={moment.duration(1, 'day').asMilliseconds()}
         // maxZoom={moment.duration(5, 'year').asMilliseconds()}
         // onItemSelect={itemHandler}
-        groupRenderer={groupRenderer} // добавляем кастомный компонент group
         // itemRenderer={CustomItemTotalPage}
         minZoom={60 * 60 * 1000 * 24 * 14}
         maxZoom={1000 * 60 * 60 * 24 * 360}
@@ -106,7 +110,7 @@ const TimeLineTotalPageStyled = () => {
           <DateHeader />
         </TimelineHeaders>
         <TimelineMarkers>
-          <CustomMarker date={moment(currentDate).valueOf()}>
+          {/* <CustomMarker date={moment(currentDateTest).valueOf()}>
             {({ styles }) => {
               const newStyles = {
                 ...styles,
@@ -116,10 +120,10 @@ const TimeLineTotalPageStyled = () => {
               };
               return <div className="customMarkerLocale" style={newStyles} />;
             }}
-          </CustomMarker>
+          </CustomMarker> */}
         </TimelineMarkers>
       </Timeline>
-      {open && <Calendar />}
+      {/* {open && <Calendar />} */}
     </div>
   );
 };

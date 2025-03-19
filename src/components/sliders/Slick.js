@@ -86,7 +86,6 @@ const Slick = () => {
     alignItems: 'center',
     justifyContent: 'center',
     background: '#f0f0f6',
-    // color: '#858585',
     color: '#000000',
     borderRadius: '50px',
     fontSize: '20px',
@@ -97,7 +96,7 @@ const Slick = () => {
     return (
       <div
         className={className}
-        style={{ ...style, ...btnStyle, right: '-40px' }}
+        style={{ ...style, ...btnStyle, right: '-54px' }}
         onClick={onClick}
       >
         <IoChevronForwardSharp />
@@ -110,7 +109,7 @@ const Slick = () => {
     return (
       <div
         className={className}
-        style={{ ...style, ...btnStyle, left: '-40px' }}
+        style={{ ...style, ...btnStyle, left: '-54px' }}
         onClick={onClick}
       >
         <IoChevronBackSharp />

@@ -3,6 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
   openModal: false,
   photoReportDate: '',
+  formData: {},
 };
 
 export const projectSlice = createSlice({
@@ -15,8 +16,12 @@ export const projectSlice = createSlice({
     setPhotoReportDate(state, action) {
       state.photoReportDate = action.payload;
     },
+    setFormData(state, action) {
+      state.formData = action.payload;
+    },
   },
 });
 
-export const { setOpenModal, setPhotoReportDate } = projectSlice.actions;
+export const { setOpenModal, setPhotoReportDate, setFormData } =
+  projectSlice.actions;
 export default projectSlice.reducer;

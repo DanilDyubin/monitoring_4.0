@@ -2,11 +2,11 @@ import { useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { IoChevronDownSharp } from 'react-icons/io5';
 import PopupForm from './PopupForm';
-import { setPhotoReportDate } from '../../redux/slices/projectSlice';
-import Button from '../../ui/button/Button';
+import { setPhotoReportDate } from '../../../redux/slices/projectSlice';
+import Button from '../../../ui/button/Button';
 
 import s from './dateForm.module.scss';
-import { useClickOutside } from '../../hooks/useClickOutside';
+import { useClickOutside } from '../../../hooks/useClickOutside';
 
 const data = [
   { date: '21.12.2025', id: 1 },

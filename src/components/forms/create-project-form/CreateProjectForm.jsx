@@ -1,24 +1,23 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { VscClose } from 'react-icons/vsc';
-import { InputForm } from '../../ui/input-form/InputForm';
-import Button from '../../ui/button/Button';
-import { setOpenModal } from '../../redux/slices/projectSlice';
+import { InputForm } from '../../../ui/input-form/InputForm';
+import Button from '../../../ui/button/Button';
+import { setOpenModal } from '../../../redux/slices/projectSlice';
+import useApiService from '../../../service/ApiService';
 
 import s from './createProjectForm.module.scss';
 
-const CreateProjectForm = () => {
+const CreateProjectForm = ({ onCloseModal }) => {
   const [formData, setFormData] = useState({
     uin: '',
     address: '',
     info: '',
   });
 
-  const dispatch = useDispatch();
+  const { createProject } = useApiService();
 
-  const handleCloseModal = () => {
-    dispatch(setOpenModal(false));
-  };
+  // const dispatch = useDispatch();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -31,12 +30,12 @@ const CreateProjectForm = () => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
+    createProject(formData);
   };
 
   return (
     <div className={s['create-project-form']}>
-      <VscClose className={s.icon} onClick={handleCloseModal} />
+      <VscClose className={s.icon} onClick={onCloseModal} />
       <h2 className={s.title}>Создать новый проект</h2>
       <form className={s.form} onSubmit={onSubmit}>
         <span className={s.text}>Заполните поля формы заявления</span>

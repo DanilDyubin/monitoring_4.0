@@ -5,14 +5,14 @@ import TimeLineSinglePage from '../../../components/time-line/time-line-single-p
 import TimeLineTotalPage from '../../../components/time-line/time-line-total-page/TimeLineTotalPage';
 import TimeLineTotalPageStyled from '../../../components/time-line/time-line-total-page/TimeLineTotalPageStyled';
 import ProjectForm from '../../../components/project-form/ProjectForm';
-import Carousel from '../../../components/slider/Carousel';
+// import Carousel from '../../../components/slider/Carousel';
 
 const ReportPageTotal = () => {
   return (
     <div>
       <Subtitle subtitle="Основная информация" />
       <ProjectForm />
-      <Carousel />
+      {/* <Carousel /> */}
       <Subtitle subtitle="График строительных работ" />
 
       {/* <TimeLineTotalPage /> */}

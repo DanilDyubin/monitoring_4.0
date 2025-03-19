@@ -1,9 +1,13 @@
+import { useState } from 'react';
 import Pagination from '../../components/pagination/Pagination';
 import SearchForm from '../../components/search-form/SearchForm';
 import ProjectList from '../../components/project-list/ProjectList';
 
 import s from './basePage.module.scss';
 import SearchInput from '../../components/search-input/SearchInput';
+import Button from '../../ui/button/Button';
+import Modal from '../../components/modal/Modal';
+import CreateProjectForm from '../../components/forms/create-project-form/CreateProjectForm';
 
 const data = [
   {
@@ -135,12 +139,37 @@ const data = [
 ];
 
 const BasePage = () => {
+  const [openModal, setOpenModal] = useState(false);
+
+  const onModalOpen = () => {
+    setOpenModal(true);
+  };
+
+  const onModalClose = () => {
+    setOpenModal(false);
+  };
+
   return (
     <div className="container">
       <div className={s.input}>
         <SearchInput />
       </div>
-      <Pagination itemsPerPage={4} data={data} Component={ProjectList} />
+      <Pagination itemsPerPage={4} data={data}>
+        {(currentItems) => (
+          <>
+            <ProjectList currentItems={currentItems} />
+            <Button
+              title="Создать новый проект"
+              size="big"
+              variant="secondaryHovered"
+              onClick={onModalOpen}
+            />
+          </>
+        )}
+      </Pagination>
+      <Modal active={openModal} onClose={onModalClose}>
+        <CreateProjectForm onCloseModal={onModalClose} />
+      </Modal>
     </div>
   );
 };

@@ -1,24 +1,35 @@
-import { useSelector } from 'react-redux';
-import ImageBlockSlider from '../../../components/image-block-slider/ImageBlockSlider';
-import Slider from '../../../components/slider/Slider';
+import { useState } from 'react';
 import Subtitle from '../../../components/subtitle/Subtitle';
-import TimeLineSinglePage from '../../../components/time-line/time-line-single-page/TimeLineSinglePage';
-import TimeLineSinglePageStyled from '../../../components/time-line/time-line-single-page/TimeLineSinglePageStyled';
-import Carousel from '../../../components/slider/Carousel';
 import Chart from '../../../components/chart/Chart';
-import Slick from '../../../components/slider/Slick';
+import Slick from '../../../components/sliders/Slick';
+import OpenSliderBtn from '../../../ui/open-slider-btn/OpenSliderBtn';
+import Modal from '../../../components/modal/Modal';
+import FullScreenSlider from '../../../components/sliders/full-screen-slider/FullScreenSlider';
+import SliderModal from '../../../components/modal/slider-modal/SliderModal';
 
 const ReportPageSingle = () => {
-  const images = useSelector((state) => state.report.byImage);
+  const [openModal, setOpenModal] = useState(false);
+
+  const onModalOpen = () => {
+    setOpenModal(true);
+  };
+
+  const onModalClose = () => {
+    setOpenModal(false);
+  };
+
   return (
     <div>
-      {/* <Carousel /> */}
+      <OpenSliderBtn onClick={onModalOpen} />
       <Slick />
+      <FullScreenSlider />
       <div style={{ marginTop: '80px' }}>
         <Subtitle />
         <Chart />
-        <TimeLineSinglePageStyled />
       </div>
+      <SliderModal active={openModal} onClose={onModalClose}>
+        {openModal && <FullScreenSlider onCloseModal={onModalClose} />}
+      </SliderModal>
     </div>
   );
 };

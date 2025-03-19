@@ -12,7 +12,7 @@ import Button from '../../ui/button/Button';
 import s from './photosUpload.module.scss';
 
 const PhotosUpload = ({ onClose }) => {
-  const [value, setValue] = useState('');
+  const [date, setDate] = useState('');
   const [photos, setPhotos] = useState({ files: [], url: '' }); // стейт для PhotoPicker
   const [openCalendar, setOpenCalendar] = useState(false);
 
@@ -23,7 +23,7 @@ const PhotosUpload = ({ onClose }) => {
   };
 
   const handleInputChange = (e) => {
-    setValue(e.target.value);
+    setDate(e.target.value);
   };
 
   const handleCalendarOpen = () => {
@@ -31,7 +31,7 @@ const PhotosUpload = ({ onClose }) => {
   };
 
   const setCalendarDate = (calendarDate) => {
-    setValue(moment(calendarDate).format('DD.MM.YYYY'));
+    setDate(moment(calendarDate).format('DD.MM.YYYY'));
   };
 
   useClickOutside(calendarRef, () => setOpenCalendar(false));
@@ -66,7 +66,7 @@ const PhotosUpload = ({ onClose }) => {
                 name="date"
                 placeholder="дд.мм.гггг"
                 autoComplete="off"
-                value={value}
+                value={date}
                 onChange={handleInputChange}
               />
               <LiaCalendarAlt className={s.icon} />
@@ -87,7 +87,12 @@ const PhotosUpload = ({ onClose }) => {
               onClick={handleCancel}
               size="s"
             />
-            <Button title="Загрузить" type="submit" size="s" />
+            <Button
+              title="Загрузить"
+              type="submit"
+              size="s"
+              disabled={!date || !photos.url}
+            />
           </div>
         </form>
       </div>

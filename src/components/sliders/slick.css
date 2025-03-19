@@ -1,9 +1,15 @@
 .slider-one-container {
   max-height: 248px;
+  max-width: 1088px;
+  margin: 0 auto;
 }
 
+/* .slider-one-slide .slick-list {
+  max-width: 1088px;
+} */
+
 .slider-one-slide .slick-slide > div {
-  margin: 0 12px;
+  margin: 0 6px;
 }
 
 /* .slider-one-slide .slick-slide .slick-active .slick-current .slick-image-block {
@@ -51,27 +57,42 @@
 }
 
 .slider-one-dots li button {
-  font-size: 0;
-  line-height: 0;
+  /* font-size: 0;
+  line-height: 0; */
   display: block;
-  width: 8px;
-  height: 8px;
-  margin: 6px;
-  border-radius: 50%;
+  /* padding: 6px; */
+  width: 20px;
+  height: 20px;
+  /* margin: 6px; */
+  /* border-radius: 50%; */
   cursor: pointer;
   color: transparent;
   border: 0;
   outline: none;
-  background: #d9d9d9;
+  /* background: #d9d9d9; */
 }
 
-.slider-one-dots li.slick-active button {
-  background: var(--color-primary);
+.slider-one-dots li button:before {
+  color: #d9d9d9;
+  content: '•';
+  font-size: 30px;
+  height: 20px;
+  left: 0;
+  line-height: 20px;
+  /* opacity: 0.25; */
+  position: absolute;
+  text-align: center;
+  top: 0;
+  width: 20px;
 }
 
-.slider-one .btn-prev {
+.slider-one-dots li.slick-active button:before {
+  color: var(--color-primary);
+}
+
+/* .slider-one .btn-prev {
   height: 40px;
-}
+} */
 
 .slick-prev:before,
 .slick-next:before {

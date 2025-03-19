@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import DateForm from '../../components/date-form/DateForm';
+import DateForm from '../../components/forms/date-form/DateForm';
 import Modal from '../../components/modal/Modal';
 import Subtitle from '../../components/subtitle/Subtitle';
 import Button from '../../ui/button/Button';

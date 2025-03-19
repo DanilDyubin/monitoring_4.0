@@ -306,6 +306,32 @@ export const CustomItemMain = ({
   );
 };
 
+export const CustomItemTotalPageTest = ({
+  item,
+  itemContext,
+  getItemProps,
+  getResizeProps,
+  timelineContext,
+}) => {
+  // const { left: leftResizeProps, right: rightResizeProps } = getResizeProps();
+
+  return (
+    <div {...getItemProps(item.itemProps)}>
+      {/* {itemContext.useResizeHandle ? <div {...leftResizeProps} /> : ''} */}
+
+      <div className="custom-item">
+        <div
+          className="rct-item-content"
+          // style={{ maxHeight: `${itemContext.dimensions.height}` }}
+        >
+          {itemContext.title}
+        </div>
+      </div>
+      {/* {itemContext.useResizeHandle ? <div {...rightResizeProps} /> : ''} */}
+    </div>
+  );
+};
+
 // import './customItems.scss';
 
 // export const CustomItem = ({

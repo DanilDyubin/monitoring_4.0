@@ -1,4 +1,4 @@
-import DateForm from '../../components/date-form/DateForm';
+import DateForm from '../../components/forms/date-form/DateForm';
 import Pagination from '../../components/pagination/Pagination';
 import ReportsList from '../../components/reports-list/ReportsList';
 import Subtitle from '../../components/subtitle/Subtitle';
@@ -37,7 +37,10 @@ const ArchivePage = () => {
       <div className={s.form}>
         <DateForm label="Поиск по дате" btnTitle="Найти" />
       </div>
-      <Pagination itemsPerPage={10} data={data} Component={ReportsList} />
+      <Pagination itemsPerPage={10} data={data}>
+        {(currentItems) => <ReportsList currentItems={currentItems} />}
+      </Pagination>
+      {/* <Pagination itemsPerPage={10} data={data} Component={ReportsList} /> */}
     </div>
   );
 };

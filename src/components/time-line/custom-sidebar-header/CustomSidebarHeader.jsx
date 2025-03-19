@@ -18,9 +18,9 @@ export const CustomSidebarHeader = ({ getRootProps }) => {
       <div className={s['custom-sidebar-header__subtitles']}>
         <div className={s['custom-sidebar-header__subtitles-plan']}>План</div>
         <div className={s['custom-sidebar-header__subtitles-fact']}>Факт</div>
-        <div className={s['custom-sidebar-header__subtitles-deviation']}>
+        {/* <div className={s['custom-sidebar-header__subtitles-deviation']}>
           Отклонение
-        </div>
+        </div> */}
       </div>
     </div>
   );

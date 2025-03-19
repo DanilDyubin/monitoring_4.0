@@ -1,0 +1,14 @@
+.btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-main);
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--color-text-gray);
+  margin-left: auto;
+  margin-bottom: 18px;
+  &:hover {
+    color: var(--color-primary);
+  }
+}

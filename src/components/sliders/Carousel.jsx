@@ -21,17 +21,17 @@ const images = [
   { link: 'https://ooossi.ru/assets-riw/images/homes/9%20pl%20fasad.jpg' },
   { link: 'https://domsbobrom.com/uploads/images/stati/486.jpg' },
   { link: 'https://ooossi.ru/assets-riw/images/homes/9%20pl%20fasad.jpg' },
-  // { link: 'https://domsbobrom.com/uploads/images/stati/486.jpg' },
-  // { link: 'https://ooossi.ru/assets-riw/images/homes/9%20pl%20fasad.jpg' },
-  // { link: 'https://domsbobrom.com/uploads/images/stati/486.jpg' },
-  // {
-  //   link: 'https://cdn.tripster.ru/thumbs2/2dd725c8-5e6e-11ee-acc3-b2623b589497.1220x600.jpeg',
-  // },
-  // { link: 'https://ooossi.ru/assets-riw/images/homes/9%20pl%20fasad.jpg' },
-  // { link: 'https://domsbobrom.com/uploads/images/stati/486.jpg' },
-  // {
-  //   link: 'https://cdn.tripster.ru/thumbs2/2dd725c8-5e6e-11ee-acc3-b2623b589497.1220x600.jpeg',
-  // },
+  { link: 'https://domsbobrom.com/uploads/images/stati/486.jpg' },
+  { link: 'https://ooossi.ru/assets-riw/images/homes/9%20pl%20fasad.jpg' },
+  { link: 'https://domsbobrom.com/uploads/images/stati/486.jpg' },
+  {
+    link: 'https://cdn.tripster.ru/thumbs2/2dd725c8-5e6e-11ee-acc3-b2623b589497.1220x600.jpeg',
+  },
+  { link: 'https://ooossi.ru/assets-riw/images/homes/9%20pl%20fasad.jpg' },
+  { link: 'https://domsbobrom.com/uploads/images/stati/486.jpg' },
+  {
+    link: 'https://cdn.tripster.ru/thumbs2/2dd725c8-5e6e-11ee-acc3-b2623b589497.1220x600.jpeg',
+  },
 ];
 
 const Carousel = () => {
