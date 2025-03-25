@@ -47,12 +47,12 @@ const ProjectForm = ({ formData }) => {
   // const address =
   //   'КОРПУСА N 6 В КВАРТАЛЕ N 57 ПО УЛИЦЕ ВАСИЛИСЫ КОЖИНОЙ ВО ВЛАДЕНИИ N 14 РАЙОНА ФИЛЕВСКИЙ ПАРК (ЗАПАДНЫЙ АДМИНИСТРАТИВНЫЙ ОКРУГ)';
 
-  const { UIN, address, info } = formData;
+  const { UIN, address, floor_count } = formData;
   return (
     <div className={s['object-information']}>
       <div className={s.wrapper}>
         <InformationItem label="Наименование объекта" value={UIN} />
-        <InformationItem label="Этажность" value={info} />
+        <InformationItem label="Этажность" value={floor_count} />
       </div>
       <InformationItem label="Адрес" value={address} />
     </div>

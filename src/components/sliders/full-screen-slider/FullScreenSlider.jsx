@@ -10,12 +10,12 @@ const images = [
   {
     link: 'https://teletype.in/files/6e/d7/6ed7ffd8-aa01-4c8b-9ee9-de45c5d65f18.jpeg',
   },
-  // { link: 'https://ooossi.ru/assets-riw/images/homes/9%20pl%20fasad.jpg' },
-  //{ link: 'https://domsbobrom.com/uploads/images/stati/486.jpg' },
-  //{ link: 'https://ooossi.ru/assets-riw/images/homes/9%20pl%20fasad.jpg' },
-  //{ link: 'https://domsbobrom.com/uploads/images/stati/486.jpg' },
-  //{ link: 'https://ooossi.ru/assets-riw/images/homes/9%20pl%20fasad.jpg' },
-  // { link: 'https://domsbobrom.com/uploads/images/stati/486.jpg' },
+  { link: 'https://ooossi.ru/assets-riw/images/homes/9%20pl%20fasad.jpg' },
+  { link: 'https://domsbobrom.com/uploads/images/stati/486.jpg' },
+  { link: 'https://ooossi.ru/assets-riw/images/homes/9%20pl%20fasad.jpg' },
+  { link: 'https://domsbobrom.com/uploads/images/stati/486.jpg' },
+  { link: 'https://ooossi.ru/assets-riw/images/homes/9%20pl%20fasad.jpg' },
+  { link: 'https://domsbobrom.com/uploads/images/stati/486.jpg' },
   // {
   //   link: 'https://cdn.tripster.ru/thumbs2/2dd725c8-5e6e-11ee-acc3-b2623b589497.1220x600.jpeg',
   // },

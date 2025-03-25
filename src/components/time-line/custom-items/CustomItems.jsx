@@ -80,6 +80,7 @@
 
 import { TiDelete } from 'react-icons/ti';
 import { IoMdCloseCircle } from 'react-icons/io';
+import { MdDeleteForever } from 'react-icons/md';
 import { RiCloseCircleLine } from 'react-icons/ri';
 import './customItems.scss';
 
@@ -294,8 +295,8 @@ export const CustomItemMain = ({
         >
           {itemContext.selected ? (
             <div className="item-delete">
-              УДАЛИТЬ
-              <IoMdCloseCircle className="item-delete--icon" />{' '}
+              Удалить
+              <MdDeleteForever className="item-delete--icon" />{' '}
             </div>
           ) : (
             item.title

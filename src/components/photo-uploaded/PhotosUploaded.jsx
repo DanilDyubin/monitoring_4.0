@@ -2,7 +2,7 @@ import { useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { removeImgId } from '../../redux/slices/scheduleSlice';
 import { useUploadImages } from '../../hooks/useUploadImages';
-import { PhotoItemHovered } from '../photo-item/PhotoItem';
+import PhotoItemHovered from '../photo-item/PhotoItem';
 import { ReactComponent as IconClose } from '../../assets/icons/close.svg';
 import ImageSkeleton from '../../ui/skeletons/image-skeleton/ImageSkeleton';
 import { AddImageButton } from '../../ui/add-image-button/AddImageButton';
@@ -10,7 +10,9 @@ import s from './photosUploaded.module.scss';
 
 const PhotosUploaded = () => {
   const { imgsIds } = useSelector((state) => state.schedule);
-  const { loadingImages, arrayFilesLength } = useSelector((state) => state.report);
+  const { loadingImages, arrayFilesLength } = useSelector(
+    (state) => state.report
+  );
   const dispatch = useDispatch();
 
   const { uploadImages } = useUploadImages();
@@ -52,7 +54,8 @@ const PhotosUploaded = () => {
               />
             ))
           : null}
-        {loadingImages && skeletonArray.map((_, i) => <ImageSkeleton key={i} />)}
+        {loadingImages &&
+          skeletonArray.map((_, i) => <ImageSkeleton key={i} />)}
         <div>
           <input
             className={s['photos-uploaded__input']}

@@ -4,7 +4,7 @@ import { VscClose } from 'react-icons/vsc';
 import { InputForm } from '../../../ui/input-form/InputForm';
 import Button from '../../../ui/button/Button';
 import { setOpenModal } from '../../../redux/slices/projectSlice';
-import useApiService from '../../../service/ApiService';
+import useApiService from '../../../service/useApiService';
 
 import s from './createProjectForm.module.scss';
 
@@ -12,7 +12,7 @@ const CreateProjectForm = ({ onCloseModal }) => {
   const [formData, setFormData] = useState({
     uin: '',
     address: '',
-    info: '',
+    floor_count: '',
   });
 
   const { createProject } = useApiService();
@@ -56,8 +56,8 @@ const CreateProjectForm = ({ onCloseModal }) => {
         <InputForm
           placeholder="Введите кол-во этажей"
           label="Этажность *"
-          name="info"
-          value={formData.info}
+          name="floor_count"
+          value={formData.floor_count}
           onChange={handleChange}
         />
         <span className={s.text}>* Обязательно к заполнению</span>

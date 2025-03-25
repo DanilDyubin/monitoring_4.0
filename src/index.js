@@ -1,21 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import ImageProvider from './context/ImageContext';
-import DateProvider from './context/DateContext';
 import { Provider } from 'react-redux';
-import { store } from './redux/store';
-import './styles/index.scss';
+import { PersistGate } from 'redux-persist/integration/react';
+
+import { store, persistor } from './redux/store';
 import App from './app/App';
+
+import './styles/index.scss';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <DateProvider>
-        <ImageProvider>
-          <App />
-        </ImageProvider>
-      </DateProvider>
+      <PersistGate loading={null} persistor={persistor}>
+        <App />
+      </PersistGate>
     </Provider>
-  </React.StrictMode>,
+  </React.StrictMode>
 );

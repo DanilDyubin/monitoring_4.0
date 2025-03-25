@@ -93,28 +93,11 @@
 //   border-right: 2px solid rgb(199, 197, 197);
 // }
 
-// .hovered {
-//   position: relative;
-//   background-color: rgb(199, 197, 197);
-//   box-shadow: -8px 0 0 rgb(199, 197, 197), 8px 0 0 rgb(199, 197, 197),
-//     0 -2px 0 rgb(199, 197, 197);
-// }
-
-// .hovered::before {
-//   content: '';
-//   position: absolute;
-//   top: -2px;
-//   left: -8px;
-//   width: calc(100% + 16px);
-//   height: 2px; /* Толщина верхней линии */
-//   background-color: rgb(199, 197, 197);
-// }
-
 .hovered {
   position: relative;
-  background-color: var(--color-primary);
-  box-shadow: -8px 0 0 var(--color-primary), 8px 0 0 var(--color-primary),
-    0 -2px 0 var(--color-primary);
+  background-color: rgb(199, 197, 197);
+  box-shadow: -8px 0 0 rgb(199, 197, 197), 8px 0 0 rgb(199, 197, 197),
+    0 -2px 0 rgb(199, 197, 197);
 }
 
 .hovered::before {
@@ -124,5 +107,22 @@
   left: -8px;
   width: calc(100% + 16px);
   height: 2px; /* Толщина верхней линии */
-  background-color: var(--color-primary);
+  background-color: rgb(199, 197, 197);
 }
+
+// .hovered {
+//   position: relative;
+//   background-color: var(--color-primary);
+//   box-shadow: -8px 0 0 var(--color-primary), 8px 0 0 var(--color-primary),
+//     0 -2px 0 var(--color-primary);
+// }
+
+// .hovered::before {
+//   content: '';
+//   position: absolute;
+//   top: -2px;
+//   left: -8px;
+//   width: calc(100% + 16px);
+//   height: 2px; /* Толщина верхней линии */
+//   background-color: var(--color-primary);
+// }

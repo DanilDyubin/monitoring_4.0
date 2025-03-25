@@ -22,7 +22,6 @@ const ReportPageSingle = () => {
     <div>
       <OpenSliderBtn onClick={onModalOpen} />
       <Slick />
-      <FullScreenSlider />
       <div style={{ marginTop: '80px' }}>
         <Subtitle />
         <Chart />

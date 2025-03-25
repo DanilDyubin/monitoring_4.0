@@ -22,7 +22,7 @@ const data = [
   { date: '21.12.2025', id: 11 },
 ];
 
-const DateForm = ({ label, btnTitle }) => {
+const DateForm = ({ label, btnTitle, selectedUploadType }) => {
   const [value, setValue] = useState('');
   const [open, setOpen] = useState(false);
 
@@ -80,6 +80,7 @@ const DateForm = ({ label, btnTitle }) => {
           variant="secondary"
           size="auto-big"
           type="submit"
+          disabled={selectedUploadType === 'device'}
         />
       </form>
       {open && (

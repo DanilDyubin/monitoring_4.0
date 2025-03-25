@@ -1,6 +1,9 @@
 import { useDispatch } from 'react-redux';
 import { addImgsIds } from '../redux/slices/scheduleSlice';
-import { setLoadingImages, setArrayFilesLength } from '../redux/slices/reportSlice';
+import {
+  setLoadingImages,
+  setArrayFilesLength,
+} from '../redux/slices/reportSlice';
 
 export function useUploadImages() {
   // const loadingImages = useSelector((state) => state.report.loadingImages);
@@ -20,7 +23,7 @@ export function useUploadImages() {
         {
           method: 'POST',
           body: formData,
-        },
+        }
       );
       if (!response.ok) {
         throw new Error(`Ошибка загрузки: ${response.status}`);

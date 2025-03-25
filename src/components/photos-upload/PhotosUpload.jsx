@@ -1,10 +1,16 @@
 import { useState, useRef } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 
 import moment from 'moment';
 import InputMask from 'react-input-mask';
 import { LiaCalendarAlt } from 'react-icons/lia';
 
+import useApiService from '../../service/useApiService';
 import { useClickOutside } from '../../hooks/useClickOutside';
+import {
+  setUploadPhotosId,
+  setSelectedUploadType,
+} from '../../redux/slices/projectSlice';
 import DatePickerForm from '../date-picker/DatePickerForm';
 import PhotoPicker from '../photo-picker/PhotoPicker';
 import Button from '../../ui/button/Button';
@@ -16,10 +22,25 @@ const PhotosUpload = ({ onClose }) => {
   const [photos, setPhotos] = useState({ files: [], url: '' }); // стейт для PhotoPicker
   const [openCalendar, setOpenCalendar] = useState(false);
 
+  const { usersPhotosUpload } = useApiService();
+
   const calendarRef = useRef();
+  const dispatch = useDispatch();
+
+  const projectId = useSelector((state) => state.project.projectId); // projectId получаем из ProjectLayout
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    const formatedDate = moment(date, 'DD.MM.YYYY').valueOf();
+
+    if (photos.files.length) {
+      usersPhotosUpload(projectId, formatedDate, photos.files).then(
+        (id) => dispatch(setUploadPhotosId(id)) // передаем upload_id для получения всех загруженных фото в PhotoList
+      );
+    }
+    dispatch(setSelectedUploadType('device'));
+    onClose();
   };
 
   const handleInputChange = (e) => {
@@ -42,8 +63,10 @@ const PhotosUpload = ({ onClose }) => {
       URL.revokeObjectURL(photos.url);
     }
     setPhotos({ files: [], url: '' });
+    setDate('');
     onClose();
   };
+  console.log(moment(date, 'DD.MM.YYYY').valueOf());
 
   return (
     <div className={s['photos-upload']}>
@@ -91,7 +114,7 @@ const PhotosUpload = ({ onClose }) => {
               title="Загрузить"
               type="submit"
               size="s"
-              disabled={!date || !photos.url}
+              disabled={!date || !photos.files.length}
             />
           </div>
         </form>
