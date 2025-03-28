@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { transFormItem } from '../../service/transformResponseData';
-import { setReportItems } from '../../redux/slices/reportSlice';
+import { setCalendarItemsReport } from '../../redux/slices/reportSlice';
 import ProjectForm from '../../components/project-form/ProjectForm';
 import Subtitle from '../../components/subtitle/Subtitle';
 import TimeLine from '../../components/time-line/TimeLine';
@@ -23,7 +23,7 @@ const ProjectPage = () => {
 
   const getCalendarAndDispatch = (projectId) => {
     getCalendar(projectId).then((data) =>
-      dispatch(setReportItems(transFormItem(data)))
+      dispatch(setCalendarItemsReport(transFormItem(data)))
     );
   };
 

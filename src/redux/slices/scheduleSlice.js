@@ -9,110 +9,99 @@ const initialState = {
     {
       id: 0,
       title: 'Земляные работы',
-      done: 0,
-      deviation: 0,
+      planValue: 0,
+      factValue: 0,
       height: 40,
-      progress: true,
       color: '#FF8080',
       color_light: '#FFD9D9',
     },
     {
       id: 1,
       title: 'Шпунтовое ограждение',
-      done: 0,
-      deviation: 0,
+      planValue: 0,
+      factValue: 0,
       height: 40,
-      progress: false,
       color: '#80E6CB',
       color_light: '#D9F8EF',
     },
     {
       id: 2,
       title: 'Распорная система',
-      done: 0,
-      deviation: 0,
+      planValue: 0,
+      factValue: 0,
       height: 40,
-      progress: true,
       color: '#8080FF',
       color_light: '#D9D9FF',
     },
     {
       id: 3,
       title: 'Устройство фундамента',
-      done: 0,
-      deviation: 0,
+      planValue: 0,
+      factValue: 0,
       height: 40,
-      progress: true,
       color: '#FFFF80',
       color_light: '#FFFFD9',
     },
     {
       id: 4,
       title: 'Монолит',
-      done: 0,
-      deviation: 0,
+      planValue: 0,
+      factValue: 0,
       height: 40,
-      progress: true,
       color: '#80FFFF',
       color_light: '#D9FFFF',
     },
     {
       id: 5,
       title: 'Кладка',
-      done: 0,
-      deviation: 0,
+      planValue: 0,
+      factValue: 0,
       height: 40,
-      progress: false,
       color: '#FFB3C9',
       color_light: '#FFE8EF',
     },
     {
       id: 6,
       title: 'Теплоизоляция',
-      done: 0,
-      deviation: 0,
+      planValue: 0,
+      factValue: 0,
       height: 40,
-      progress: true,
       color: '#D280FF',
       color_light: '#F1D9FF',
     },
     {
       id: 7,
       title: 'Подсистема фасада',
-      done: 0,
-      deviation: 0,
+      planValue: 0,
+      factValue: 0,
       height: 40,
-      progress: true,
       color: '#80D2FF',
       color_light: '#D9F1FF',
     },
     {
       id: 8,
       title: 'Облицовка фасада',
-      done: 0,
-      deviation: 0,
+      planValue: 0,
+      factValue: 0,
       height: 40,
-      progress: true,
       color: '#D2FF80',
       color_light: '#F1FFD9',
     },
     {
       id: 9,
       title: 'Остекление',
-      done: 0,
-      deviation: 0,
+      planValue: 0,
+      factValue: 0,
       height: 40,
-      progress: true,
       color: '#FFD394',
       color_light: '#FFF2DF',
     },
     {
       id: 10,
       title: 'Благоустройство',
-      done: 0,
-      deviation: 0,
+      planValue: 0,
+      factValue: 0,
       height: 40,
-      progress: true,
       color: '#A9E7A4',
       color_light: '#E5F8E4',
     },
@@ -305,23 +294,25 @@ export const scheduleSlice = createSlice({
     },
     addItem(state, action) {
       const newItem = action.payload;
-      newItem.id = state.nextItemId; // добавляем уникальный id
-      state.nextItemId = state.nextItemId + 1;
-      state.items.push(newItem);
+      // newItem.id = state.nextItemId; // добавляем уникальный id
+      // state.nextItemId = state.nextItemId + 1;
+      // state.items.push(newItem);
 
-      // // Находим, есть ли уже item с таким id
-      // const existingIndex = state.items.findIndex((item) => item.id === newItem.id);
+      // Находим, есть ли уже item с таким id
+      const existingIndex = state.items.findIndex(
+        (item) => item.id === newItem.id
+      );
 
-      // if (existingIndex === -1) {
-      //   // Если нет такого id, то обавляем в конец
-      //   state.items = [...state.items, newItem];
-      // } else {
-      //   // Удаляем старый item
-      //   const filtered = state.items.filter((item) => item.id !== newItem.id);
+      if (existingIndex === -1) {
+        // Если нет такого id, то обавляем в конец
+        state.items = [...state.items, newItem];
+      } else {
+        // Удаляем старый item
+        const filtered = state.items.filter((item) => item.id !== newItem.id);
 
-      //   // И добавляем новый
-      //   state.items = [...filtered, newItem];
-      // }
+        // И добавляем новый
+        state.items = [...filtered, newItem];
+      }
 
       // // добавление процентов "выполнено" в поле done
       // const findGroup = state.groups.find((obj) => obj.id === action.payload.id);

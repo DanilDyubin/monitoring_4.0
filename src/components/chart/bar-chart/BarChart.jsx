@@ -1,8 +1,8 @@
 import s from './barChart.module.scss';
 
 const BarChartItem = ({ stage, stageId }) => {
-  //   const itemClass =
-  //     stageId && stageId !== stage.id ? `${s.bar} + ${s.opacity}` : `${s.bar}`;
+  // const barClass =
+  //   stageId && stageId !== stage.id ? `${s.bar} + ${s.opacity}` : `${s.bar}`;
 
   const barClass =
     stageId && stageId === stage.id ? `${s.bar} + ${s.hovered}` : `${s.bar}`;

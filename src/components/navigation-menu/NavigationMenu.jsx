@@ -1,11 +1,11 @@
 import { NavLink } from 'react-router-dom';
 import s from './navigationMenu.module.scss';
 
-const NavigationMenu = ({ id }) => {
+const NavigationMenu = ({ projectId, uploadId }) => {
   return (
     <div className={s.container}>
       <NavLink
-        to={`/report/${id}/total`}
+        to={`/project/${projectId}/report/${uploadId}/total`}
         end
         className={({ isActive }) =>
           isActive ? `${s.link} ${s.active}` : s.link
@@ -14,7 +14,7 @@ const NavigationMenu = ({ id }) => {
         Общий отчёт
       </NavLink>
       <NavLink
-        to={`/report/${id}/single`}
+        to={`/project/${projectId}/report/${uploadId}/single`}
         className={({ isActive }) =>
           isActive ? `${s.link} ${s.active}` : s.link
         }

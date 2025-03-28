@@ -3,7 +3,6 @@ import { createHashRouter, RouterProvider, Navigate } from 'react-router-dom';
 import Layout from '../layouts/Layout';
 import MainPage from '../pages/main-page/MainPage';
 import FormPage from '../pages/form-page/FormPage';
-import ReportPage from '../pages/report-page/ReportPage';
 import ReportPageTotal from '../pages/report-page/report-page-total/ReportPageTotal';
 import ReportPageSingle from '../pages/report-page/report-page-single/ReportPageSingle';
 import PdfPage from '../pages/pdf-page/PdfPage';
@@ -14,6 +13,7 @@ import ProjectLayout from '../layouts/project-layout/ProjectLayout';
 import ProjectPage from '../pages/project-page/ProjectPage';
 import CreateReportPage from '../pages/create-report-page/CreateReportPage';
 import ArchivePage from '../pages/archive-page/ArchivePage';
+import ReportLayout from '../layouts/report-layout/ReportLayout';
 
 const App = () => {
   const router = createHashRouter([
@@ -22,6 +22,7 @@ const App = () => {
       element: <Layout />,
       children: [
         {
+          // Стартовая страница (base, custom и т.д.)
           path: '',
           element: <StartPage />,
           children: [
@@ -34,13 +35,14 @@ const App = () => {
               element: <BasePage />,
             },
             {
-              path: 'custom', // /report/:id/single
+              path: 'custom',
               element: <CustomPage />,
             },
           ],
         },
         {
-          path: 'project/:id',
+          // Главный роут для проекта
+          path: 'project/:projectId',
           element: <ProjectLayout />,
           children: [
             {
@@ -48,22 +50,26 @@ const App = () => {
               element: <Navigate to="overview" replace />,
             },
             {
+              // Общий обзор проекта (календарь, статистика и т.д.)
               path: 'overview',
               element: <ProjectPage />,
             },
             {
+              // Создание нового отчёта
               path: 'create-report',
               element: <CreateReportPage />,
             },
             {
+              // Архив отчетов проекта
               path: 'archive',
               element: <ArchivePage />,
             },
           ],
         },
         {
-          path: '/report/:id',
-          element: <ReportPage />,
+          // Страница отчёта
+          path: 'project/:projectId/report/:uploadId',
+          element: <ReportLayout />,
           children: [
             {
               index: true,
@@ -74,16 +80,16 @@ const App = () => {
               element: <ReportPageTotal />,
             },
             {
-              path: 'single', // /report/:id/single
+              path: 'single',
               element: <ReportPageSingle />,
             },
           ],
         },
+        {
+          path: '/pdf',
+          element: <PdfPage />,
+        },
       ],
-    },
-    {
-      path: '/pdf',
-      element: <PdfPage />,
     },
   ]);
 

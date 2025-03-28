@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
 import Subtitle from '../../../components/subtitle/Subtitle';
 import Chart from '../../../components/chart/Chart';
 import Slick from '../../../components/sliders/Slick';
@@ -9,6 +10,8 @@ import SliderModal from '../../../components/modal/slider-modal/SliderModal';
 
 const ReportPageSingle = () => {
   const [openModal, setOpenModal] = useState(false);
+
+  const photosReport = useSelector((state) => state.report.photosReport);
 
   const onModalOpen = () => {
     setOpenModal(true);
@@ -21,13 +24,15 @@ const ReportPageSingle = () => {
   return (
     <div>
       <OpenSliderBtn onClick={onModalOpen} />
-      <Slick />
+      <Slick images={photosReport} />
       <div style={{ marginTop: '80px' }}>
         <Subtitle />
-        <Chart />
+        <Chart data={photosReport} />
       </div>
       <SliderModal active={openModal} onClose={onModalClose}>
-        {openModal && <FullScreenSlider onCloseModal={onModalClose} />}
+        {openModal && (
+          <FullScreenSlider onCloseModal={onModalClose} images={photosReport} />
+        )}
       </SliderModal>
     </div>
   );

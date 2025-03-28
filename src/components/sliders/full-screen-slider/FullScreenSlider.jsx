@@ -6,50 +6,56 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import './fullScreenSlider.css';
 
-const images = [
-  {
-    link: 'https://teletype.in/files/6e/d7/6ed7ffd8-aa01-4c8b-9ee9-de45c5d65f18.jpeg',
-  },
-  { link: 'https://ooossi.ru/assets-riw/images/homes/9%20pl%20fasad.jpg' },
-  { link: 'https://domsbobrom.com/uploads/images/stati/486.jpg' },
-  { link: 'https://ooossi.ru/assets-riw/images/homes/9%20pl%20fasad.jpg' },
-  { link: 'https://domsbobrom.com/uploads/images/stati/486.jpg' },
-  { link: 'https://ooossi.ru/assets-riw/images/homes/9%20pl%20fasad.jpg' },
-  { link: 'https://domsbobrom.com/uploads/images/stati/486.jpg' },
-  // {
-  //   link: 'https://cdn.tripster.ru/thumbs2/2dd725c8-5e6e-11ee-acc3-b2623b589497.1220x600.jpeg',
-  // },
-  // { link: 'https://ooossi.ru/assets-riw/images/homes/9%20pl%20fasad.jpg' },
-  // { link: 'https://domsbobrom.com/uploads/images/stati/486.jpg' },
-  // {
-  //   link: 'https://cdn.tripster.ru/thumbs2/2dd725c8-5e6e-11ee-acc3-b2623b589497.1220x600.jpeg',
-  // },
-  // {
-  //   link: 'https://teletype.in/files/6e/d7/6ed7ffd8-aa01-4c8b-9ee9-de45c5d65f18.jpeg',
-  // },
-  // { link: 'https://ooossi.ru/assets-riw/images/homes/9%20pl%20fasad.jpg' },
-  // { link: 'https://domsbobrom.com/uploads/images/stati/486.jpg' },
-  // { link: 'https://ooossi.ru/assets-riw/images/homes/9%20pl%20fasad.jpg' },
-  // { link: 'https://domsbobrom.com/uploads/images/stati/486.jpg' },
-  // { link: 'https://ooossi.ru/assets-riw/images/homes/9%20pl%20fasad.jpg' },
-  // { link: 'https://domsbobrom.com/uploads/images/stati/486.jpg' },
-  //   {
-  //     link: 'https://cdn.tripster.ru/thumbs2/2dd725c8-5e6e-11ee-acc3-b2623b589497.1220x600.jpeg',
-  //   },
-  //   { link: 'https://ooossi.ru/assets-riw/images/homes/9%20pl%20fasad.jpg' },
-  //   { link: 'https://domsbobrom.com/uploads/images/stati/486.jpg' },
-  //   {
-  //     link: 'https://cdn.tripster.ru/thumbs2/2dd725c8-5e6e-11ee-acc3-b2623b589497.1220x600.jpeg',
-  //   },
-];
+// const images = [
+//   {
+//     link: 'https://teletype.in/files/6e/d7/6ed7ffd8-aa01-4c8b-9ee9-de45c5d65f18.jpeg',
+//   },
+//   { link: 'https://ooossi.ru/assets-riw/images/homes/9%20pl%20fasad.jpg' },
+//   { link: 'https://domsbobrom.com/uploads/images/stati/486.jpg' },
+//   { link: 'https://ooossi.ru/assets-riw/images/homes/9%20pl%20fasad.jpg' },
+//   { link: 'https://domsbobrom.com/uploads/images/stati/486.jpg' },
+//   { link: 'https://ooossi.ru/assets-riw/images/homes/9%20pl%20fasad.jpg' },
+//   { link: 'https://domsbobrom.com/uploads/images/stati/486.jpg' },
+//   {
+//     link: 'https://cdn.tripster.ru/thumbs2/2dd725c8-5e6e-11ee-acc3-b2623b589497.1220x600.jpeg',
+//   },
+//   { link: 'https://ooossi.ru/assets-riw/images/homes/9%20pl%20fasad.jpg' },
+//   { link: 'https://domsbobrom.com/uploads/images/stati/486.jpg' },
+//   {
+//     link: 'https://cdn.tripster.ru/thumbs2/2dd725c8-5e6e-11ee-acc3-b2623b589497.1220x600.jpeg',
+//   },
+//   {
+//     link: 'https://teletype.in/files/6e/d7/6ed7ffd8-aa01-4c8b-9ee9-de45c5d65f18.jpeg',
+//   },
+//   { link: 'https://ooossi.ru/assets-riw/images/homes/9%20pl%20fasad.jpg' },
+//   { link: 'https://domsbobrom.com/uploads/images/stati/486.jpg' },
+//   { link: 'https://ooossi.ru/assets-riw/images/homes/9%20pl%20fasad.jpg' },
+//   { link: 'https://domsbobrom.com/uploads/images/stati/486.jpg' },
+//   { link: 'https://ooossi.ru/assets-riw/images/homes/9%20pl%20fasad.jpg' },
+//   { link: 'https://domsbobrom.com/uploads/images/stati/486.jpg' },
+//     {
+//       link: 'https://cdn.tripster.ru/thumbs2/2dd725c8-5e6e-11ee-acc3-b2623b589497.1220x600.jpeg',
+//     },
+//     { link: 'https://ooossi.ru/assets-riw/images/homes/9%20pl%20fasad.jpg' },
+//     { link: 'https://domsbobrom.com/uploads/images/stati/486.jpg' },
+//     {
+//       link: 'https://cdn.tripster.ru/thumbs2/2dd725c8-5e6e-11ee-acc3-b2623b589497.1220x600.jpeg',
+//     },
+// ];
 
-const FullScreenSlider = ({ onCloseModal }) => {
+const FullScreenSlider = ({ onCloseModal, images }) => {
   const settings = {
     customPaging: function (i) {
       if (!images[i]) return null;
       return (
         <a key={i}>
-          <img src={images[i].link} alt="object-photo" />
+          <img
+            src={
+              `https://msi.construction-monitoring.contextmachine.cloud/get_one_mask?image_id=${images[i].photoId}` ||
+              null
+            }
+            alt="object-photo"
+          />
         </a>
       );
     },
@@ -108,7 +114,13 @@ const FullScreenSlider = ({ onCloseModal }) => {
       <Slider {...settings} className="slider-fullscreen">
         {images?.map((image, i) => (
           <div className="slider-fullscreen-image" key={i}>
-            <img src={image.link || null} alt="object-photo" />
+            <img
+              src={
+                `https://msi.construction-monitoring.contextmachine.cloud/get_one_mask?image_id=${image.photoId}` ||
+                null
+              }
+              alt="object-photo"
+            />
           </div>
         ))}
       </Slider>

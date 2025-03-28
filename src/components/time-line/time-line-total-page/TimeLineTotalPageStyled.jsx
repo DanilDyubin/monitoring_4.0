@@ -28,8 +28,7 @@ const TimeLineTotalPageStyled = () => {
   // const reportGroups = useSelector((state) => state.report.groupsReport);
   const reportGroupsTest = useSelector((state) => state.schedule.groups);
   // const reportItems = useSelector((state) => state.report.itemsReport);
-  const testItems = useSelector((state) => state.schedule.testItems);
-  const transformedItems = useSelector((state) => state.report.itemsReport);
+  const reportItems = useSelector((state) => state.report.calendarItemsReport);
   // const filteredItems = reportItems.filter((stage) => stage.start_time !== null);
   // const sliceCurrentDate = useSelector((state) => state.schedule.currentDate);
   // const currentDate = useSelector((state) => state.report.total.current_date);
@@ -73,7 +72,7 @@ const TimeLineTotalPageStyled = () => {
       </div>
       <Timeline
         groups={reportGroupsTest}
-        items={transformedItems}
+        items={reportItems}
         lineHeight={20} // высота линии календаря
         itemHeightRatio={1} // сколько процентов занимает item от линии
         itemRenderer={CustomItemTotalPageTest} // добавляем кастомный компонент item

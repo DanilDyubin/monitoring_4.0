@@ -63,7 +63,7 @@ const DatePicker = () => {
   const handleAddItem = () => {
     if (isDateSelected) {
       const newItem = {
-        // id: groupId,
+        id: groupId,
         group: groupId, // обязательно для привязки item к group
         group_title: group.title,
         color: group.color,

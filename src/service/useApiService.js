@@ -143,7 +143,7 @@ const useApiService = () => {
 
     const sendItems = calendarItems.map((item) => {
       return {
-        id: item.id,
+        id: item.group,
         title: item.group_title,
         start_time: item.start_time,
         end_time: item.end_time,
@@ -240,6 +240,41 @@ const useApiService = () => {
     }
   };
 
+  const getPhotosReport = async (id) => {
+    try {
+      const response = await fetch(`${API_BASE}get_photos?upload_id=${id}`);
+
+      if (!response.ok) {
+        throw new Error(`Error, status: ${response.status}`);
+      }
+      const photosId = await response.json();
+
+      const photosReportRequests = photosId.map(async (photoObj) => {
+        const reportResponse = await fetch(
+          `${API_BASE}get_photo_report?photo_id=${photoObj.id}`
+        );
+
+        if (!response.ok) {
+          throw new Error(`Error, status: ${response.status}`);
+        }
+
+        const report = await reportResponse.json();
+
+        return {
+          photoId: photoObj.id,
+          report: report,
+        };
+      });
+
+      const photosData = await Promise.all(photosReportRequests);
+      console.log(`PhotosData - ${JSON.stringify(photosData)}`);
+      return photosData;
+    } catch (e) {
+      console.error(e.message);
+      throw e;
+    }
+  };
+
   return {
     createProject,
     getProject,
@@ -250,6 +285,7 @@ const useApiService = () => {
     getCalendar,
     createPredict,
     getMainReport,
+    getPhotosReport,
     loading,
     request,
     error,
@@ -446,3 +482,311 @@ export default useApiService;
 //     fact_end: '2025-03-24',
 //   },
 // ];
+
+const CalendarItems = [
+  {
+    id: 0,
+    group: 0,
+    group_title: 'Земляные работы',
+    color: '#FF8080',
+    color_light: '#FFD9D9',
+    title: '01.02 — 15.02',
+    start_time: 1738357200000,
+    end_time: 1739653199999,
+    itemProps: {
+      style: {
+        background: '#FF8080',
+        border: 'none',
+        color: '#131313',
+        fontWeight: '400',
+        fontSize: '16px',
+      },
+    },
+  },
+  {
+    id: 1,
+    group: 1,
+    group_title: 'Шпунтовое ограждение',
+    color: '#80E6CB',
+    color_light: '#D9F8EF',
+    title: '15.02 — 28.02',
+    start_time: 1739566800000,
+    end_time: 1740776399999,
+    itemProps: {
+      style: {
+        background: '#80E6CB',
+        border: 'none',
+        color: '#131313',
+        fontWeight: '400',
+        fontSize: '16px',
+      },
+    },
+  },
+  {
+    id: 2,
+    group: 2,
+    group_title: 'Распорная система',
+    color: '#8080FF',
+    color_light: '#D9D9FF',
+    title: '01.03 — 15.03',
+    start_time: 1740776400000,
+    end_time: 1742072399999,
+    itemProps: {
+      style: {
+        background: '#8080FF',
+        border: 'none',
+        color: '#131313',
+        fontWeight: '400',
+        fontSize: '16px',
+      },
+    },
+  },
+  {
+    id: 6,
+    group: 6,
+    group_title: 'Теплоизоляция',
+    color: '#D280FF',
+    color_light: '#F1D9FF',
+    title: '15.03 — 30.03',
+    start_time: 1741986000000,
+    end_time: 1743368399999,
+    itemProps: {
+      style: {
+        background: '#D280FF',
+        border: 'none',
+        color: '#131313',
+        fontWeight: '400',
+        fontSize: '16px',
+      },
+    },
+  },
+];
+
+const sendItems = [
+  {
+    id: 0,
+    title: 'Земляные работы',
+    start_time: 1738357200000,
+    end_time: 1739653199999,
+    current_time: 1743195599999,
+  },
+  {
+    id: 1,
+    title: 'Шпунтовое ограждение',
+    start_time: 1739566800000,
+    end_time: 1740776399999,
+    current_time: 1743195599999,
+  },
+  {
+    id: 2,
+    title: 'Распорная система',
+    start_time: 1740776400000,
+    end_time: 1742072399999,
+    current_time: 1743195599999,
+  },
+  {
+    id: 6,
+    title: 'Теплоизоляция',
+    start_time: 1741986000000,
+    end_time: 1743368399999,
+    current_time: 1743195599999,
+  },
+];
+
+const getCalendar = [
+  {
+    project_id: 'e4988dc4-283e-4f66-96cd-5aa2c023c0d0',
+    stage_id: 0,
+    plan_start: '2025-01-31',
+    plan_end: '2025-02-15',
+    fact_start: null,
+    fact_end: null,
+    percent: null,
+    stage: {
+      id: 0,
+      name: 'Земляные работы',
+      calendar_dull: '#FFD9D9',
+      calendar_vivid: '#FF8080',
+      color: '#FF0000',
+    },
+  },
+  {
+    project_id: 'e4988dc4-283e-4f66-96cd-5aa2c023c0d0',
+    stage_id: 1,
+    plan_start: '2025-02-14',
+    plan_end: '2025-02-28',
+    fact_start: null,
+    fact_end: null,
+    percent: null,
+    stage: {
+      id: 1,
+      name: 'Шпунтовое ограждение',
+      calendar_dull: '#D9F8EF',
+      calendar_vivid: '#80E6CB',
+      color: '#00CC96',
+    },
+  },
+  {
+    project_id: 'e4988dc4-283e-4f66-96cd-5aa2c023c0d0',
+    stage_id: 2,
+    plan_start: '2025-02-28',
+    plan_end: '2025-03-15',
+    fact_start: null,
+    fact_end: null,
+    percent: null,
+    stage: {
+      id: 2,
+      name: 'Распорная система',
+      calendar_dull: '#D9D9FF',
+      calendar_vivid: '#8080FF',
+      color: '#0000FF',
+    },
+  },
+  {
+    project_id: 'e4988dc4-283e-4f66-96cd-5aa2c023c0d0',
+    stage_id: 6,
+    plan_start: '2025-03-14',
+    plan_end: '2025-03-30',
+    fact_start: null,
+    fact_end: null,
+    percent: null,
+    stage: {
+      id: 6,
+      name: 'Теплоизоляция',
+      calendar_dull: '#F1D9FF',
+      calendar_vivid: '#D280FF',
+      color: '#A500FF',
+    },
+  },
+];
+
+const calendarItemsReport = [
+  {
+    id: 1,
+    group: 1,
+    title: '14.02 — 28.02',
+    start_time: 1739480400000,
+    end_time: 1740776399999,
+    itemProps: {
+      style: {
+        background: '#036BFD',
+        border: 'none',
+        color: '#ffffff',
+        fontWeight: '400',
+        fontSize: '16px',
+      },
+    },
+  },
+  {
+    id: 2,
+    group: 1,
+    title: '26.03 — 27.03',
+    start_time: 1742936400000,
+    end_time: 1743109199999,
+    itemProps: {
+      style: {
+        background: '#80E6CB',
+        border: 'none',
+        color: '#131313',
+        fontWeight: '400',
+        fontSize: '16px',
+      },
+    },
+  },
+  {
+    id: 3,
+    group: 2,
+    title: '28.02 — 15.03',
+    start_time: 1740690000000,
+    end_time: 1742072399999,
+    itemProps: {
+      style: {
+        background: '#036BFD',
+        border: 'none',
+        color: '#ffffff',
+        fontWeight: '400',
+        fontSize: '16px',
+      },
+    },
+  },
+  {
+    id: 4,
+    group: 2,
+    title: '26.03 — 27.03',
+    start_time: 1742936400000,
+    end_time: 1743109199999,
+    itemProps: {
+      style: {
+        background: '#8080FF',
+        border: 'none',
+        color: '#131313',
+        fontWeight: '400',
+        fontSize: '16px',
+      },
+    },
+  },
+  {
+    id: 5,
+    group: 6,
+    title: '14.03 — 30.03',
+    start_time: 1741899600000,
+    end_time: 1743368399999,
+    itemProps: {
+      style: {
+        background: '#036BFD',
+        border: 'none',
+        color: '#ffffff',
+        fontWeight: '400',
+        fontSize: '16px',
+      },
+    },
+  },
+  {
+    id: 6,
+    group: 6,
+    title: '26.03 — 27.03',
+    start_time: 1742936400000,
+    end_time: 1743109199999,
+    itemProps: {
+      style: {
+        background: '#D280FF',
+        border: 'none',
+        color: '#131313',
+        fontWeight: '400',
+        fontSize: '16px',
+      },
+    },
+  },
+  {
+    id: 7,
+    group: 0,
+    title: '31.01 — 15.02',
+    start_time: 1738270800000,
+    end_time: 1739653199999,
+    itemProps: {
+      style: {
+        background: '#036BFD',
+        border: 'none',
+        color: '#ffffff',
+        fontWeight: '400',
+        fontSize: '16px',
+      },
+    },
+  },
+  {
+    id: 8,
+    group: 0,
+    title: '26.03 — 27.03',
+    start_time: 1742936400000,
+    end_time: 1743109199999,
+    itemProps: {
+      style: {
+        background: '#FF8080',
+        border: 'none',
+        color: '#131313',
+        fontWeight: '400',
+        fontSize: '16px',
+      },
+    },
+  },
+];
