@@ -27,11 +27,11 @@
 .list {
   display: flex;
   align-items: flex-end;
-  justify-content: space-between;
+  justify-content: space-around;
 }
 
 .item {
-  width: 62px;
+  width: 52px;
   margin: 0 auto;
   //   background-color: rgb(199, 197, 197);
 }
@@ -45,26 +45,12 @@
   font-size: 14px;
   line-height: 130%;
   color: var(--color-tet);
-  //   background-color: rgb(199, 197, 197);
-  //   outline: 3px solid var(--color-primary);
-  //   outline-offset: 2px;
-
-  &__plan {
-    height: 100%;
-    flex: 1;
-    display: flex;
-    align-items: flex-end;
-    justify-content: center;
-    background-color: var(--color-bar);
-  }
 
   &__fact {
-    height: 30%;
     flex: 1;
     display: flex;
     align-items: flex-end;
     justify-content: center;
-    background-color: yellow;
   }
 }
 
@@ -96,7 +82,7 @@
 .hovered {
   position: relative;
   background-color: rgb(199, 197, 197);
-  box-shadow: -8px 0 0 rgb(199, 197, 197), 8px 0 0 rgb(199, 197, 197),
+  box-shadow: -14px 0 0 rgb(199, 197, 197), 14px 0 0 rgb(199, 197, 197),
     0 -2px 0 rgb(199, 197, 197);
 }
 
@@ -104,8 +90,8 @@
   content: '';
   position: absolute;
   top: -2px;
-  left: -8px;
-  width: calc(100% + 16px);
+  left: -14px;
+  width: calc(100% + 28px);
   height: 2px; /* Толщина верхней линии */
   background-color: rgb(199, 197, 197);
 }

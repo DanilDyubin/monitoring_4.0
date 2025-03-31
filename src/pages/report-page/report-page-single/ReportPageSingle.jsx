@@ -12,6 +12,7 @@ const ReportPageSingle = () => {
   const [openModal, setOpenModal] = useState(false);
 
   const photosReport = useSelector((state) => state.report.photosReport);
+  console.log(JSON.stringify(photosReport));
 
   const onModalOpen = () => {
     setOpenModal(true);
@@ -27,7 +28,7 @@ const ReportPageSingle = () => {
       <Slick images={photosReport} />
       <div style={{ marginTop: '80px' }}>
         <Subtitle />
-        <Chart data={photosReport} />
+        <Chart photosData={photosReport} />
       </div>
       <SliderModal active={openModal} onClose={onModalClose}>
         {openModal && (

@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+import { useDispatch } from 'react-redux';
+import { setCurrentSlide } from '../../redux/slices/reportSlice';
 import Slider from 'react-slick';
 import { IoChevronBackSharp, IoChevronForwardSharp } from 'react-icons/io5';
 
@@ -44,6 +45,8 @@ import './slick.css';
 // ];
 
 const Slick = ({ images }) => {
+  const dispatch = useDispatch();
+
   const showSlides = images.length < 5 ? images.length : 5;
 
   const settings = {
@@ -54,6 +57,7 @@ const Slick = ({ images }) => {
     slidesToShow: showSlides,
     slidesToScroll: 1,
     speed: 500,
+    afterChange: (index) => dispatch(setCurrentSlide(index)),
     nextArrow: <SlickNextArrow />,
     prevArrow: <SlickPrevArrow />,
   };

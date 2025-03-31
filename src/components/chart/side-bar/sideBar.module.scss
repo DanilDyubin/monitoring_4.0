@@ -1,5 +1,5 @@
 .sidebar {
-  min-width: 325px;
+  min-width: 300px;
 }
 
 .header {
@@ -12,15 +12,6 @@
   font-size: 16px;
   color: var(--color-text-gray);
   background-color: var(--color-white);
-
-  &__right {
-    display: flex;
-  }
-
-  &__plan {
-    width: 64px;
-    text-align: center;
-  }
 
   &__fact {
     width: 64px;
@@ -41,22 +32,11 @@
     background-color: var(--color-bg);
   }
 
-  &__values {
-    display: flex;
-
-    &-plan {
-      width: 64px;
-      text-align: center;
-      color: var(--color-primary);
-      font-weight: 500;
-    }
-
-    &-fact {
-      width: 64px;
-      text-align: center;
-      color: var(--color-green);
-      font-weight: 500;
-    }
+  &__fact {
+    width: 64px;
+    text-align: center;
+    color: var(--color-green);
+    font-weight: 500;
   }
 }
 

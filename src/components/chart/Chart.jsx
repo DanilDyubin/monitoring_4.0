@@ -5,7 +5,7 @@ import s from './chart.module.scss';
 
 const data = [
   {
-    id: '0',
+    id: 0,
     title: 'Земляные работы',
     plan: 100,
     fact: 87,
@@ -52,7 +52,7 @@ const data = [
     id: 4,
     title: 'Монолит',
     plan: 0,
-    fact: 87,
+    fact: -87,
     deviation: 0,
     height: 40,
     progress: true,
@@ -127,13 +127,13 @@ const data = [
   },
 ];
 
-const Chart = () => {
-  const [stageId, setStageId] = useState('');
+const Chart = ({ photosData }) => {
+  const [stageId, setStageId] = useState(null);
 
   return (
     <div className={s.chart}>
-      <SideBar stages={data} onSetStageId={setStageId} />
-      <BarChart stages={data} stageId={stageId} />
+      <SideBar photosData={photosData} onSetStageId={setStageId} />
+      <BarChart photosData={photosData} stageId={stageId} />
     </div>
   );
 };

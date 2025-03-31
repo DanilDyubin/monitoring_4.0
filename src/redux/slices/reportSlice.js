@@ -23,6 +23,7 @@ const initialState = {
   mainReport: [],
   photosReport: [],
   currentPhotoReportIndex: 0,
+  currentSlide: 0,
   // groupsReportByImage: [],
   // index: 0,
   // loadingPage: false,
@@ -68,6 +69,9 @@ export const reportSlice = createSlice({
     setPhotosReport(state, action) {
       state.photosReport = action.payload || [];
     },
+    setCurrentSlide(state, action) {
+      state.currentSlide = action.payload;
+    },
     // setReportGroupsByImage(state, action) {
     //   state.groupsReportByImage = action.payload || [];
     // },
@@ -101,6 +105,7 @@ export const {
   setMainReport,
   setPhotosReport,
   setCurrentPhotoReportIndex,
+  setCurrentSlide,
   // setReportGroupsByImage,
   // setIndex,
   // setLoadingPage,
