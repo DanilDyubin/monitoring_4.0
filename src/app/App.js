@@ -14,6 +14,7 @@ import ProjectPage from '../pages/project-page/ProjectPage';
 import CreateReportPage from '../pages/create-report-page/CreateReportPage';
 import ArchivePage from '../pages/archive-page/ArchivePage';
 import ReportLayout from '../layouts/report-layout/ReportLayout';
+import CreateProjectPage from '../pages/create-project-page/CreateProjectPage';
 
 const App = () => {
   const router = createHashRouter([
@@ -39,6 +40,10 @@ const App = () => {
               element: <CustomPage />,
             },
           ],
+        },
+        {
+          path: '/create-project',
+          element: <CreateProjectPage />,
         },
         {
           // Главный роут для проекта

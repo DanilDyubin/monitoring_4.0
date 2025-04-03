@@ -29,6 +29,7 @@ const TimeLineTotalPage = () => {
   const sliceItems = useSelector((state) => state.schedule.items);
   const sliceGroups = useSelector((state) => state.schedule.groups);
   const reportGroups = useSelector((state) => state.report.groupsReport);
+  // const groups = reportGroups ? reportGroups : sliceGroups;
   const reportItems = useSelector((state) => state.report.itemsReport);
   // const filteredItems = reportItems.filter((stage) => stage.start_time !== null);
   const sliceCurrentDate = useSelector((state) => state.schedule.currentDate);

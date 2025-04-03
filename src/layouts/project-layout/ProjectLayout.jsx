@@ -18,7 +18,7 @@ const ProjectLayout = () => {
   useEffect(() => {
     getProject(projectId).then((data) => dispatch(setFormData(data)));
     dispatch(setProjectId(projectId));
-  }, [projectId, getProject]);
+  }, [projectId]);
 
   return (
     <div className={s.container}>

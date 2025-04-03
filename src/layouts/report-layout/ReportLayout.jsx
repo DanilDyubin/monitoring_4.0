@@ -4,10 +4,15 @@ import { PDFDownloadLink } from '@react-pdf/renderer';
 import { useSelector, useDispatch } from 'react-redux';
 
 import useApiService from '../../service/useApiService';
-import { transFormItem } from '../../service/transformResponseData';
+import {
+  transFormItemReport,
+  transFormGroup,
+} from '../../service/transformResponseData';
+import { persistor } from '../../redux/store';
 import {
   setProjectData,
   setCalendarData,
+  setGroupsReport,
   setCalendarItemsReport,
   setMainReport,
   setPhotosReport,
@@ -36,14 +41,37 @@ const ReportLayout = () => {
   const { getProject, getCalendar, getMainReport, getPhotosReport } =
     useApiService();
 
+  // const projectData = useSelector((state) => state.report.projectData);
+  // const calendarItemsReport = useSelector(
+  //   (state) => state.report.calendarItemsReport
+  // );
+  // const mainReport = useSelector((state) => state.report.mainReport);
+
+  const groups = useSelector((state) => state.report.groupsReport);
+
   const projectData = useSelector((state) => state.report.projectData);
-  const calendarItemsReport = useSelector(
-    (state) => state.report.calendarItemsReport
-  );
-  const mainReport = useSelector((state) => state.report.mainReport);
-  console.log(`ProjectData - ${JSON.stringify(projectData)}`);
-  console.log(`calendarItemsReport - ${JSON.stringify(calendarItemsReport)}`);
-  console.log(`mainReport - ${JSON.stringify(mainReport)}`);
+  const mainReport = useSelector((state) => state.report.mainReport || []);
+  const mainReportSorted = [...mainReport]
+    .sort((a, b) => a.stage_id - b.stage_id)
+    .slice(0, -1);
+  const photosReport = useSelector((state) => state.report.photosReport || []);
+  // const photosReportSorted = [...photosReport].map((item) =>
+  //   item.report.sort((a, b) => a.stage_id - b.stage_id).slice(0, -1)
+  // );
+  const photosReportSorted = photosReport.map((item) => {
+    return {
+      ...item,
+      report: [...item.report]
+        .sort((a, b) => a.stage_id - b.stage_id)
+        .slice(0, -1),
+    };
+  });
+
+  const isDataLoaded = projectData && mainReport.length && photosReport.length;
+
+  console.log(`formData - ${JSON.stringify(projectData)}`);
+  console.log(`mainReportSorted - ${JSON.stringify(mainReport)}`);
+  console.log(`photosReport - ${JSON.stringify(photosReport)}`);
 
   // const formData = useSelector((state) => state.report.formData);
   // const stages = useSelector((state) => state.report.total.stages || []);
@@ -68,8 +96,9 @@ const ReportLayout = () => {
       .then(([project, calendar, report, photosReport]) => {
         dispatch(setProjectData(project));
         dispatch(setCalendarData(calendar));
-        dispatch(setCalendarItemsReport(transFormItem(calendar)));
+        dispatch(setCalendarItemsReport(transFormItemReport(calendar)));
         dispatch(setMainReport(report));
+        dispatch(setGroupsReport(transFormGroup(report)));
         dispatch(setPhotosReport(photosReport));
       })
       .catch((error) => {
@@ -80,6 +109,7 @@ const ReportLayout = () => {
       });
   }, [projectId, uploadId]);
 
+  console.log(JSON.stringify(groups));
   // useEffect(() => {
   //   pollStageDetection(id);
   // }, [id]);
@@ -91,35 +121,39 @@ const ReportLayout = () => {
   const handleStateClear = () => {
     dispatch(clearReport());
     dispatch(clearSchedule());
+    persistor.purge();
     navigate('/');
   };
 
   return (
     <>
-      {loadingPage ? (
+      {loading || !projectId ? (
         <PageSkeleton />
       ) : (
         <div className={s.container}>
           <div className={s.navigation}>
             <NavigationMenu projectId={projectId} uploadId={uploadId} />{' '}
           </div>
-          {/* <ReportDocumentViewer
-            formData={formData}
-            stages={stagesSort}
-            reportByImage={reportByImage}
-          /> */}
+          {isDataLoaded && (
+            <ReportDocumentViewer
+              formData={projectData}
+              stages={mainReportSorted}
+              reportByImage={photosReportSorted}
+            />
+          )}
+
           <div>
             <Outlet />
           </div>
           <div className={s.btns}>
-            {/* {isDataLoaded ? (
+            {isDataLoaded ? (
               <PDFDownloadLink
                 className={s.btn}
                 document={
                   <ReportDocument
-                    formData={formData}
-                    stages={stagesSort}
-                    reportByImage={reportByImage}
+                    formData={projectData}
+                    stages={mainReportSorted}
+                    reportByImage={photosReportSorted}
                   />
                 }
                 fileName="Отчет.pdf"
@@ -135,7 +169,7 @@ const ReportLayout = () => {
               </PDFDownloadLink>
             ) : (
               <Button title="Загрузка..." size="big" disabled />
-            )} */}
+            )}
             <Button
               title="Создать новый отчет"
               size="big"

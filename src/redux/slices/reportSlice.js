@@ -18,7 +18,7 @@ const initialState = {
   calendarData: [],
   // byImage: [],
   // total: {},
-  // groupsReport: [],
+  groupsReport: [],
   calendarItemsReport: [],
   mainReport: [],
   photosReport: [],
@@ -54,9 +54,9 @@ export const reportSlice = createSlice({
     //   state.byImage = byImage;
     //   state.total = total;
     // },
-    // setReportGroups(state, action) {
-    //   state.groupsReport = action.payload || [];
-    // },
+    setGroupsReport(state, action) {
+      state.groupsReport = action.payload || [];
+    },
     setCalendarData(state, action) {
       state.calendarData = action.payload || [];
     },
@@ -99,7 +99,7 @@ export const reportSlice = createSlice({
 export const {
   setProjectData,
   // setReportData,
-  // setReportGroups,
+  setGroupsReport,
   setCalendarData,
   setCalendarItemsReport,
   setMainReport,

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Pagination from '../../components/pagination/Pagination';
 import SearchForm from '../../components/search-form/SearchForm';
 import ProjectList from '../../components/project-list/ProjectList';
@@ -139,15 +140,18 @@ const data = [
 ];
 
 const BasePage = () => {
-  const [openModal, setOpenModal] = useState(false);
+  const navigate = useNavigate();
+  // const [openModal, setOpenModal] = useState(false);
 
-  const onModalOpen = () => {
-    setOpenModal(true);
-  };
+  // const onModalOpen = () => {
+  //   setOpenModal(true);
+  // };
 
-  const onModalClose = () => {
-    setOpenModal(false);
-  };
+  // const onModalClose = () => {
+  //   setOpenModal(false);
+  // };
+
+  // navigate(`/project/${result.id}`);
 
   return (
     <div className="container">
@@ -162,14 +166,14 @@ const BasePage = () => {
               title="Создать новый проект"
               size="big"
               variant="secondaryHovered"
-              onClick={onModalOpen}
+              onClick={() => navigate('/create-project')}
             />
           </>
         )}
       </Pagination>
-      <Modal active={openModal} onClose={onModalClose}>
+      {/* <Modal active={openModal} onClose={onModalClose}>
         <CreateProjectForm onCloseModal={onModalClose} />
-      </Modal>
+      </Modal> */}
     </div>
   );
 };

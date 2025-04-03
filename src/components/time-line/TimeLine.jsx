@@ -27,13 +27,13 @@ import '../../styles/timeLine.css';
 
 moment.locale('ru');
 
-const TimeLine = () => {
+const TimeLine = ({ items }) => {
   const open = useSelector((state) => state.calendar.open);
-  const sliceItems = useSelector((state) => state.schedule.items);
+  // const sliceItems = useSelector((state) => state.schedule.items);
   const sliceGroups = useSelector((state) => state.schedule.groups);
   const sliceCurrentDate = useSelector((state) => state.schedule.currentDate);
 
-  const fixedItemsIds = sliceItems.map((item) => ({
+  const fixedItemsIds = items.map((item) => ({
     ...item,
     id: String(item.id),
   })); // для react-timeline-calendar нужно перевести id в строку (иначе id 0 будет восприниматься как false)

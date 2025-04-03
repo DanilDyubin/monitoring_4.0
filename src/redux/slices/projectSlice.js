@@ -6,7 +6,8 @@ const initialState = {
   formData: {},
   projectId: '', // подгрузка проекта по id
   uploadPhotosId: '', // подгрузка всех фото
-  selectedUploadType: '', // блокиратор для кнопок загрузки фото
+  photosUploadType: '', // блокиратор для кнопок загрузки фото (принимает 'db' или 'device')
+  scheduleItemsProject: [],
 };
 
 export const projectSlice = createSlice({
@@ -22,6 +23,9 @@ export const projectSlice = createSlice({
     setFormData(state, action) {
       state.formData = action.payload;
     },
+    setScheduleItemsProject(state, action) {
+      state.scheduleItemsProject = action.payload || [];
+    },
     setProjectId(state, action) {
       const newProjectId = action.payload;
 
@@ -33,8 +37,14 @@ export const projectSlice = createSlice({
     setUploadPhotosId(state, action) {
       state.uploadPhotosId = action.payload;
     },
-    setSelectedUploadType(state, action) {
-      state.selectedUploadType = action.payload;
+    setPhotosUploadType(state, action) {
+      state.photosUploadType = action.payload;
+    },
+    clearPhotosUploadType(state) {
+      state.photosUploadType = '';
+    },
+    clearProject() {
+      return initialState;
     },
   },
 });
@@ -43,8 +53,11 @@ export const {
   setOpenModal,
   setPhotoReportDate,
   setFormData,
+  setScheduleItemsProject,
   setProjectId,
   setUploadPhotosId,
-  setSelectedUploadType,
+  setPhotosUploadType,
+  clearPhotosUploadType,
+  clearProject,
 } = projectSlice.actions;
 export default projectSlice.reducer;

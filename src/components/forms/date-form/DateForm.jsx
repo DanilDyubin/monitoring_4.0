@@ -1,12 +1,13 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { IoChevronDownSharp } from 'react-icons/io5';
+
+import { useClickOutside } from '../../../hooks/useClickOutside';
 import PopupForm from './PopupForm';
-import { setPhotoReportDate } from '../../../redux/slices/projectSlice';
+import { setPhotosUploadType } from '../../../redux/slices/projectSlice';
 import Button from '../../../ui/button/Button';
 
 import s from './dateForm.module.scss';
-import { useClickOutside } from '../../../hooks/useClickOutside';
 
 const data = [
   { date: '21.12.2025', id: 1 },
@@ -22,11 +23,9 @@ const data = [
   { date: '21.12.2025', id: 11 },
 ];
 
-const DateForm = ({ label, btnTitle, selectedUploadType }) => {
+const DateForm = ({ label, btnTitle, photosUploadType }) => {
   const [value, setValue] = useState('');
   const [open, setOpen] = useState(false);
-
-  const selectDate = useSelector((state) => state.project.photoReportDate);
 
   const dispatch = useDispatch();
 
@@ -36,17 +35,18 @@ const DateForm = ({ label, btnTitle, selectedUploadType }) => {
     e.preventDefault();
   };
 
-  const handleInputChange = (e) => {
-    setValue(e.target.value);
-  };
+  // const handleInputChange = (e) => {
+  //   setValue(e.target.value);
+  // };
 
   const handlePopupOpen = () => {
+    if (photosUploadType === 'device') return;
     setOpen(true);
   };
 
   const handleSelectDate = (date) => {
-    dispatch(setPhotoReportDate(date));
-    setValue(date.date);
+    // dispatch(setPhotosUploadType('db')); // делаем невозможной загрузку фото с носителя
+    setValue(date);
     setOpen(false);
   };
 
@@ -59,16 +59,15 @@ const DateForm = ({ label, btnTitle, selectedUploadType }) => {
           <label htmlFor="date" className={s.label}>
             {label}
           </label>
-          <div className={s['input-field']}>
+          <div className={s['input-field']} onClick={handlePopupOpen}>
             <input
               className={s.input}
               readOnly={true}
               name="date"
               placeholder="Выберите дату"
               autoComplete="off"
-              value={value}
-              onChange={handleInputChange}
-              onClick={handlePopupOpen}
+              value={value.date}
+              // onChange={handleInputChange}
             />
             <IoChevronDownSharp
               className={open ? s.icon + ` ` + s.up : s.icon}
@@ -80,14 +79,14 @@ const DateForm = ({ label, btnTitle, selectedUploadType }) => {
           variant="secondary"
           size="auto-big"
           type="submit"
-          disabled={selectedUploadType === 'device'}
+          disabled={photosUploadType === 'device'}
         />
       </form>
       {open && (
         <PopupForm
           dates={data}
           onSelectDate={handleSelectDate}
-          selectDate={selectDate}
+          selectDate={value}
         />
       )}
     </div>

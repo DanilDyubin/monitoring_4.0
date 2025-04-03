@@ -336,19 +336,24 @@ const ReportDocument = ({ formData, stages, reportByImage }) => (
           <View style={styles.form}>
             <Text style={styles.label}>УИН *</Text>
             <View style={styles.input}>
-              <Text style={styles.text}>{formData.uin}</Text>
+              <Text style={styles.text}>{formData.UIN}</Text>
             </View>
           </View>
           <View style={styles.form}>
             <Text style={styles.label}>Дата съемки *</Text>
             <View style={styles.input}>
-              <Text style={styles.text}>{formData.date}</Text>
+              <Text style={styles.text}>
+                {moment(stages[0].stage.calendars[0].report_date).format(
+                  'DD.MM.YYYY'
+                )}
+                {/* {stages[3].percent} */}
+              </Text>
             </View>
           </View>
           <View style={styles.form}>
             <Text style={styles.label}>Этажность *</Text>
             <View style={styles.input}>
-              <Text style={styles.text}>{formData.floors}</Text>
+              <Text style={styles.text}>{formData.floor_count}</Text>
             </View>
           </View>
         </View>
@@ -371,41 +376,48 @@ const ReportDocument = ({ formData, stages, reportByImage }) => (
             <View style={styles.headerDate}>
               <Text>Начало — завершение</Text>
             </View>
-            <View style={styles.headerPlan}>
+            {/* <View style={styles.headerPlan}>
               <Text>План</Text>
-            </View>
+            </View> */}
             <View style={styles.headerFact}>
               <Text>Факт</Text>
             </View>
-            <View style={styles.headerDeviation}>
+            {/* <View style={styles.headerDeviation}>
               <Text>Отклонение</Text>
-            </View>
+            </View> */}
           </View>
           {stages.map((stage, i) => (
             <View style={styles.row}>
               <View style={styles.colStages}>
-                <Text style={styles.stages}>{stage.name}</Text>
+                <Text style={styles.stages}>{stage.stage.name}</Text>
               </View>
               <View style={styles.colDate}>
                 <Text style={styles.date}>
-                  {stage.plannedStart
-                    ? `${moment(stage.plannedStart).format('DD.MM')} - ${moment(
-                        stage.plannedEnd
-                      ).format('DD.MM')}`
+                  {stage.stage.calendars.length
+                    ? `${moment(stage.stage.calendars[0].plan_start).format(
+                        'DD.MM'
+                      )} - ${moment(stage.stage.calendars[0].plan_end).format(
+                        'DD.MM'
+                      )}`
                     : `-`}
+                  {/* {stage.stage.calendars[0].plan_start
+                    ? stage.stage.calendars[0].plan_start
+                    : '-'} */}
                 </Text>
               </View>
-              <View style={styles.colPlan}>
+              {/* <View style={styles.colPlan}>
                 <Text style={styles.done}>{Math.round(stage.planValue)}%</Text>
-              </View>
+              </View> */}
               <View style={styles.colFact}>
-                <Text style={styles.done}>{Math.round(stage.factValue)}%</Text>
+                <Text style={styles.done}>
+                  {stage.percent ? Math.round(stage.percent) : 0}%
+                </Text>
               </View>
-              <View style={styles.colDeviation}>
+              {/* <View style={styles.colDeviation}>
                 <Text style={stage.progress_diff < 0 ? styles.warning : null}>
                   {Math.round(stage.progress_diff)}%
                 </Text>
-              </View>
+              </View> */}
             </View>
           ))}
         </View>
@@ -420,7 +432,7 @@ const ReportDocument = ({ formData, stages, reportByImage }) => (
           <View style={styles.card}>
             <Image
               src={
-                `https://msi.stage-detection.contextmachine.cloud/get_predicted_images?uid=${item.predicted_image}` ||
+                `https://msi.construction-monitoring.contextmachine.cloud/get_one_mask?image_id=${item.photoId}` ||
                 null
               }
               style={styles.img}
@@ -434,13 +446,13 @@ const ReportDocument = ({ formData, stages, reportByImage }) => (
               </View>
             </View>
             <View style={styles.list}>
-              {item.stages.map((stage, i) => (
+              {item.report.map((stage, i) => (
                 <View style={styles.item}>
                   <View>
-                    <Text>{stage.title}</Text>
+                    <Text>{stage.stage.name}</Text>
                   </View>
                   <View style={styles.itemDoneTxt}>
-                    <Text>{stage.done}%</Text>
+                    <Text>{Math.round(stage.percent)}%</Text>
                   </View>
                 </View>
               ))}
@@ -453,3 +465,12 @@ const ReportDocument = ({ formData, stages, reportByImage }) => (
 );
 
 export default ReportDocument;
+
+{
+  /* {stages[0].stage.calendars.report_date} */
+}
+{
+  /* {Array.isArray(stages) && stages.length > 0
+                  ? stages[0].percent
+                  : '—'} */
+}

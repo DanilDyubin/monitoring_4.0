@@ -59,14 +59,19 @@ export const groupRendererColored = ({ group }) => {
 };
 
 export const groupRendererTest = ({ group }) => {
-  const todayDate = new Date().getTime();
+  const factClass =
+    group.factPercent >= 0 || !group.factPercent
+      ? `${s['custom-group__values-fact']}`
+      : `${s['custom-group__values-fact']} ${s.warning}`;
 
   return (
     <div className={s['custom-group']}>
       <div className={s['custom-group__title']}>{group.title}</div>
       <div className={s['custom-group__values']}>
-        <div className={s['custom-group__values-plan']}>{group.planValue}%</div>
-        <div className={s['custom-group__values-fact']}>{group.factValue}%</div>
+        <div className={s['custom-group__values-plan']}>
+          {group.planPercent || '0'}%
+        </div>
+        <div className={factClass}>{group.factPercent || '0'}%</div>
       </div>
     </div>
   );

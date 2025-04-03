@@ -337,6 +337,9 @@ export const scheduleSlice = createSlice({
       //   // findGroup.done = Math.round(donePercent);
       // }
     },
+    addRequestItems(state, action) {
+      state.items = action.payload;
+    },
     clearItems(state) {
       state.items = [];
       state.groups = initialState.groups;
@@ -364,6 +367,7 @@ export const scheduleSlice = createSlice({
 
 export const {
   addItem,
+  addRequestItems,
   addCurrentDate,
   addImgsIds,
   removeImgId,

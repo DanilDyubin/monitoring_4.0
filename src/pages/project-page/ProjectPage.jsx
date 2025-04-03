@@ -1,6 +1,8 @@
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { transFormItem } from '../../service/transformResponseData';
-import { setCalendarItemsReport } from '../../redux/slices/reportSlice';
+import { setScheduleItemsProject } from '../../redux/slices/projectSlice';
+import { addRequestItems } from '../../redux/slices/scheduleSlice';
 import ProjectForm from '../../components/project-form/ProjectForm';
 import Subtitle from '../../components/subtitle/Subtitle';
 import TimeLine from '../../components/time-line/TimeLine';
@@ -18,16 +20,24 @@ const ProjectPage = () => {
   const { createCalendar, getCalendar, createPredict, getMainReport } =
     useApiService();
   const calendarItems = useSelector((state) => state.schedule.items);
-  const transformedItems = useSelector((state) => state.report.itemsReport);
+  const transformedItems = useSelector(
+    (state) => state.project.scheduleItemsProject
+  );
   console.log(`CalendarItems - ${JSON.stringify(calendarItems)}`);
+  console.log(`transformedItems - ${JSON.stringify(transformedItems)}`);
 
   const getCalendarAndDispatch = (projectId) => {
     getCalendar(projectId).then((data) =>
-      dispatch(setCalendarItemsReport(transFormItem(data)))
+      console.log(`getCalendar - ${JSON.stringify(data)}`)
+    );
+    getCalendar(projectId).then((data) =>
+      dispatch(addRequestItems(transFormItem(data)))
     );
   };
 
-  console.log(transformedItems && JSON.stringify(transformedItems));
+  useEffect(() => {
+    getCalendarAndDispatch(projectId);
+  }, [projectId]);
 
   return (
     <div className={s.container}>
@@ -36,7 +46,7 @@ const ProjectPage = () => {
         <ProjectForm formData={formData} />
       </div>
       <Subtitle subtitle="График строительных работ" />
-      <TimeLine />
+      <TimeLine items={calendarItems} />
       <button
         style={{ margin: '40px 40px' }}
         onClick={() => createCalendar(projectId)}

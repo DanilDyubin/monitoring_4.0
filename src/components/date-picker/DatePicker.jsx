@@ -19,7 +19,6 @@ const DatePicker = () => {
   const currentDate = useSelector((state) => state.schedule.currentDate); // получаем дату съемки
   const groups = useSelector((state) => state.schedule.groups);
   const groupId = useSelector((state) => state.calendar.groupId); // получаем id группы для которой ввели даты на таймлайне
-  const items = useSelector((state) => state.schedule.items);
 
   const dispatch = useDispatch();
 

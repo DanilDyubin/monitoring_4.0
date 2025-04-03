@@ -26,7 +26,8 @@ const TimeLineTotalPageStyled = () => {
   // const sliceItems = useSelector((state) => state.schedule.items);
   // const sliceGroups = useSelector((state) => state.schedule.groups);
   // const reportGroups = useSelector((state) => state.report.groupsReport);
-  const reportGroupsTest = useSelector((state) => state.schedule.groups);
+  const scheduleGroups = useSelector((state) => state.schedule.groups);
+  const reportGroups = useSelector((state) => state.report.groupsReport);
   // const reportItems = useSelector((state) => state.report.itemsReport);
   const reportItems = useSelector((state) => state.report.calendarItemsReport);
   // const filteredItems = reportItems.filter((stage) => stage.start_time !== null);
@@ -71,7 +72,7 @@ const TimeLineTotalPageStyled = () => {
         <TfiZoomOut onClick={handleZoomOut} className="timeLineIcon" />
       </div>
       <Timeline
-        groups={reportGroupsTest}
+        groups={!reportGroups.length ? scheduleGroups : reportGroups}
         items={reportItems}
         lineHeight={20} // высота линии календаря
         itemHeightRatio={1} // сколько процентов занимает item от линии

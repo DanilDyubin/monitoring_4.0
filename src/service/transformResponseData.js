@@ -47,18 +47,71 @@ const stageColors = [
   },
 ];
 
-export const transFormGroup = (group) => {
-  return {
-    id: group.id,
-    title: group.name,
-    plan: Math.round(group.planValue),
-    fact: Math.round(group.factValue),
-    progress: Math.round(group.progress_diff),
-    height: 40,
-    // color: group.color,
-    color: group.calendar_vivid,
-    color_light: group.calendar_dull,
-  };
+// export const transFormGroup = (group) => {
+//   return {
+//     id: group.id,
+//     title: group.name,
+//     plan: Math.round(group.planValue),
+//     fact: Math.round(group.factValue),
+//     progress: Math.round(group.progress_diff),
+//     height: 40,
+//     // color: group.color,
+//     color: group.calendar_vivid,
+//     color_light: group.calendar_dull,
+//   };
+// };
+
+export const transFormGroup = (mainReport) => {
+  const mainReportSorted = [...(mainReport || [])]
+    .sort((a, b) => a.stage_id - b.stage_id)
+    .slice(0, -1);
+
+  const groups = mainReportSorted.map((group) => {
+    // Высчитываем % plan
+    const calendars = group.stage.calendars;
+    let donePercent;
+
+    if (!calendars || calendars.length === 0) {
+      return {
+        id: group.stage_id,
+        title: group.stage.name,
+        height: 40,
+        planPercent: 0,
+        factPercent: Math.round(group.percent),
+      };
+    } else {
+      // 1 получаем время планового начала
+      const planStart = new Date(calendars[0].plan_start).getTime();
+
+      // 2. Получаем время планового окончания
+      const planEnd = new Date(calendars[0].plan_end).getTime();
+
+      // 3. Получаем время “сегодня, полночь” (локальный часовой пояс)
+      const currentDateObj = new Date();
+      currentDateObj.setHours(0, 0, 0, 0);
+      const currentDate = currentDateObj.getTime();
+
+      if (currentDate <= planStart) {
+        donePercent = 0;
+      } else if (currentDate >= planEnd) {
+        donePercent = 100;
+      } else {
+        const totalTime = planEnd - planStart;
+        const overTime = currentDate - planStart;
+        donePercent = (overTime / totalTime) * 100;
+      }
+    }
+
+    return {
+      id: group.stage_id,
+      title: group.stage.name,
+      height: 40,
+      planPercent: Math.round(donePercent),
+      factPercent: Math.round(group.percent),
+    };
+  });
+
+  return groups;
 };
 
 // export const transFormItem = (group) => {
@@ -93,6 +146,37 @@ export const transFormGroup = (group) => {
 // };
 
 export const transFormItem = (data) => {
+  return data.map((item) => {
+    return {
+      id: item.stage_id,
+      group: item.stage_id, // обязательно для привязки item к group
+      group_title: item.stage.name,
+      title:
+        item.plan_start && item.plan_end
+          ? `${moment(item.plan_start).format('DD.MM')} — ${moment(
+              item.plan_end
+            ).format('DD.MM')}`
+          : null,
+      start_time: item.plan_start ? moment(item.plan_start).valueOf() : null,
+      end_time: item.plan_end
+        ? moment(item.plan_end).endOf('day').valueOf()
+        : null, // endOf('day') устанавливаем время в конце дня на 23:59 чтобы выбранный день в item был подностью закрашен
+      itemProps: {
+        // className: 'bordernone',
+        style: {
+          background: item.stage.calendar_vivid,
+          // background: 'green',
+          border: 'none',
+          color: '#131313',
+          fontWeight: '400',
+          fontSize: '16px',
+        },
+      },
+    };
+  });
+};
+
+export const transFormItemReport = (data) => {
   return data.flatMap((item, index) => {
     const planItem = {
       id: (index + 1) * 2 - 1,
@@ -173,53 +257,37 @@ export const transformByImageArray = (byImageArr) => {
   });
 };
 
-// [
-//   {
-//     project_id: 'bab6235e-6f2f-4456-b562-5ae94132a75a',
-//     stage_id: 0,
-//     plan_start: '2025-02-23',
-//     plan_end: '2025-03-29',
-//     fact_start: null,
-//     fact_end: null,
-//   },
-//   {
-//     project_id: 'bab6235e-6f2f-4456-b562-5ae94132a75a',
-//     stage_id: 1,
-//     plan_start: '2025-03-04',
-//     plan_end: '2025-03-21',
-//     fact_start: null,
-//     fact_end: null,
-//   },
-//   {
-//     project_id: 'bab6235e-6f2f-4456-b562-5ae94132a75a',
-//     stage_id: 2,
-//     plan_start: '2025-02-23',
-//     plan_end: '2025-03-07',
-//     fact_start: null,
-//     fact_end: null,
-//   },
-//   {
-//     project_id: 'bab6235e-6f2f-4456-b562-5ae94132a75a',
-//     stage_id: 3,
-//     plan_start: '2025-04-03',
-//     plan_end: '2025-04-06',
-//     fact_start: null,
-//     fact_end: null,
-//   },
-//   {
-//     project_id: 'bab6235e-6f2f-4456-b562-5ae94132a75a',
-//     stage_id: 4,
-//     plan_start: '2025-03-22',
-//     plan_end: '2025-03-28',
-//     fact_start: null,
-//     fact_end: null,
-//   },
-//   {
-//     project_id: 'bab6235e-6f2f-4456-b562-5ae94132a75a',
-//     stage_id: 5,
-//     plan_start: '2025-04-10',
-//     plan_end: '2025-04-18',
-//     fact_start: null,
-//     fact_end: null,
-//   },
-// ];
+const getCalendar = [
+  {
+    project_id: '38ea580b-fbc3-4667-85b1-78c961e2b609',
+    stage_id: 0,
+    plan_start: '2025-03-30',
+    plan_end: '2025-04-26',
+    fact_start: null,
+    fact_end: null,
+    percent: null,
+    stage: {
+      id: 0,
+      name: 'Земляные работы',
+      calendar_dull: '#FFD9D9',
+      calendar_vivid: '#FF8080',
+      color: '#FF0000',
+    },
+  },
+  {
+    project_id: '38ea580b-fbc3-4667-85b1-78c961e2b609',
+    stage_id: 2,
+    plan_start: '2025-04-13',
+    plan_end: '2025-04-17',
+    fact_start: null,
+    fact_end: null,
+    percent: null,
+    stage: {
+      id: 2,
+      name: 'Распорная система',
+      calendar_dull: '#D9D9FF',
+      calendar_vivid: '#8080FF',
+      color: '#0000FF',
+    },
+  },
+];

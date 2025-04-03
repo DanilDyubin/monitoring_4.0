@@ -11,26 +11,28 @@
     &-plan {
       width: 68px;
       text-align: center;
-      color: var(--color-text);
+      color: var(--color-primary);
+      font-weight: 500;
     }
 
     &-fact {
       width: 68px;
       text-align: center;
-      color: var(--color-text);
-    }
-
-    &-progress {
-      width: 110px;
-      text-align: center;
       color: var(--color-green);
+      font-weight: 500;
     }
 
-    &-done {
-      width: 105px;
-      text-align: center;
-      color: var(--color-text);
-    }
+    // &-progress {
+    //   width: 110px;
+    //   text-align: center;
+    //   color: var(--color-green);
+    // }
+
+    // &-done {
+    //   width: 105px;
+    //   text-align: center;
+    //   color: var(--color-text);
+    // }
   }
 }
 
