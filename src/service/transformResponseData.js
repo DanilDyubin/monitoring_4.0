@@ -256,38 +256,3 @@ export const transformByImageArray = (byImageArr) => {
     };
   });
 };
-
-const getCalendar = [
-  {
-    project_id: '38ea580b-fbc3-4667-85b1-78c961e2b609',
-    stage_id: 0,
-    plan_start: '2025-03-30',
-    plan_end: '2025-04-26',
-    fact_start: null,
-    fact_end: null,
-    percent: null,
-    stage: {
-      id: 0,
-      name: 'Земляные работы',
-      calendar_dull: '#FFD9D9',
-      calendar_vivid: '#FF8080',
-      color: '#FF0000',
-    },
-  },
-  {
-    project_id: '38ea580b-fbc3-4667-85b1-78c961e2b609',
-    stage_id: 2,
-    plan_start: '2025-04-13',
-    plan_end: '2025-04-17',
-    fact_start: null,
-    fact_end: null,
-    percent: null,
-    stage: {
-      id: 2,
-      name: 'Распорная система',
-      calendar_dull: '#D9D9FF',
-      calendar_vivid: '#8080FF',
-      color: '#0000FF',
-    },
-  },
-];

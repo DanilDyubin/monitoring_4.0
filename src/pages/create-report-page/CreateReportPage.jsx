@@ -1,7 +1,11 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { clearPhotosUploadType } from '../../redux/slices/projectSlice';
+import {
+  clearPhotosUploadType,
+  setIsPredictLoading,
+  setPhotosUrlsFromDB,
+} from '../../redux/slices/projectSlice';
 
 import useApiService from '../../service/useApiService';
 import DateForm from '../../components/forms/date-form/DateForm';
@@ -17,6 +21,7 @@ import PageSkeleton from '../../ui/skeletons/page-skeleton/PageSkeleton';
 
 const CreateReportPage = () => {
   const [openModal, setOpenModal] = useState(false);
+  const [photosLoading, setPhotosLoading] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
@@ -28,8 +33,11 @@ const CreateReportPage = () => {
   const photosUploadType = useSelector(
     (state) => state.project.photosUploadType
   );
-  console.log(`photosUploadType - ${photosUploadType}`);
-  const { createPredict } = useApiService();
+  const photosDatesFromDB = useSelector(
+    (state) => state.project.photosDatesFromDB
+  );
+
+  const { createPredict, getPhotosFromDB } = useApiService();
 
   const onModalOpen = () => {
     setOpenModal(true);
@@ -41,19 +49,25 @@ const CreateReportPage = () => {
 
   const handleCreatePredict = async (uploadId) => {
     try {
-      setLoading(true);
+      dispatch(setIsPredictLoading(true));
       await createPredict(uploadId);
       navigate(`/project/${projectId}/report/${uploadPhotosId}`);
     } catch (e) {
       console.error('Ошибка при создании отчёта:', e);
     } finally {
-      setLoading(false);
+      dispatch(setIsPredictLoading(false));
     }
   };
 
-  if (loading) {
-    return <PageSkeleton />;
-  }
+  const uploadPhotosUrlFromDB = async (uin, date) => {
+    if (!date) return;
+    try {
+      const data = await getPhotosFromDB(uin, date);
+      dispatch(setPhotosUrlsFromDB(data));
+    } catch (error) {
+      console.error('Ошибка при получении фото из БД:', error);
+    }
+  };
 
   return (
     <div className={s['create-report-page']}>
@@ -63,6 +77,8 @@ const CreateReportPage = () => {
           label="Импорт фото из БД"
           btnTitle="Загрузить"
           photosUploadType={photosUploadType}
+          photosDatesFromDB={photosDatesFromDB}
+          uploadPhotosUrlFromDB={uploadPhotosUrlFromDB}
         />
         <Button
           title="Загрузить фото из носителя"
@@ -73,10 +89,10 @@ const CreateReportPage = () => {
         />
       </div>
       <div className={s.photos}>
-        <button onClick={() => dispatch(clearPhotosUploadType())}>
+        {/* <button onClick={() => dispatch(clearPhotosUploadType())}>
           clearPhotosUploadType
-        </button>
-        <PhotosList />
+        </button> */}
+        <PhotosList photosLoading={photosLoading} />
       </div>
       <Button
         disabled={!uploadPhotosId}
@@ -86,7 +102,10 @@ const CreateReportPage = () => {
         onClick={() => handleCreatePredict(uploadPhotosId)}
       />
       <Modal active={openModal} onClose={onModalClose}>
-        <PhotosUpload onClose={onModalClose} />
+        <PhotosUpload
+          onClose={onModalClose}
+          setPhotosLoading={setPhotosLoading}
+        />
       </Modal>
     </div>
   );

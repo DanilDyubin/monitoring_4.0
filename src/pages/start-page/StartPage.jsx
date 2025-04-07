@@ -11,13 +11,13 @@ import s from './startPage.module.scss';
 const StartPage = () => {
   // const [openModal, setOpenModal] = useState(false);
 
-  const openModal = useSelector((state) => state.project.openModal);
+  // const openModal = useSelector((state) => state.project.openModal);
 
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
-  const onModalClose = () => {
-    dispatch(setOpenModal(false));
-  };
+  // const onModalClose = () => {
+  //   dispatch(setOpenModal(false));
+  // };
 
   // const onModalClose = () => {
   //   setOpenModal(false);

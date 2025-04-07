@@ -8,6 +8,7 @@ export const InputForm = ({
   value,
   label,
   onChange,
+  maxLength,
   readOnly = false,
 }) => {
   const inputClass = `${s.input} ${s[variant]}`;
@@ -25,6 +26,7 @@ export const InputForm = ({
         name={name}
         value={value}
         onChange={onChange}
+        maxLength={maxLength}
       />
     </div>
   );

@@ -80,10 +80,8 @@ const TimeLineTotalPageStyled = () => {
         groupRenderer={groupRendererTest} // добавляем кастомный компонент group
         canMove={false} // запретить перемещение
         canResize={false} // запретить изменение размера
-        defaultTimeStart={moment(currentDateTest)
-          .add(-15, 'days')
-          .startOf('day')} //  moment().startOf('day')
-        defaultTimeEnd={moment(currentDateTest).add(15, 'days').toDate()}
+        defaultTimeStart={moment().startOf('day')} //  moment().startOf('day')
+        defaultTimeEnd={moment().startOf('day').add(1, 'month').toDate()}
         // defaultTimeStart={moment().startOf('date')}
         // visibleTimeStart={sliceCurrentDate || moment().startOf('day')}
         // visibleTimeEnd={moment().startOf('day').add(1, 'month').toDate()}

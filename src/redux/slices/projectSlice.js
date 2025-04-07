@@ -8,6 +8,9 @@ const initialState = {
   uploadPhotosId: '', // подгрузка всех фото
   photosUploadType: '', // блокиратор для кнопок загрузки фото (принимает 'db' или 'device')
   scheduleItemsProject: [],
+  photosUrlsFromDB: [],
+  photosDatesFromDB: [],
+  isPredictLoading: false,
 };
 
 export const projectSlice = createSlice({
@@ -40,6 +43,18 @@ export const projectSlice = createSlice({
     setPhotosUploadType(state, action) {
       state.photosUploadType = action.payload;
     },
+    setIsPredictLoading(state, action) {
+      state.isPredictLoading = action.payload;
+    },
+    setPhotosUrlsFromDB(state, action) {
+      state.photosUrlsFromDB = action.payload;
+    },
+    setPhotosDatesFromDB(state, action) {
+      state.photosDatesFromDB = action.payload;
+    },
+    clearPhotosFromDB(state) {
+      state.photosUrlsFromDB = [];
+    },
     clearPhotosUploadType(state) {
       state.photosUploadType = '';
     },
@@ -56,7 +71,11 @@ export const {
   setScheduleItemsProject,
   setProjectId,
   setUploadPhotosId,
+  setPhotosUrlsFromDB,
+  setPhotosDatesFromDB,
+  clearPhotosFromDB,
   setPhotosUploadType,
+  setIsPredictLoading,
   clearPhotosUploadType,
   clearProject,
 } = projectSlice.actions;

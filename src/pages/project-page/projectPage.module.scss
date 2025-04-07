@@ -2,3 +2,20 @@
   margin-top: 32px;
   margin-bottom: 64px;
 }
+
+.wrapper {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+}
+
+.btn {
+  font-family: 'ALS Hauss';
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 130%;
+  color: var(--color-text);
+  &:hover {
+    color: var(--color-primary);
+  }
+}

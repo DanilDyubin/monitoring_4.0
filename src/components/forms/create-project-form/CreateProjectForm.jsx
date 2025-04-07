@@ -108,6 +108,7 @@ const CreateProjectForm = ({ formData, setFormData, handleSubmit }) => {
           name="address"
           value={formData.address}
           onChange={handleChange}
+          maxLength={250}
         />
         <div className={s.text}>* Обязательно к заполнению</div>
       </form>

@@ -17,7 +17,7 @@ import Button from '../../ui/button/Button';
 
 import s from './photosUpload.module.scss';
 
-const PhotosUpload = ({ onClose }) => {
+const PhotosUpload = ({ onClose, setPhotosLoading }) => {
   const [date, setDate] = useState('');
   const [photos, setPhotos] = useState({ files: [], url: '' }); // стейт для PhotoPicker
   const [openCalendar, setOpenCalendar] = useState(false);
@@ -44,9 +44,11 @@ const PhotosUpload = ({ onClose }) => {
     const formatedDate = moment(date, 'DD.MM.YYYY').valueOf();
 
     if (photos.files.length) {
-      createUpload(projectId, formatedDate, photos.files).then(
-        (id) => dispatch(setUploadPhotosId(id)) // передаем upload_id для получения всех загруженных фото в PhotoList
-      );
+      setPhotosLoading(true);
+      createUpload(projectId, formatedDate, photos.files).then((id) => {
+        dispatch(setUploadPhotosId(id)); // передаем upload_id для получения всех загруженных фото в PhotoList
+        setPhotosLoading(false);
+      });
     }
     // dispatch(setPhotosUploadType('device'));
     handleCancel();

@@ -105,7 +105,7 @@ const Slick = ({ images }) => {
       <Slider {...settings} className="slider-one-slide">
         {images.map((image, i) => (
           <div className="slick-image-block" key={i}>
-            <span style={{ position: 'absolute' }}>{i}</span>
+            {/* <span style={{ position: 'absolute' }}>{i}</span> */}
             <img
               src={
                 `https://msi.construction-monitoring.contextmachine.cloud/get_one_mask?image_id=${image.photoId}` ||

@@ -7,6 +7,12 @@ const useApiService = () => {
 
   const API_BASE = 'https://msi.construction-monitoring.contextmachine.cloud/';
   const calendarItems = useSelector((state) => state.schedule.items);
+
+  // получение всех проектов
+  const getAllProjects = async () => {
+    return await request(`${API_BASE}get_all_projects`);
+  };
+
   // создание проекта
   const createProject = async (formData) => {
     const { uin, address, floor_count } = formData;
@@ -129,6 +135,14 @@ const useApiService = () => {
 
   const getPhotos = async (id) => {
     return await request(`${API_BASE}get_photos?upload_id=${id}`);
+  };
+
+  const getPhotosFromDB = async (uin, date) => {
+    return await request(`${API_BASE}photos_from_bd?uin=${uin}&date=${date}`);
+  };
+
+  const getPhotosDatesFromDB = async (uin) => {
+    return await request(`${API_BASE}photos_dates_from_bd?uin=${uin}`);
   };
 
   const deletePhoto = async (id) => {
@@ -279,12 +293,15 @@ const useApiService = () => {
   };
 
   return {
+    getAllProjects,
     createProject,
     getProject,
     createUpload,
     uploadPhotos,
     getPhotos,
     deletePhoto,
+    getPhotosFromDB,
+    getPhotosDatesFromDB,
     createCalendar,
     getCalendar,
     createPredict,

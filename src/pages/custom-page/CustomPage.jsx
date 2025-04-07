@@ -1,14 +1,15 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import useApiService from '../../service/useApiService';
 import Pagination from '../../components/pagination/Pagination';
 import SearchForm from '../../components/search-form/SearchForm';
 import ProjectList from '../../components/project-list/ProjectList';
 
-import s from './customPage.module.scss';
 import Modal from '../../components/modal/Modal';
 import Button from '../../ui/button/Button';
-import CreateProjectForm from '../../components/forms/create-project-form/CreateProjectForm';
+
+import s from './customPage.module.scss';
 
 const data = [
   {
@@ -92,7 +93,25 @@ const data = [
 ];
 
 const CustomPage = () => {
+  const [allProjects, setAllProjects] = useState([]);
+
   const navigate = useNavigate();
+
+  const { getAllProjects } = useApiService();
+
+  const fetchAllProjects = async () => {
+    try {
+      const result = await getAllProjects();
+      setAllProjects(result);
+    } catch (error) {
+      console.error('Ошибка получения проектов:', error);
+    }
+  };
+  console.log(JSON.stringify(allProjects));
+  useEffect(() => {
+    fetchAllProjects();
+  }, []);
+
   // const [openModal, setOpenModal] = useState(false);
 
   // const onModalOpen = () => {
@@ -104,14 +123,35 @@ const CustomPage = () => {
   // };
 
   return (
+    // <div className="container">
+    //   <div className={s.form}>
+    //     <SearchForm />
+    //   </div>
+    //   <Pagination itemsPerPage={4} data={data}>
+    //     {(currentItems) => (
+    //       <>
+    //         <ProjectList currentItems={currentItems} />
+    //         <Button
+    //           title="Создать новый проект"
+    //           size="big"
+    //           variant="secondaryHovered"
+    //           onClick={() => navigate('/create-project')}
+    //         />
+    //       </>
+    //     )}
+    //   </Pagination>
+    //   {/* <Modal active={openModal} onClose={onModalClose}>
+    //     <CreateProjectForm onCloseModal={onModalClose} />
+    //   </Modal> */}
+    // </div>
     <div className="container">
       <div className={s.form}>
         <SearchForm />
       </div>
-      <Pagination itemsPerPage={4} data={data}>
+      <Pagination itemsPerPage={4} data={allProjects}>
         {(currentItems) => (
           <>
-            <ProjectList currentItems={currentItems} />
+            <ProjectList allProjects={currentItems} />
             <Button
               title="Создать новый проект"
               size="big"
@@ -121,9 +161,6 @@ const CustomPage = () => {
           </>
         )}
       </Pagination>
-      {/* <Modal active={openModal} onClose={onModalClose}>
-        <CreateProjectForm onCloseModal={onModalClose} />
-      </Modal> */}
     </div>
   );
 };

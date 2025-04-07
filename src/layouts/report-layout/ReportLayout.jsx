@@ -134,13 +134,13 @@ const ReportLayout = () => {
           <div className={s.navigation}>
             <NavigationMenu projectId={projectId} uploadId={uploadId} />{' '}
           </div>
-          {isDataLoaded && (
+          {/* {isDataLoaded && (
             <ReportDocumentViewer
               formData={projectData}
               stages={mainReportSorted}
               reportByImage={photosReportSorted}
             />
-          )}
+          )} */}
 
           <div>
             <Outlet />

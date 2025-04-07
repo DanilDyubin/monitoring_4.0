@@ -177,19 +177,24 @@
 // 3
 
 import { useState, useEffect, useCallback } from 'react';
+import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 
+import { clearPhotosFromDB } from '../../redux/slices/projectSlice';
 import useApiService from '../../service/useApiService';
 import s from './prhotosList.module.scss';
 import PhotoItemHovered from '../photo-item/PhotoItem';
 import Loader from '../../ui/loader/Loader';
 import PhotoPickerSmall from '../photo-picker-small/PhotoPickerSmall';
 
-const PhotosList = () => {
+const PhotosList = ({ photosLoading }) => {
   const [photosId, setPhotosId] = useState([]);
   const [uploading, setUploading] = useState(false);
 
+  const dispatch = useDispatch();
+
   const uploadPhotosId = useSelector((state) => state.project.uploadPhotosId);
+  const urls = useSelector((state) => state.project.photosUrlsFromDB);
   const { getPhotos, uploadPhotos, deletePhoto, loading } = useApiService();
 
   const fetchPhotos = useCallback(async () => {
@@ -228,7 +233,11 @@ const PhotosList = () => {
     }
   };
 
-  if (loading || uploading) {
+  const handleClearPhotos = () => {
+    dispatch(clearPhotosFromDB());
+  };
+
+  if (loading || uploading || photosLoading) {
     return (
       <div className={s.loader}>
         <Loader />
@@ -238,18 +247,27 @@ const PhotosList = () => {
 
   return (
     <div className={s['photos-uploaded']}>
+      {urls?.length > 0 && (
+        <button
+          style={{ fontSize: '16px', fontWeight: '500', marginBottom: '10px' }}
+          onClick={handleClearPhotos}
+        >
+          Удалить фото со страницы
+        </button>
+      )}
       <div className={s['photos-uploaded__list']}>
-        {photosId?.length > 0 ? (
+        {photosId?.length > 0 &&
           photosId.map((photo) => (
             <PhotoItemHovered
               key={photo.id}
               id={photo.id}
               onDelete={handleDeletePhoto}
             />
-          ))
-        ) : (
-          <p>Нет загруженных фотографий</p>
-        )}
+          ))}
+        {urls?.length > 0 &&
+          urls.map((url, i) => (
+            <PhotoItemHovered key={i} url={url} onDelete={handleDeletePhoto} />
+          ))}
         {photosId?.length > 0 && (
           <PhotoPickerSmall handleUploadPhotos={handleUploadPhotos} />
         )}

@@ -23,7 +23,13 @@ const data = [
   { date: '21.12.2025', id: 11 },
 ];
 
-const DateForm = ({ label, btnTitle, photosUploadType }) => {
+const DateForm = ({
+  label,
+  btnTitle,
+  photosUploadType,
+  photosDatesFromDB,
+  uploadPhotosUrlFromDB,
+}) => {
   const [value, setValue] = useState('');
   const [open, setOpen] = useState(false);
 
@@ -40,7 +46,7 @@ const DateForm = ({ label, btnTitle, photosUploadType }) => {
   // };
 
   const handlePopupOpen = () => {
-    if (photosUploadType === 'device') return;
+    // if (photosUploadType === 'device') return;
     setOpen(true);
   };
 
@@ -66,7 +72,7 @@ const DateForm = ({ label, btnTitle, photosUploadType }) => {
               name="date"
               placeholder="Выберите дату"
               autoComplete="off"
-              value={value.date}
+              value={value}
               // onChange={handleInputChange}
             />
             <IoChevronDownSharp
@@ -79,7 +85,8 @@ const DateForm = ({ label, btnTitle, photosUploadType }) => {
           variant="secondary"
           size="auto-big"
           type="submit"
-          disabled={photosUploadType === 'device'}
+          disabled={!value}
+          onClick={() => uploadPhotosUrlFromDB('GJ8427-10-0002-001', value)}
         />
       </form>
       {open && (
@@ -87,6 +94,7 @@ const DateForm = ({ label, btnTitle, photosUploadType }) => {
           dates={data}
           onSelectDate={handleSelectDate}
           selectDate={value}
+          photosDatesFromDB={photosDatesFromDB}
         />
       )}
     </div>
