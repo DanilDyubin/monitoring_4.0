@@ -1,11 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import {
-  clearPhotosFromDB,
-  setIsPredictLoading,
-  setPhotosUrlsFromDB,
-} from '../../redux/slices/projectSlice';
+import { setIsPredictLoading } from '../../redux/slices/projectSlice';
 
 import useApiService from '../../service/useApiService';
 import DateForm from '../../components/forms/date-form/DateForm';
@@ -21,6 +17,7 @@ const CreateReportPage = () => {
   const [openModal, setOpenModal] = useState(false);
   const [photosLoading, setPhotosLoading] = useState(false);
   const [photosId, setPhotosId] = useState([]);
+  const [photosUrl, setPhotosUrl] = useState([]);
   // const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
@@ -29,9 +26,9 @@ const CreateReportPage = () => {
 
   const projectId = useSelector((state) => state.project.projectId);
   const uploadPhotosId = useSelector((state) => state.uploadId.uploadPhotosId);
-  const photosUploadType = useSelector(
-    (state) => state.project.photosUploadType
-  );
+  // const photosUploadType = useSelector(
+  //   (state) => state.project.photosUploadType
+  // );
   const photosDatesFromDB = useSelector(
     (state) => state.project.photosDatesFromDB
   );
@@ -71,7 +68,8 @@ const CreateReportPage = () => {
     try {
       setPhotosLoading(true);
       const data = await getPhotosFromDB(uin, date);
-      dispatch(setPhotosUrlsFromDB(data));
+      // dispatch(setPhotosUrlsFromDB(data));
+      setPhotosUrl(data);
     } catch (error) {
       console.error('Ошибка при получении фото из БД:', error);
     } finally {
@@ -122,7 +120,7 @@ const CreateReportPage = () => {
 
   // удаление со страницы фото, загруженных из БД
   const onDeleteDBPhotos = () => {
-    dispatch(clearPhotosFromDB());
+    setPhotosUrl([]);
   };
 
   return (
@@ -132,21 +130,23 @@ const CreateReportPage = () => {
         <DateForm
           label="Импорт фото из БД"
           btnTitle="Загрузить"
-          photosUploadType={photosUploadType}
+          // photosUploadType={photosUploadType}
           photosDatesFromDB={photosDatesFromDB}
           uploadPhotosUrlFromDB={uploadPhotosUrlFromDB}
+          photosId={photosId}
         />
         <Button
           title="Загрузить фото из носителя"
           variant="secondary"
           size="auto-big"
           onClick={onModalOpen}
-          disabled={photosUploadType === 'db'}
+          disabled={photosUrl.length > 0}
         />
       </div>
       <div className={s.photos}>
         <PhotosList
           photosId={photosId}
+          photosUrl={photosUrl}
           photosLoading={photosLoading}
           onDelete={handleDeletePhoto}
           onUpload={handleUploadPhotos}

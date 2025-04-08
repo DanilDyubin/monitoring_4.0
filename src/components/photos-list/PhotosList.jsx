@@ -176,12 +176,12 @@
 
 // 3
 
-import { useState, useEffect, useCallback } from 'react';
-import { useDispatch } from 'react-redux';
-import { useSelector } from 'react-redux';
+// import { useState, useEffect, useCallback } from 'react';
+// import { useDispatch } from 'react-redux';
+// import { useSelector } from 'react-redux';
 
-import { clearPhotosFromDB } from '../../redux/slices/projectSlice';
-import useApiService from '../../service/useApiService';
+// import { clearPhotosFromDB } from '../../redux/slices/projectSlice';
+// import useApiService from '../../service/useApiService';
 import s from './prhotosList.module.scss';
 import { PhotoItemHovered, PhotoItem } from '../photo-item/PhotoItem';
 import Loader from '../../ui/loader/Loader';
@@ -193,17 +193,17 @@ const PhotosList = ({
   onDelete,
   onUpload,
   onDeleteDBPhotos,
+  photosUrl,
 }) => {
   // const [uploading, setUploading] = useState(false);
 
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
   // const uploadPhotosId = useSelector((state) => state.uploadId.uploadPhotosId);
-  const urls = useSelector((state) => state.project.photosUrlsFromDB);
-  const { getPhotos, uploadPhotos, deletePhoto, loading } = useApiService();
+  // const urls = useSelector((state) => state.project.photosUrlsFromDB);
+  // const { getPhotos, uploadPhotos, deletePhoto, loading } = useApiService();
 
   if (photosLoading) {
-    // loading || uploading || photosLoading
     return (
       <div className={s.loader}>
         <Loader />
@@ -213,7 +213,7 @@ const PhotosList = ({
 
   return (
     <div className={s['photos-uploaded']}>
-      {urls?.length > 0 && (
+      {photosUrl?.length > 0 && (
         <button
           style={{ fontSize: '16px', fontWeight: '500', marginBottom: '10px' }}
           onClick={onDeleteDBPhotos}
@@ -230,8 +230,8 @@ const PhotosList = ({
               onDelete={onDelete}
             />
           ))}
-        {urls?.length > 0 &&
-          urls.map((url, i) => <PhotoItem key={i} url={url} />)}
+        {photosUrl?.length > 0 &&
+          photosUrl.map((url, i) => <PhotoItem key={i} url={url} />)}
         {photosId?.length > 0 && <PhotoPickerSmall onUpload={onUpload} />}
       </div>
     </div>

@@ -169,8 +169,6 @@ const useApiService = () => {
         current_time: 1743195599999,
       };
     });
-    console.log(`Отправка запроса: ${url}`);
-    console.log('Данные:', JSON.stringify(sendItems));
 
     try {
       const response = await fetch(url, {
@@ -193,28 +191,22 @@ const useApiService = () => {
     }
   };
 
-  // получение времени начала/конца этапов
-  // const getCalendar = async (id) => {
-  //   const url = `${API_BASE}get_calendar?project_id=${id}`;
-
-  //   try {
-  //     const response = await fetch(url);
-
-  //     if (!response.ok) {
-  //       throw new Error(`Error, status: ${response.status}`);
-  //     }
-
-  //     const result = await response.json();
-  //     console.log(`getCalendar - ${JSON.stringify(result)}`);
-  //     return result;
-  //   } catch (e) {
-  //     console.error(e.message);
-  //     throw e;
-  //   }
-  // };
-
   const getCalendar = async (id) => {
     return await request(`${API_BASE}get_calendar?project_id=${id}`);
+  };
+
+  const updateRowCalendar = async (projectId, stageId, planStart, planEnd) => {
+    return await request(
+      `${API_BASE}update_row_calendar?project_id=${projectId}&stage_id=${stageId}&plan_start=${planStart}&plan_end=${planEnd}`,
+      'POST'
+    );
+  };
+
+  const deleteRowCalendar = async (projectId, stageId) => {
+    await request(
+      `${API_BASE}delete_row_calendar?project_id=${projectId}&stage_id=${stageId}`,
+      'DELETE'
+    );
   };
 
   const createPredict = async (id) => {
@@ -246,25 +238,6 @@ const useApiService = () => {
       await new Promise((resolve) => setTimeout(resolve, 7000));
     }
   };
-
-  // получение основного отчета
-  // const getMainReport = async (id) => {
-  //   const url = `${API_BASE}get_main_report?upload_id=${id}`;
-
-  //   try {
-  //     const response = await fetch(url);
-
-  //     if (!response.ok) {
-  //       throw new Error(`Error, status: ${response.status}`);
-  //     }
-  //     const result = await response.json();
-  //     console.log(`getMainReport - ${JSON.stringify(result)}`);
-  //     return result;
-  //   } catch (e) {
-  //     console.error(e.message);
-  //     throw e;
-  //   }
-  // };
 
   const getMainReport = async (id) => {
     return await request(`${API_BASE}get_main_report?upload_id=${id}`);
@@ -316,6 +289,8 @@ const useApiService = () => {
     getPhotosFromDB,
     getPhotosDatesFromDB,
     createCalendar,
+    updateRowCalendar,
+    deleteRowCalendar,
     getCalendar,
     createPredict,
     getMainReport,

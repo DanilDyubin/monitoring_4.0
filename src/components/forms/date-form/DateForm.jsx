@@ -29,6 +29,7 @@ const DateForm = ({
   photosUploadType,
   photosDatesFromDB,
   uploadPhotosUrlFromDB,
+  photosId,
 }) => {
   const [value, setValue] = useState('');
   const [open, setOpen] = useState(false);
@@ -81,7 +82,7 @@ const DateForm = ({
           variant="secondary"
           size="auto-big"
           type="submit"
-          disabled={!value}
+          disabled={!value || photosId.length > 0}
           onClick={() => uploadPhotosUrlFromDB('GJ8427-10-0002-001', value)}
         />
       </form>

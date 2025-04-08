@@ -1,12 +1,6 @@
-import { groupRendererColored } from './custom-group/CustomGroup';
-import { CustomItemMain } from './custom-items/CustomItems';
-import { CustomSidebarHeaderMain } from './custom-sidebar-header/CustomSidebarHeader';
 import React, { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setOpen, setGroupId } from '../../redux/slices/calendarSlice';
-import { clearItems, deleteItem } from '../../redux/slices/scheduleSlice';
-import moment from 'moment';
-import 'moment/locale/ru';
+
 import Timeline, {
   TimelineHeaders,
   SidebarHeader,
@@ -16,18 +10,26 @@ import Timeline, {
   CustomMarker,
   CursorMarker,
 } from 'react-calendar-timeline';
+import moment from 'moment';
+import 'moment/locale/ru';
 
-import { TfiZoomIn, TfiZoomOut } from 'react-icons/tfi';
-import { RiDeleteBinLine } from 'react-icons/ri';
-import { GoTrash } from 'react-icons/go';
+import { groupRendererColored } from './custom-group/CustomGroup';
+import { CustomItemMain } from './custom-items/CustomItems';
+import { CustomSidebarHeaderMain } from './custom-sidebar-header/CustomSidebarHeader';
 
 import Calendar from '../calendar/Calendar';
+import { setOpen, setGroupId } from '../../redux/slices/calendarSlice';
+import { clearItems, deleteItem } from '../../redux/slices/scheduleSlice';
+import useApiService from '../../service/useApiService';
+
+import { TfiZoomIn, TfiZoomOut } from 'react-icons/tfi';
+import { GoTrash } from 'react-icons/go';
 
 import '../../styles/timeLine.css';
 
 moment.locale('ru');
 
-const TimeLine = ({ items }) => {
+const TimeLine = ({ items, projectId }) => {
   const open = useSelector((state) => state.calendar.open);
   // const sliceItems = useSelector((state) => state.schedule.items);
   const sliceGroups = useSelector((state) => state.schedule.groups);
@@ -42,6 +44,8 @@ const TimeLine = ({ items }) => {
 
   const timelineRef = useRef(null);
 
+  const { deleteRowCalendar } = useApiService();
+
   const handleZoomIn = () => {
     if (timelineRef.current) {
       timelineRef.current.changeZoom(0.5); // уменьшаем масштаб на 25%
@@ -55,9 +59,14 @@ const TimeLine = ({ items }) => {
   };
 
   const itemHandler = (itemId, e, time) => {
-    // вызывается при клике на временной интервал
+    // вызывается при клике на временной интервал и удаляет item из календаря
     console.log('Клик по item с id:', itemId);
     dispatch(deleteItem(Number(itemId)));
+    if (projectId) {
+      deleteRowCalendar(projectId, itemId).catch((err) =>
+        console.error('Ошибка при удалении', err)
+      );
+    }
   };
 
   const canvasHandler = (groupId, time, e) => {

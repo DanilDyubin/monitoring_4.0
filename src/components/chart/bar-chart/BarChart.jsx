@@ -106,7 +106,7 @@ const BarChart = ({ stageId, photosData }) => {
         <li className={s.line}></li>
       </ul>
       <ul className={s.list}>
-        {photosData?.[currentSlide]?.report?.slice(0, -1).map((stage) => (
+        {photosData?.[currentSlide]?.report?.map((stage) => (
           <BarChartItem stage={stage} key={stage.stage_id} stageId={stageId} />
         ))}
       </ul>

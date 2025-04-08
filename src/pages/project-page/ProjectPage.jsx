@@ -79,7 +79,7 @@ const ProjectPage = () => {
         )}
       </div>
       {isEditing ? (
-        <TimeLine items={calendarItems} />
+        <TimeLine items={calendarItems} projectId={projectId} />
       ) : (
         <TimeLineTotalPageStyled />
       )}

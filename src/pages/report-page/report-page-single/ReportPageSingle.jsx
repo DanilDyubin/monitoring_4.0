@@ -12,7 +12,14 @@ const ReportPageSingle = () => {
   const [openModal, setOpenModal] = useState(false);
 
   const photosReport = useSelector((state) => state.report.photosReport);
-  console.log(JSON.stringify(photosReport));
+  const photosReportSorted = photosReport.map((item) => {
+    return {
+      ...item,
+      report: [...item.report]
+        .sort((a, b) => a.stage_id - b.stage_id)
+        .slice(0, -1),
+    };
+  });
 
   const onModalOpen = () => {
     setOpenModal(true);
@@ -25,14 +32,17 @@ const ReportPageSingle = () => {
   return (
     <div>
       <OpenSliderBtn onClick={onModalOpen} />
-      <Slick images={photosReport} />
+      <Slick images={photosReportSorted} />
       <div style={{ marginTop: '80px' }}>
         <Subtitle />
-        <Chart photosData={photosReport} />
+        <Chart photosData={photosReportSorted} />
       </div>
       <SliderModal active={openModal} onClose={onModalClose}>
         {openModal && (
-          <FullScreenSlider onCloseModal={onModalClose} images={photosReport} />
+          <FullScreenSlider
+            onCloseModal={onModalClose}
+            images={photosReportSorted}
+          />
         )}
       </SliderModal>
     </div>

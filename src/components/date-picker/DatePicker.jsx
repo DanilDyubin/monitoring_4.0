@@ -7,6 +7,7 @@ import moment from 'moment';
 import { DayPicker } from 'react-day-picker';
 import { ru } from 'react-day-picker/locale';
 import Footer from './calendar-footer/CalendarFooter';
+import useApiService from '../../service/useApiService';
 
 import 'react-day-picker/style.css';
 // import '../../styles/datePicker.css';
@@ -19,8 +20,11 @@ const DatePicker = () => {
   const currentDate = useSelector((state) => state.schedule.currentDate); // получаем дату съемки
   const groups = useSelector((state) => state.schedule.groups);
   const groupId = useSelector((state) => state.calendar.groupId); // получаем id группы для которой ввели даты на таймлайне
+  const projectId = useSelector((state) => state.project.projectId); // id проекта для апдейта items в календаре
 
   const dispatch = useDispatch();
+
+  const { updateRowCalendar } = useApiService(); // апдейт items в календаре
 
   const handleSelect = (newSelected) => {
     if (newSelected) {
@@ -85,6 +89,14 @@ const DatePicker = () => {
         },
       };
       dispatch(addItem(newItem));
+      if (projectId) {
+        updateRowCalendar(
+          projectId,
+          newItem.id,
+          newItem.start_time,
+          newItem.end_time
+        ).catch((err) => console.error('Ошибка при update', err));
+      }
       dispatch(setOpen(false));
     }
   };

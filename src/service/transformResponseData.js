@@ -233,26 +233,26 @@ export const transFormItemReport = (data) => {
   });
 };
 
-export const transformByImageArray = (byImageArr) => {
-  return byImageArr.map((byImgObj) => {
-    // создаем копию массива и сортируем его, чтобы вывести stages по id
-    const sortedStages = [...(byImgObj.report?.stages || [])].sort(
-      (a, b) => a.id - b.id
-    );
-    // Преобразуем каждую stage
-    const transformedStages = sortedStages.map((stage) => ({
-      id: stage.id,
-      title: stage.name,
-      done: Math.round(stage.factValue),
-      color: stage.calendar_vivid,
-      height: 40,
-      progress: true, // поменять
-    }));
+// export const transformByImageArray = (byImageArr) => {
+//   return byImageArr.map((byImgObj) => {
+//     // создаем копию массива и сортируем его, чтобы вывести stages по id
+//     const sortedStages = [...(byImgObj.report?.stages || [])].sort(
+//       (a, b) => a.id - b.id
+//     );
+//     // Преобразуем каждую stage
+//     const transformedStages = sortedStages.map((stage) => ({
+//       id: stage.id,
+//       title: stage.name,
+//       done: Math.round(stage.factValue),
+//       color: stage.calendar_vivid,
+//       height: 40,
+//       progress: true, // поменять
+//     }));
 
-    return {
-      image: byImgObj.image,
-      predicted_image: byImgObj.predicted_image,
-      stages: transformedStages,
-    };
-  });
-};
+//     return {
+//       image: byImgObj.image,
+//       predicted_image: byImgObj.predicted_image,
+//       stages: transformedStages,
+//     };
+//   });
+// };

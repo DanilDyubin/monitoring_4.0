@@ -94,7 +94,7 @@ const SideBar = ({ photosData, onSetStageId }) => {
         <span className={s['header__fact']}>Факт</span>
       </div>
       <ul className={s.list}>
-        {photosData?.[currentSlide]?.report?.slice(0, -1).map((stage, i) => (
+        {photosData?.[currentSlide]?.report?.map((stage, i) => (
           <SidebarItem
             stage={stage}
             key={i}
