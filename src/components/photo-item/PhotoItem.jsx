@@ -2,7 +2,7 @@ import { IoCloseSharp } from 'react-icons/io5';
 
 import s from './photoItem.module.scss';
 
-const PhotoItemHovered = ({ id, url, onDelete }) => {
+export const PhotoItemHovered = ({ id, url, onDelete }) => {
   const imageUrl = url
     ? url
     : `https://msi.construction-monitoring.contextmachine.cloud/get_one_photo?image_id=${id}`;
@@ -19,4 +19,10 @@ const PhotoItemHovered = ({ id, url, onDelete }) => {
   );
 };
 
-export default PhotoItemHovered;
+export const PhotoItem = ({ url }) => {
+  return (
+    <div className={s['photo-item']}>
+      <img src={url} alt="photo" />
+    </div>
+  );
+};

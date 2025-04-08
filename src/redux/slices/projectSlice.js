@@ -5,7 +5,7 @@ const initialState = {
   photoReportDate: '',
   formData: {},
   projectId: '', // подгрузка проекта по id
-  uploadPhotosId: '', // подгрузка всех фото
+  // uploadPhotosId: '', // подгрузка всех фото
   photosUploadType: '', // блокиратор для кнопок загрузки фото (принимает 'db' или 'device')
   scheduleItemsProject: [],
   photosUrlsFromDB: [],
@@ -37,9 +37,9 @@ export const projectSlice = createSlice({
         state.uploadPhotosId = '';
       }
     },
-    setUploadPhotosId(state, action) {
-      state.uploadPhotosId = action.payload;
-    },
+    // setUploadPhotosId(state, action) {
+    //   state.uploadPhotosId = action.payload;
+    // },
     setPhotosUploadType(state, action) {
       state.photosUploadType = action.payload;
     },
@@ -70,7 +70,6 @@ export const {
   setFormData,
   setScheduleItemsProject,
   setProjectId,
-  setUploadPhotosId,
   setPhotosUrlsFromDB,
   setPhotosDatesFromDB,
   clearPhotosFromDB,

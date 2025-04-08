@@ -3,7 +3,7 @@ import AddImageButton from '../../ui/add-image-button/AddImageButton';
 
 import s from './photoPickerSmall.module.scss';
 
-const PhotoPickerSmall = ({ handleUploadPhotos }) => {
+const PhotoPickerSmall = ({ onUpload }) => {
   const filePicker = useRef(null);
 
   const handleClick = () => {
@@ -11,7 +11,7 @@ const PhotoPickerSmall = ({ handleUploadPhotos }) => {
   };
 
   const handlePhotos = (e) => {
-    handleUploadPhotos(Array.from(e.target.files));
+    onUpload(Array.from(e.target.files));
   };
 
   return (

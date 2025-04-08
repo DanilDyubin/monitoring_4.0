@@ -356,14 +356,35 @@ export const scheduleSlice = createSlice({
     addCurrentDate(state, action) {
       state.currentDate = action.payload;
     },
-    addFactToGroups(state, action) {
+    addPercentToGroups(state, action) {
       const data = action.payload;
 
       state.groups.forEach((group) => {
         const findStage = data.find((stage) => stage.stage_id === group.id);
 
         if (findStage) {
-          group.percent = Math.round(findStage.percent);
+          let planPercent;
+          const planStart = new Date(findStage.plan_start).getTime();
+
+          // 2. Получаем время планового окончания
+          const planEnd = new Date(findStage.plan_end).getTime();
+
+          // 3. Получаем время “сегодня, полночь” (локальный часовой пояс)
+          const currentDateObj = new Date();
+          currentDateObj.setHours(0, 0, 0, 0);
+          const currentDate = currentDateObj.getTime();
+
+          if (currentDate <= planStart) {
+            planPercent = 0;
+          } else if (currentDate >= planEnd) {
+            planPercent = 100;
+          } else {
+            const totalTime = planEnd - planStart;
+            const overTime = currentDate - planStart;
+            planPercent = (overTime / totalTime) * 100;
+          }
+          group.factPercent = Math.round(findStage.percent);
+          group.planPercent = Math.round(planPercent);
         }
       });
     },
@@ -383,7 +404,7 @@ export const {
   addImgsIds,
   removeImgId,
   clearItems,
-  addFactToGroups,
+  addPercentToGroups,
   clearSchedule,
   deleteItem,
 } = scheduleSlice.actions;

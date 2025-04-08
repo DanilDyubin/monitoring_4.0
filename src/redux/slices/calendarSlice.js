@@ -19,8 +19,12 @@ export const calendarSlice = createSlice({
     setGroupId(state, action) {
       state.groupId = action.payload;
     },
+    clearCalendar(state) {
+      return initialState;
+    },
   },
 });
 
-export const { setDate, setOpen, setGroupId } = calendarSlice.actions;
+export const { setDate, setOpen, setGroupId, clearCalendar } =
+  calendarSlice.actions;
 export default calendarSlice.reducer;

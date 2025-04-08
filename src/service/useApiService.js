@@ -44,21 +44,24 @@ const useApiService = () => {
   };
 
   // получение проекта
+  // const getProject = async (id) => {
+  //   try {
+  //     const response = await fetch(`${API_BASE}get_project?id=${id}`);
+
+  //     if (!response.ok) {
+  //       throw new Error(`Error, status: ${response.status}`);
+  //     }
+
+  //     const result = await response.json();
+  //     console.log(`getProject - ${JSON.stringify(result)}`);
+  //     return result;
+  //   } catch (e) {
+  //     console.error(e.message);
+  //     throw e;
+  //   }
+  // };
   const getProject = async (id) => {
-    try {
-      const response = await fetch(`${API_BASE}get_project?id=${id}`);
-
-      if (!response.ok) {
-        throw new Error(`Error, status: ${response.status}`);
-      }
-
-      const result = await response.json();
-      console.log(`getProject - ${JSON.stringify(result)}`);
-      return result;
-    } catch (e) {
-      console.error(e.message);
-      throw e;
-    }
+    return await request(`${API_BASE}get_project?id=${id}`);
   };
 
   const createUpload = async (projectId, shotDate, photos) => {
@@ -190,23 +193,28 @@ const useApiService = () => {
     }
   };
 
+  // получение времени начала/конца этапов
+  // const getCalendar = async (id) => {
+  //   const url = `${API_BASE}get_calendar?project_id=${id}`;
+
+  //   try {
+  //     const response = await fetch(url);
+
+  //     if (!response.ok) {
+  //       throw new Error(`Error, status: ${response.status}`);
+  //     }
+
+  //     const result = await response.json();
+  //     console.log(`getCalendar - ${JSON.stringify(result)}`);
+  //     return result;
+  //   } catch (e) {
+  //     console.error(e.message);
+  //     throw e;
+  //   }
+  // };
+
   const getCalendar = async (id) => {
-    const url = `${API_BASE}get_calendar?project_id=${id}`;
-
-    try {
-      const response = await fetch(url);
-
-      if (!response.ok) {
-        throw new Error(`Error, status: ${response.status}`);
-      }
-
-      const result = await response.json();
-      console.log(`getCalendar - ${JSON.stringify(result)}`);
-      return result;
-    } catch (e) {
-      console.error(e.message);
-      throw e;
-    }
+    return await request(`${API_BASE}get_calendar?project_id=${id}`);
   };
 
   const createPredict = async (id) => {
@@ -239,22 +247,27 @@ const useApiService = () => {
     }
   };
 
+  // получение основного отчета
+  // const getMainReport = async (id) => {
+  //   const url = `${API_BASE}get_main_report?upload_id=${id}`;
+
+  //   try {
+  //     const response = await fetch(url);
+
+  //     if (!response.ok) {
+  //       throw new Error(`Error, status: ${response.status}`);
+  //     }
+  //     const result = await response.json();
+  //     console.log(`getMainReport - ${JSON.stringify(result)}`);
+  //     return result;
+  //   } catch (e) {
+  //     console.error(e.message);
+  //     throw e;
+  //   }
+  // };
+
   const getMainReport = async (id) => {
-    const url = `${API_BASE}get_main_report?upload_id=${id}`;
-
-    try {
-      const response = await fetch(url);
-
-      if (!response.ok) {
-        throw new Error(`Error, status: ${response.status}`);
-      }
-      const result = await response.json();
-      console.log(`getMainReport - ${JSON.stringify(result)}`);
-      return result;
-    } catch (e) {
-      console.error(e.message);
-      throw e;
-    }
+    return await request(`${API_BASE}get_main_report?upload_id=${id}`);
   };
 
   const getPhotosReport = async (id) => {

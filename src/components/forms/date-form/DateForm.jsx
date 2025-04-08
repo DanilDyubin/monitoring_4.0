@@ -41,10 +41,6 @@ const DateForm = ({
     e.preventDefault();
   };
 
-  // const handleInputChange = (e) => {
-  //   setValue(e.target.value);
-  // };
-
   const handlePopupOpen = () => {
     // if (photosUploadType === 'device') return;
     setOpen(true);

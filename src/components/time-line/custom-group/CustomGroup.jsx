@@ -60,7 +60,7 @@ export const groupRendererColored = ({ group }) => {
 
 export const groupRendererTest = ({ group }) => {
   const factClass =
-    group.percent >= 0 || !group.percent
+    group.factPercent >= 0 || !group.factPercent
       ? `${s['custom-group__values-fact']}`
       : `${s['custom-group__values-fact']} ${s.warning}`;
 
@@ -71,7 +71,7 @@ export const groupRendererTest = ({ group }) => {
         <div className={s['custom-group__values-plan']}>
           {group.planPercent || '0'}%
         </div>
-        <div className={factClass}>{group.percent || '0'}%</div>
+        <div className={factClass}>{group.factPercent || '0'}%</div>
       </div>
     </div>
   );

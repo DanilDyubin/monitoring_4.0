@@ -24,6 +24,8 @@ const PhotoPicker = ({ photos, setPhotos }) => {
       files: Array.from(e.target.files),
       url: URL.createObjectURL(e.target.files[0]),
     });
+
+    e.target.value = ''; // Сброс значения input, чтобы повторный выбор того же файла сработал
   };
 
   const content = photos.url ? (

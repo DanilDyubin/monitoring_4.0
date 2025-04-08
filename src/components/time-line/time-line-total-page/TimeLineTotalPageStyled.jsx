@@ -72,7 +72,8 @@ const TimeLineTotalPageStyled = () => {
         <TfiZoomOut onClick={handleZoomOut} className="timeLineIcon" />
       </div>
       <Timeline
-        groups={!reportGroups.length ? scheduleGroups : reportGroups}
+        // groups={!reportGroups.length ? scheduleGroups : reportGroups}
+        groups={scheduleGroups}
         items={reportItems}
         lineHeight={20} // высота линии календаря
         itemHeightRatio={1} // сколько процентов занимает item от линии

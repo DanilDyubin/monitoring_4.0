@@ -5,8 +5,9 @@ import storage from 'redux-persist/lib/storage'; // Стандартный stora
 
 import calendar from './slices/calendarSlice';
 import schedule from './slices/scheduleSlice';
-import report from './slices/reportSlice';
 import project from './slices/projectSlice';
+import uploadId from './slices/uploadIdSlice';
+import report from './slices/reportSlice';
 
 // 1) Собираем все редьюсеры в rootReducer
 const rootReducer = combineReducers({
@@ -14,6 +15,7 @@ const rootReducer = combineReducers({
   schedule,
   report,
   project,
+  uploadId,
 });
 
 // 2) Настраиваем конфиг для redux-persist
@@ -24,7 +26,7 @@ const rootReducer = combineReducers({
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: ['project'],
+  whitelist: ['uploadId'],
 };
 
 // 3) Оборачиваем rootReducer в persistReducer

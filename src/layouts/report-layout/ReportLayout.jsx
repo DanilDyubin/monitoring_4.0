@@ -3,12 +3,12 @@ import { Outlet, useNavigate, useParams } from 'react-router-dom';
 import { PDFDownloadLink } from '@react-pdf/renderer';
 import { useSelector, useDispatch } from 'react-redux';
 
+import { resetAllSlices } from '../../redux/actions/globalActions';
 import useApiService from '../../service/useApiService';
 import {
   transFormItemReport,
   transFormGroup,
 } from '../../service/transformResponseData';
-import { persistor } from '../../redux/store';
 import {
   setProjectData,
   setCalendarData,
@@ -18,7 +18,10 @@ import {
   setPhotosReport,
   clearReport,
 } from '../../redux/slices/reportSlice';
-import { clearSchedule } from '../../redux/slices/scheduleSlice';
+import {
+  clearSchedule,
+  addPercentToGroups,
+} from '../../redux/slices/scheduleSlice';
 import { useSendRequest } from '../../hooks/useSendRequest';
 import NavigationMenu from '../../components/navigation-menu/NavigationMenu';
 import ReportDocument from '../../pages/pdf-page/ReportDocument';
@@ -99,6 +102,7 @@ const ReportLayout = () => {
         dispatch(setCalendarItemsReport(transFormItemReport(calendar)));
         dispatch(setMainReport(report));
         dispatch(setGroupsReport(transFormGroup(report)));
+        dispatch(addPercentToGroups(calendar));
         dispatch(setPhotosReport(photosReport));
       })
       .catch((error) => {
@@ -110,18 +114,12 @@ const ReportLayout = () => {
   }, [projectId, uploadId]);
 
   console.log(JSON.stringify(groups));
-  // useEffect(() => {
-  //   pollStageDetection(id);
-  // }, [id]);
-
-  // if (!id) {
-  //   return <PageSkeleton />;
-  // }
 
   const handleStateClear = () => {
-    dispatch(clearReport());
-    dispatch(clearSchedule());
-    persistor.purge();
+    // dispatch(clearReport());
+    // dispatch(clearSchedule());
+    // persistor.purge();
+    dispatch(resetAllSlices());
     navigate('/');
   };
 

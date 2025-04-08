@@ -9,9 +9,9 @@ import {
 } from '../../redux/slices/projectSlice';
 import useApiService from '../../service/useApiService';
 import NavigationLink from '../../components/navigation-link/NavigationLink';
+import PageSkeleton from '../../ui/skeletons/page-skeleton/PageSkeleton';
 
 import s from './projectLayout.module.scss';
-import PageSkeleton from '../../ui/skeletons/page-skeleton/PageSkeleton';
 
 const ProjectLayout = () => {
   const { projectId } = useParams();
@@ -24,11 +24,11 @@ const ProjectLayout = () => {
     (state) => state.project.isPredictLoading
   );
 
-  const getPhotosDatesFromDBAndDispatch = (uin) => {
-    getPhotosDatesFromDB(uin).then((data) => {
-      dispatch(setPhotosDatesFromDB(data));
-    });
-  };
+  // const getPhotosDatesFromDBAndDispatch = (uin) => {
+  //   getPhotosDatesFromDB(uin).then((data) => {
+  //     dispatch(setPhotosDatesFromDB(data));
+  //   });
+  // };
 
   useEffect(() => {
     getProject(projectId).then((data) => dispatch(setFormData(data)));

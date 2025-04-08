@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { resetAllSlices } from '../../redux/actions/globalActions';
 import Pagination from '../../components/pagination/Pagination';
 import SearchForm from '../../components/search-form/SearchForm';
 import ProjectList from '../../components/project-list/ProjectList';
@@ -153,6 +154,14 @@ const BasePage = () => {
 
   // navigate(`/project/${result.id}`);
 
+  const navigateToCreateProject = () => {
+    // dispatch(clearReport());
+    // dispatch(clearSchedule());
+    // persistor.purge();
+    resetAllSlices();
+    navigate('/create-project');
+  };
+
   return (
     <div className="container">
       <div className={s.input}>
@@ -166,7 +175,7 @@ const BasePage = () => {
               title="Создать новый проект"
               size="big"
               variant="secondaryHovered"
-              onClick={() => navigate('/create-project')}
+              onClick={() => navigateToCreateProject()}
             />
           </>
         )}

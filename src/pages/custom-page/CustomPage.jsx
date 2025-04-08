@@ -6,10 +6,11 @@ import Pagination from '../../components/pagination/Pagination';
 import SearchForm from '../../components/search-form/SearchForm';
 import ProjectList from '../../components/project-list/ProjectList';
 
-import Modal from '../../components/modal/Modal';
 import Button from '../../ui/button/Button';
 
 import s from './customPage.module.scss';
+import { resetAllSlices } from '../../redux/actions/globalActions';
+import { useDispatch } from 'react-redux';
 
 const data = [
   {
@@ -96,6 +97,7 @@ const CustomPage = () => {
   const [allProjects, setAllProjects] = useState([]);
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const { getAllProjects } = useApiService();
 
@@ -112,38 +114,15 @@ const CustomPage = () => {
     fetchAllProjects();
   }, []);
 
-  // const [openModal, setOpenModal] = useState(false);
-
-  // const onModalOpen = () => {
-  //   setOpenModal(true);
-  // };
-
-  // const onModalClose = () => {
-  //   setOpenModal(false);
-  // };
+  const navigateToCreateProject = () => {
+    // dispatch(clearReport());
+    // dispatch(clearSchedule());
+    // persistor.purge();
+    // dispatch(resetAllSlices());
+    navigate('/create-project');
+  };
 
   return (
-    // <div className="container">
-    //   <div className={s.form}>
-    //     <SearchForm />
-    //   </div>
-    //   <Pagination itemsPerPage={4} data={data}>
-    //     {(currentItems) => (
-    //       <>
-    //         <ProjectList currentItems={currentItems} />
-    //         <Button
-    //           title="Создать новый проект"
-    //           size="big"
-    //           variant="secondaryHovered"
-    //           onClick={() => navigate('/create-project')}
-    //         />
-    //       </>
-    //     )}
-    //   </Pagination>
-    //   {/* <Modal active={openModal} onClose={onModalClose}>
-    //     <CreateProjectForm onCloseModal={onModalClose} />
-    //   </Modal> */}
-    // </div>
     <div className="container">
       <div className={s.form}>
         <SearchForm />
@@ -156,7 +135,7 @@ const CustomPage = () => {
               title="Создать новый проект"
               size="big"
               variant="secondaryHovered"
-              onClick={() => navigate('/create-project')}
+              onClick={() => navigateToCreateProject()}
             />
           </>
         )}

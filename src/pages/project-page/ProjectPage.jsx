@@ -8,7 +8,7 @@ import {
   setScheduleItemsProject,
   setPhotosDatesFromDB,
 } from '../../redux/slices/projectSlice';
-import { addFactToGroups } from '../../redux/slices/scheduleSlice';
+import { addPercentToGroups } from '../../redux/slices/scheduleSlice';
 import { addRequestItems } from '../../redux/slices/scheduleSlice';
 import ProjectForm from '../../components/project-form/ProjectForm';
 import Subtitle from '../../components/subtitle/Subtitle';
@@ -35,15 +35,25 @@ const ProjectPage = () => {
   const transformedItems = useSelector(
     (state) => state.project.scheduleItemsProject
   );
-  console.log(`CalendarItems - ${JSON.stringify(calendarItems)}`);
-  console.log(`transformedItems - ${JSON.stringify(transformedItems)}`);
 
-  const getCalendarAndDispatch = (projectId) => {
-    getCalendar(projectId).then((data) => {
+  // const getCalendarAndDispatch = (projectId) => {
+  //   getCalendar(projectId).then((data) => {
+  //     dispatch(addRequestItems(transFormItem(data)));
+  //     dispatch(setCalendarItemsReport(transFormItemReport(data)));
+  //     dispatch(addPercentToGroups(data));
+  //   });
+  // };
+
+  const getCalendarAndDispatch = async (projectId) => {
+    try {
+      const data = await getCalendar(projectId);
+
       dispatch(addRequestItems(transFormItem(data)));
       dispatch(setCalendarItemsReport(transFormItemReport(data)));
-      dispatch(addFactToGroups(data));
-    });
+      dispatch(addPercentToGroups(data));
+    } catch (error) {
+      console.error('Ошибка получения календаря:', error);
+    }
   };
 
   useEffect(() => {
@@ -73,31 +83,6 @@ const ProjectPage = () => {
       ) : (
         <TimeLineTotalPageStyled />
       )}
-
-      {/* <button
-        style={{ margin: '40px 40px' }}
-        onClick={() => createCalendar(projectId)}
-      >
-        Создать календарь
-      </button>
-      <button
-        style={{ margin: '40px 40px' }}
-        onClick={() => getCalendarAndDispatch(projectId)}
-      >
-        Получить календарь
-      </button>
-      <button
-        style={{ margin: '40px 40px' }}
-        onClick={() => createPredict(uploadId)}
-      >
-        Создать предикт
-      </button>
-      <button
-        style={{ margin: '40px 40px' }}
-        onClick={() => getMainReport(uploadId)}
-      >
-        Получить mainReport
-      </button> */}
     </div>
   );
 };

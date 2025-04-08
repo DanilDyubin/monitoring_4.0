@@ -10,7 +10,7 @@ import { useClickOutside } from '../../hooks/useClickOutside';
 import {
   setUploadPhotosId,
   setPhotosUploadType,
-} from '../../redux/slices/projectSlice';
+} from '../../redux/slices/uploadIdSlice';
 import DatePickerForm from '../date-picker/DatePickerForm';
 import PhotoPicker from '../photo-picker/PhotoPicker';
 import Button from '../../ui/button/Button';

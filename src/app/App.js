@@ -1,20 +1,18 @@
 import { createHashRouter, RouterProvider, Navigate } from 'react-router-dom';
 
 import Layout from '../layouts/Layout';
-import MainPage from '../pages/main-page/MainPage';
-import FormPage from '../pages/form-page/FormPage';
-import ReportPageTotal from '../pages/report-page/report-page-total/ReportPageTotal';
-import ReportPageSingle from '../pages/report-page/report-page-single/ReportPageSingle';
-import PdfPage from '../pages/pdf-page/PdfPage';
-import StartPage from '../pages/start-page/StartPage';
+import StartLayout from '../layouts/start-layout/StartLayout';
 import BasePage from '../pages/base-page/BasePage';
 import CustomPage from '../pages/custom-page/CustomPage';
+import CreateProjectPage from '../pages/create-project-page/CreateProjectPage';
 import ProjectLayout from '../layouts/project-layout/ProjectLayout';
 import ProjectPage from '../pages/project-page/ProjectPage';
 import CreateReportPage from '../pages/create-report-page/CreateReportPage';
 import ArchivePage from '../pages/archive-page/ArchivePage';
 import ReportLayout from '../layouts/report-layout/ReportLayout';
-import CreateProjectPage from '../pages/create-project-page/CreateProjectPage';
+import ReportPageTotal from '../pages/report-page/report-page-total/ReportPageTotal';
+import ReportPageSingle from '../pages/report-page/report-page-single/ReportPageSingle';
+import PdfPage from '../pages/pdf-page/PdfPage';
 
 const App = () => {
   const router = createHashRouter([
@@ -25,7 +23,7 @@ const App = () => {
         {
           // Стартовая страница (base, custom и т.д.)
           path: '',
-          element: <StartPage />,
+          element: <StartLayout />,
           children: [
             {
               index: true,
