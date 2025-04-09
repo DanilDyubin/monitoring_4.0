@@ -101,7 +101,9 @@ const TimeLine = ({ items, projectId }) => {
   return (
     <div id="calendar" className="timeLineComponent">
       <div className="timeLineIcons">
-        <GoTrash className="timeLineIcon trash" onClick={handleClear} />
+        {!projectId && (
+          <GoTrash className="timeLineIcon trash" onClick={handleClear} />
+        )}
         <TfiZoomIn className="timeLineIcon" onClick={handleZoomIn} />
         <TfiZoomOut className="timeLineIcon" onClick={handleZoomOut} />
       </div>

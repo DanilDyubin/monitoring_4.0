@@ -89,14 +89,14 @@ const DatePicker = () => {
         },
       };
       dispatch(addItem(newItem));
-      if (projectId) {
-        updateRowCalendar(
-          projectId,
-          newItem.id,
-          newItem.start_time,
-          newItem.end_time
-        ).catch((err) => console.error('Ошибка при update', err));
-      }
+      // if (projectId) {
+      //   updateRowCalendar(
+      //     projectId,
+      //     newItem.id,
+      //     newItem.start_time,
+      //     newItem.end_time
+      //   ).catch((err) => console.error('Ошибка при update', err));
+      // }
       dispatch(setOpen(false));
     }
   };

@@ -140,8 +140,12 @@ const useApiService = () => {
     return await request(`${API_BASE}get_photos?upload_id=${id}`);
   };
 
-  const getPhotosFromDB = async (uin, date) => {
-    return await request(`${API_BASE}photos_from_bd?uin=${uin}&date=${date}`);
+  const getPhotosFromDB = async (projectId, uin, date) => {
+    const result = await request(
+      `${API_BASE}photos_from_bd?project_id=${projectId}&uin=${uin}&date=${date}`,
+      'POST'
+    );
+    return result?.data?.insert_msi_sf_photo?.returning;
   };
 
   const getPhotosDatesFromDB = async (uin) => {
@@ -196,10 +200,12 @@ const useApiService = () => {
   };
 
   const updateRowCalendar = async (projectId, stageId, planStart, planEnd) => {
-    return await request(
+    const data = await request(
       `${API_BASE}update_row_calendar?project_id=${projectId}&stage_id=${stageId}&plan_start=${planStart}&plan_end=${planEnd}`,
       'POST'
     );
+    console.log(JSON.stringify(data));
+    return data;
   };
 
   const deleteRowCalendar = async (projectId, stageId) => {
@@ -490,7 +496,7 @@ const getCalendar = [
   },
 ];
 
-const getMainReport = [
+const mainReportSorted = [
   {
     percent: 100,
     stage_id: 0,
@@ -499,17 +505,7 @@ const getMainReport = [
       color: '#FF0000',
       calendar_dull: '#FFD9D9',
       calendar_vivid: '#FF8080',
-      calendars: [
-        {
-          fact_end: '2025-04-02',
-          fact_start: '2025-04-01',
-          info: null,
-          percent: 100,
-          report_date: '2025-04-02',
-          plan_end: '2025-04-26',
-          plan_start: '2025-03-31',
-        },
-      ],
+      calendars: [],
     },
   },
   {
@@ -520,11 +516,21 @@ const getMainReport = [
       color: '#00CC96',
       calendar_dull: '#D9F8EF',
       calendar_vivid: '#80E6CB',
-      calendars: [],
+      calendars: [
+        {
+          fact_end: '2024-12-25',
+          fact_start: '2024-12-24',
+          info: null,
+          percent: 100,
+          report_date: '2024-12-25',
+          plan_end: '2025-05-04',
+          plan_start: '2025-04-06',
+        },
+      ],
     },
   },
   {
-    percent: 100,
+    percent: 90,
     stage_id: 2,
     stage: {
       name: 'Распорная система',
@@ -535,7 +541,7 @@ const getMainReport = [
     },
   },
   {
-    percent: 83.33,
+    percent: 80,
     stage_id: 3,
     stage: {
       name: 'Устройство фундамента',
@@ -546,7 +552,7 @@ const getMainReport = [
     },
   },
   {
-    percent: 66.67,
+    percent: 100,
     stage_id: 4,
     stage: {
       name: 'Монолит',
@@ -557,7 +563,7 @@ const getMainReport = [
     },
   },
   {
-    percent: 43.28,
+    percent: 71.69,
     stage_id: 5,
     stage: {
       name: 'Кладка',
@@ -568,7 +574,7 @@ const getMainReport = [
     },
   },
   {
-    percent: 31.54,
+    percent: 24.09,
     stage_id: 6,
     stage: {
       name: 'Теплоизоляция',
@@ -579,7 +585,7 @@ const getMainReport = [
     },
   },
   {
-    percent: 31.54,
+    percent: 24.09,
     stage_id: 7,
     stage: {
       name: 'Подсистема фасада',
@@ -590,7 +596,7 @@ const getMainReport = [
     },
   },
   {
-    percent: 14.72,
+    percent: 23.81,
     stage_id: 8,
     stage: {
       name: 'Облицовка фасада',
@@ -601,29 +607,28 @@ const getMainReport = [
     },
   },
   {
-    percent: 57.44,
-    stage_id: 11,
-    stage: {
-      name: 'Работы завершены',
-      color: '#00FFA5',
-      calendar_dull: '#D9FFF1',
-      calendar_vivid: '#80FFD2',
-      calendars: [],
-    },
-  },
-  {
-    percent: 21.3,
+    percent: 4.39,
     stage_id: 9,
     stage: {
       name: 'Остекление',
       color: '#FFA629',
       calendar_dull: '#FFF2DF',
       calendar_vivid: '#FFD394',
-      calendars: [],
+      calendars: [
+        {
+          fact_end: '2024-12-25',
+          fact_start: '2024-12-24',
+          info: null,
+          percent: 4.39,
+          report_date: '2024-12-25',
+          plan_end: '2025-04-15',
+          plan_start: '2025-03-31',
+        },
+      ],
     },
   },
   {
-    percent: 0,
+    percent: 70,
     stage_id: 10,
     stage: {
       name: 'Благоустройство',
@@ -633,285 +638,22 @@ const getMainReport = [
       calendars: [],
     },
   },
+  {
+    percent: 68.07,
+    stage_id: 11,
+    stage: {
+      name: 'Работы завершены',
+      color: '#00FFA5',
+      calendar_dull: '#D9FFF1',
+      calendar_vivid: '#80FFD2',
+      calendars: [],
+    },
+  },
 ];
 
 const photosReport = [
   {
-    photoId: '62cc1c43-8963-4d4d-926d-9a84f534ff13',
-    report: [
-      {
-        stage_id: 0,
-        percent: 100,
-        info: null,
-        stage: {
-          name: 'Земляные работы',
-          calendar_dull: '#FFD9D9',
-          calendar_vivid: '#FF8080',
-          color: '#FF0000',
-        },
-      },
-      {
-        stage_id: 1,
-        percent: 100,
-        info: null,
-        stage: {
-          name: 'Шпунтовое ограждение',
-          calendar_dull: '#D9F8EF',
-          calendar_vivid: '#80E6CB',
-          color: '#00CC96',
-        },
-      },
-      {
-        stage_id: 2,
-        percent: 100,
-        info: null,
-        stage: {
-          name: 'Распорная система',
-          calendar_dull: '#D9D9FF',
-          calendar_vivid: '#8080FF',
-          color: '#0000FF',
-        },
-      },
-      {
-        stage_id: 3,
-        percent: 100,
-        info: null,
-        stage: {
-          name: 'Устройство фундамента',
-          calendar_dull: '#FFFFD9',
-          calendar_vivid: '#FFFF80',
-          color: '#FFFF00',
-        },
-      },
-      {
-        stage_id: 4,
-        percent: 100,
-        info: null,
-        stage: {
-          name: 'Монолит',
-          calendar_dull: '#D9FFFF',
-          calendar_vivid: '#80FFFF',
-          color: '#00FFFF',
-        },
-      },
-      {
-        stage_id: 5,
-        percent: 29.905142835336495,
-        info: null,
-        stage: {
-          name: 'Кладка',
-          calendar_dull: '#FFE8EF',
-          calendar_vivid: '#FFB3C9',
-          color: '#FF6692',
-        },
-      },
-      {
-        stage_id: 6,
-        percent: 0,
-        info: null,
-        stage: {
-          name: 'Теплоизоляция',
-          calendar_dull: '#F1D9FF',
-          calendar_vivid: '#D280FF',
-          color: '#A500FF',
-        },
-      },
-      {
-        stage_id: 7,
-        percent: 0,
-        info: null,
-        stage: {
-          name: 'Подсистема фасада',
-          calendar_dull: '#D9F1FF',
-          calendar_vivid: '#80D2FF',
-          color: '#00A5FF',
-        },
-      },
-      {
-        stage_id: 8,
-        percent: 0,
-        info: null,
-        stage: {
-          name: 'Облицовка фасада',
-          calendar_dull: '#F1FFD9',
-          calendar_vivid: '#D2FF80',
-          color: '#A5FF00',
-        },
-      },
-      {
-        stage_id: 11,
-        percent: 59.98814285441706,
-        info: null,
-        stage: {
-          name: 'Работы завершены',
-          calendar_dull: '#D9FFF1',
-          calendar_vivid: '#80FFD2',
-          color: '#00FFA5',
-        },
-      },
-      {
-        stage_id: 9,
-        percent: 0,
-        info: null,
-        stage: {
-          name: 'Остекление',
-          calendar_dull: '#FFF2DF',
-          calendar_vivid: '#FFD394',
-          color: '#FFA629',
-        },
-      },
-      {
-        stage_id: 10,
-        percent: 0,
-        info: null,
-        stage: {
-          name: 'Благоустройство',
-          calendar_dull: '#E5F8E4',
-          calendar_vivid: '#A9E7A4',
-          color: '#52CE49',
-        },
-      },
-    ],
-  },
-  {
-    photoId: '93faffcb-f04f-419c-b86d-52afe793a92d',
-    report: [
-      {
-        stage_id: 0,
-        percent: 100,
-        info: null,
-        stage: {
-          name: 'Земляные работы',
-          calendar_dull: '#FFD9D9',
-          calendar_vivid: '#FF8080',
-          color: '#FF0000',
-        },
-      },
-      {
-        stage_id: 1,
-        percent: 100,
-        info: null,
-        stage: {
-          name: 'Шпунтовое ограждение',
-          calendar_dull: '#D9F8EF',
-          calendar_vivid: '#80E6CB',
-          color: '#00CC96',
-        },
-      },
-      {
-        stage_id: 2,
-        percent: 100,
-        info: null,
-        stage: {
-          name: 'Распорная система',
-          calendar_dull: '#D9D9FF',
-          calendar_vivid: '#8080FF',
-          color: '#0000FF',
-        },
-      },
-      {
-        stage_id: 3,
-        percent: 50,
-        info: null,
-        stage: {
-          name: 'Устройство фундамента',
-          calendar_dull: '#FFFFD9',
-          calendar_vivid: '#FFFF80',
-          color: '#FFFF00',
-        },
-      },
-      {
-        stage_id: 4,
-        percent: 0,
-        info: null,
-        stage: {
-          name: 'Монолит',
-          calendar_dull: '#D9FFFF',
-          calendar_vivid: '#80FFFF',
-          color: '#00FFFF',
-        },
-      },
-      {
-        stage_id: 5,
-        percent: 0,
-        info: null,
-        stage: {
-          name: 'Кладка',
-          calendar_dull: '#FFE8EF',
-          calendar_vivid: '#FFB3C9',
-          color: '#FF6692',
-        },
-      },
-      {
-        stage_id: 6,
-        percent: 0,
-        info: null,
-        stage: {
-          name: 'Теплоизоляция',
-          calendar_dull: '#F1D9FF',
-          calendar_vivid: '#D280FF',
-          color: '#A500FF',
-        },
-      },
-      {
-        stage_id: 7,
-        percent: 0,
-        info: null,
-        stage: {
-          name: 'Подсистема фасада',
-          calendar_dull: '#D9F1FF',
-          calendar_vivid: '#80D2FF',
-          color: '#00A5FF',
-        },
-      },
-      {
-        stage_id: 8,
-        percent: 0,
-        info: null,
-        stage: {
-          name: 'Облицовка фасада',
-          calendar_dull: '#F1FFD9',
-          calendar_vivid: '#D2FF80',
-          color: '#A5FF00',
-        },
-      },
-      {
-        stage_id: 11,
-        percent: 25,
-        info: null,
-        stage: {
-          name: 'Работы завершены',
-          calendar_dull: '#D9FFF1',
-          calendar_vivid: '#80FFD2',
-          color: '#00FFA5',
-        },
-      },
-      {
-        stage_id: 9,
-        percent: 0,
-        info: null,
-        stage: {
-          name: 'Остекление',
-          calendar_dull: '#FFF2DF',
-          calendar_vivid: '#FFD394',
-          color: '#FFA629',
-        },
-      },
-      {
-        stage_id: 10,
-        percent: 0,
-        info: null,
-        stage: {
-          name: 'Благоустройство',
-          calendar_dull: '#E5F8E4',
-          calendar_vivid: '#A9E7A4',
-          color: '#52CE49',
-        },
-      },
-    ],
-  },
-  {
-    photoId: 'b28f9ccd-9972-4dd0-96cb-4ce1d3285889',
+    photoId: '0afc0334-247f-4560-a26d-fd5618de59fa',
     report: [
       {
         stage_id: 0,
@@ -970,7 +712,7 @@ const photosReport = [
       },
       {
         stage_id: 5,
-        percent: 99.94843538390477,
+        percent: 25.41982456696316,
         info: null,
         stage: {
           name: 'Кладка',
@@ -981,7 +723,7 @@ const photosReport = [
       },
       {
         stage_id: 6,
-        percent: 94.61474109107662,
+        percent: 0,
         info: null,
         stage: {
           name: 'Теплоизоляция',
@@ -992,7 +734,7 @@ const photosReport = [
       },
       {
         stage_id: 7,
-        percent: 94.60790464357217,
+        percent: 0,
         info: null,
         stage: {
           name: 'Подсистема фасада',
@@ -1003,7 +745,7 @@ const photosReport = [
       },
       {
         stage_id: 8,
-        percent: 44.15256300124853,
+        percent: 0,
         info: null,
         stage: {
           name: 'Облицовка фасада',
@@ -1014,7 +756,7 @@ const photosReport = [
       },
       {
         stage_id: 11,
-        percent: 87.32517690916407,
+        percent: 59.42747807087039,
         info: null,
         stage: {
           name: 'Работы завершены',
@@ -1025,7 +767,418 @@ const photosReport = [
       },
       {
         stage_id: 9,
-        percent: 63.893924175310744,
+        percent: 0,
+        info: null,
+        stage: {
+          name: 'Остекление',
+          calendar_dull: '#FFF2DF',
+          calendar_vivid: '#FFD394',
+          color: '#FFA629',
+        },
+      },
+      {
+        stage_id: 10,
+        percent: 100,
+        info: null,
+        stage: {
+          name: 'Благоустройство',
+          calendar_dull: '#E5F8E4',
+          calendar_vivid: '#A9E7A4',
+          color: '#52CE49',
+        },
+      },
+    ],
+  },
+  {
+    photoId: '797ee1b5-3e85-41d6-b9c2-e8c0347f15aa',
+    report: [
+      {
+        stage_id: 0,
+        percent: 100,
+        info: null,
+        stage: {
+          name: 'Земляные работы',
+          calendar_dull: '#FFD9D9',
+          calendar_vivid: '#FF8080',
+          color: '#FF0000',
+        },
+      },
+      {
+        stage_id: 1,
+        percent: 100,
+        info: null,
+        stage: {
+          name: 'Шпунтовое ограждение',
+          calendar_dull: '#D9F8EF',
+          calendar_vivid: '#80E6CB',
+          color: '#00CC96',
+        },
+      },
+      {
+        stage_id: 2,
+        percent: 100,
+        info: null,
+        stage: {
+          name: 'Распорная система',
+          calendar_dull: '#D9D9FF',
+          calendar_vivid: '#8080FF',
+          color: '#0000FF',
+        },
+      },
+      {
+        stage_id: 3,
+        percent: 100,
+        info: null,
+        stage: {
+          name: 'Устройство фундамента',
+          calendar_dull: '#FFFFD9',
+          calendar_vivid: '#FFFF80',
+          color: '#FFFF00',
+        },
+      },
+      {
+        stage_id: 4,
+        percent: 100,
+        info: null,
+        stage: {
+          name: 'Монолит',
+          calendar_dull: '#D9FFFF',
+          calendar_vivid: '#80FFFF',
+          color: '#00FFFF',
+        },
+      },
+      {
+        stage_id: 5,
+        percent: 100,
+        info: null,
+        stage: {
+          name: 'Кладка',
+          calendar_dull: '#FFE8EF',
+          calendar_vivid: '#FFB3C9',
+          color: '#FF6692',
+        },
+      },
+      {
+        stage_id: 6,
+        percent: 0,
+        info: null,
+        stage: {
+          name: 'Теплоизоляция',
+          calendar_dull: '#F1D9FF',
+          calendar_vivid: '#D280FF',
+          color: '#A500FF',
+        },
+      },
+      {
+        stage_id: 7,
+        percent: 0,
+        info: null,
+        stage: {
+          name: 'Подсистема фасада',
+          calendar_dull: '#D9F1FF',
+          calendar_vivid: '#80D2FF',
+          color: '#00A5FF',
+        },
+      },
+      {
+        stage_id: 8,
+        percent: 0,
+        info: null,
+        stage: {
+          name: 'Облицовка фасада',
+          calendar_dull: '#F1FFD9',
+          calendar_vivid: '#D2FF80',
+          color: '#A5FF00',
+        },
+      },
+      {
+        stage_id: 11,
+        percent: 68.75,
+        info: null,
+        stage: {
+          name: 'Работы завершены',
+          calendar_dull: '#D9FFF1',
+          calendar_vivid: '#80FFD2',
+          color: '#00FFA5',
+        },
+      },
+      {
+        stage_id: 9,
+        percent: 0,
+        info: null,
+        stage: {
+          name: 'Остекление',
+          calendar_dull: '#FFF2DF',
+          calendar_vivid: '#FFD394',
+          color: '#FFA629',
+        },
+      },
+      {
+        stage_id: 10,
+        percent: 50,
+        info: null,
+        stage: {
+          name: 'Благоустройство',
+          calendar_dull: '#E5F8E4',
+          calendar_vivid: '#A9E7A4',
+          color: '#52CE49',
+        },
+      },
+    ],
+  },
+  {
+    photoId: 'c9ee353c-b31e-48e7-893f-4a700afdf4e5',
+    report: [
+      {
+        stage_id: 0,
+        percent: 100,
+        info: null,
+        stage: {
+          name: 'Земляные работы',
+          calendar_dull: '#FFD9D9',
+          calendar_vivid: '#FF8080',
+          color: '#FF0000',
+        },
+      },
+      {
+        stage_id: 1,
+        percent: 100,
+        info: null,
+        stage: {
+          name: 'Шпунтовое ограждение',
+          calendar_dull: '#D9F8EF',
+          calendar_vivid: '#80E6CB',
+          color: '#00CC96',
+        },
+      },
+      {
+        stage_id: 2,
+        percent: 100,
+        info: null,
+        stage: {
+          name: 'Распорная система',
+          calendar_dull: '#D9D9FF',
+          calendar_vivid: '#8080FF',
+          color: '#0000FF',
+        },
+      },
+      {
+        stage_id: 3,
+        percent: 50,
+        info: null,
+        stage: {
+          name: 'Устройство фундамента',
+          calendar_dull: '#FFFFD9',
+          calendar_vivid: '#FFFF80',
+          color: '#FFFF00',
+        },
+      },
+      {
+        stage_id: 4,
+        percent: 100,
+        info: null,
+        stage: {
+          name: 'Монолит',
+          calendar_dull: '#D9FFFF',
+          calendar_vivid: '#80FFFF',
+          color: '#00FFFF',
+        },
+      },
+      {
+        stage_id: 5,
+        percent: 99.40986559820925,
+        info: null,
+        stage: {
+          name: 'Кладка',
+          calendar_dull: '#FFE8EF',
+          calendar_vivid: '#FFB3C9',
+          color: '#FF6692',
+        },
+      },
+      {
+        stage_id: 6,
+        percent: 75.20544740930652,
+        info: null,
+        stage: {
+          name: 'Теплоизоляция',
+          calendar_dull: '#F1D9FF',
+          calendar_vivid: '#D280FF',
+          color: '#A500FF',
+        },
+      },
+      {
+        stage_id: 7,
+        percent: 75.20544740930652,
+        info: null,
+        stage: {
+          name: 'Подсистема фасада',
+          calendar_dull: '#D9F1FF',
+          calendar_vivid: '#80D2FF',
+          color: '#00A5FF',
+        },
+      },
+      {
+        stage_id: 8,
+        percent: 73.8549935916894,
+        info: null,
+        stage: {
+          name: 'Облицовка фасада',
+          calendar_dull: '#F1FFD9',
+          calendar_vivid: '#D2FF80',
+          color: '#A5FF00',
+        },
+      },
+      {
+        stage_id: 11,
+        percent: 79.81850427545524,
+        info: null,
+        stage: {
+          name: 'Работы завершены',
+          calendar_dull: '#D9FFF1',
+          calendar_vivid: '#80FFD2',
+          color: '#00FFA5',
+        },
+      },
+      {
+        stage_id: 9,
+        percent: 2.188373150150103,
+        info: null,
+        stage: {
+          name: 'Остекление',
+          calendar_dull: '#FFF2DF',
+          calendar_vivid: '#FFD394',
+          color: '#FFA629',
+        },
+      },
+      {
+        stage_id: 10,
+        percent: 100,
+        info: null,
+        stage: {
+          name: 'Благоустройство',
+          calendar_dull: '#E5F8E4',
+          calendar_vivid: '#A9E7A4',
+          color: '#52CE49',
+        },
+      },
+    ],
+  },
+  {
+    photoId: '9fd70d06-2fc3-46b7-9236-d4a4cb30a0cc',
+    report: [
+      {
+        stage_id: 0,
+        percent: 100,
+        info: null,
+        stage: {
+          name: 'Земляные работы',
+          calendar_dull: '#FFD9D9',
+          calendar_vivid: '#FF8080',
+          color: '#FF0000',
+        },
+      },
+      {
+        stage_id: 1,
+        percent: 100,
+        info: null,
+        stage: {
+          name: 'Шпунтовое ограждение',
+          calendar_dull: '#D9F8EF',
+          calendar_vivid: '#80E6CB',
+          color: '#00CC96',
+        },
+      },
+      {
+        stage_id: 2,
+        percent: 50,
+        info: null,
+        stage: {
+          name: 'Распорная система',
+          calendar_dull: '#D9D9FF',
+          calendar_vivid: '#8080FF',
+          color: '#0000FF',
+        },
+      },
+      {
+        stage_id: 3,
+        percent: 50,
+        info: null,
+        stage: {
+          name: 'Устройство фундамента',
+          calendar_dull: '#FFFFD9',
+          calendar_vivid: '#FFFF80',
+          color: '#FFFF00',
+        },
+      },
+      {
+        stage_id: 4,
+        percent: 100,
+        info: null,
+        stage: {
+          name: 'Монолит',
+          calendar_dull: '#D9FFFF',
+          calendar_vivid: '#80FFFF',
+          color: '#00FFFF',
+        },
+      },
+      {
+        stage_id: 5,
+        percent: 45.714059051144034,
+        info: null,
+        stage: {
+          name: 'Кладка',
+          calendar_dull: '#FFE8EF',
+          calendar_vivid: '#FFB3C9',
+          color: '#FF6692',
+        },
+      },
+      {
+        stage_id: 6,
+        percent: 45.243240202246135,
+        info: null,
+        stage: {
+          name: 'Теплоизоляция',
+          calendar_dull: '#F1D9FF',
+          calendar_vivid: '#D280FF',
+          color: '#A500FF',
+        },
+      },
+      {
+        stage_id: 7,
+        percent: 45.243240202246135,
+        info: null,
+        stage: {
+          name: 'Подсистема фасада',
+          calendar_dull: '#D9F1FF',
+          calendar_vivid: '#80D2FF',
+          color: '#00A5FF',
+        },
+      },
+      {
+        stage_id: 8,
+        percent: 45.21848347391736,
+        info: null,
+        stage: {
+          name: 'Облицовка фасада',
+          calendar_dull: '#F1FFD9',
+          calendar_vivid: '#D2FF80',
+          color: '#A5FF00',
+        },
+      },
+      {
+        stage_id: 11,
+        percent: 65.09212070154672,
+        info: null,
+        stage: {
+          name: 'Работы завершены',
+          calendar_dull: '#D9FFF1',
+          calendar_vivid: '#80FFD2',
+          color: '#00FFA5',
+        },
+      },
+      {
+        stage_id: 9,
+        percent: 19.773203129351945,
         info: null,
         stage: {
           name: 'Остекление',
@@ -1037,6 +1190,143 @@ const photosReport = [
       {
         stage_id: 10,
         percent: 0,
+        info: null,
+        stage: {
+          name: 'Благоустройство',
+          calendar_dull: '#E5F8E4',
+          calendar_vivid: '#A9E7A4',
+          color: '#52CE49',
+        },
+      },
+    ],
+  },
+  {
+    photoId: '2191b10c-560d-4f90-8beb-39df2c340f6b',
+    report: [
+      {
+        stage_id: 0,
+        percent: 100,
+        info: null,
+        stage: {
+          name: 'Земляные работы',
+          calendar_dull: '#FFD9D9',
+          calendar_vivid: '#FF8080',
+          color: '#FF0000',
+        },
+      },
+      {
+        stage_id: 1,
+        percent: 100,
+        info: null,
+        stage: {
+          name: 'Шпунтовое ограждение',
+          calendar_dull: '#D9F8EF',
+          calendar_vivid: '#80E6CB',
+          color: '#00CC96',
+        },
+      },
+      {
+        stage_id: 2,
+        percent: 100,
+        info: null,
+        stage: {
+          name: 'Распорная система',
+          calendar_dull: '#D9D9FF',
+          calendar_vivid: '#8080FF',
+          color: '#0000FF',
+        },
+      },
+      {
+        stage_id: 3,
+        percent: 100,
+        info: null,
+        stage: {
+          name: 'Устройство фундамента',
+          calendar_dull: '#FFFFD9',
+          calendar_vivid: '#FFFF80',
+          color: '#FFFF00',
+        },
+      },
+      {
+        stage_id: 4,
+        percent: 100,
+        info: null,
+        stage: {
+          name: 'Монолит',
+          calendar_dull: '#D9FFFF',
+          calendar_vivid: '#80FFFF',
+          color: '#00FFFF',
+        },
+      },
+      {
+        stage_id: 5,
+        percent: 87.92508986396321,
+        info: null,
+        stage: {
+          name: 'Кладка',
+          calendar_dull: '#FFE8EF',
+          calendar_vivid: '#FFB3C9',
+          color: '#FF6692',
+        },
+      },
+      {
+        stage_id: 6,
+        percent: 0,
+        info: null,
+        stage: {
+          name: 'Теплоизоляция',
+          calendar_dull: '#F1D9FF',
+          calendar_vivid: '#D280FF',
+          color: '#A500FF',
+        },
+      },
+      {
+        stage_id: 7,
+        percent: 0,
+        info: null,
+        stage: {
+          name: 'Подсистема фасада',
+          calendar_dull: '#D9F1FF',
+          calendar_vivid: '#80D2FF',
+          color: '#00A5FF',
+        },
+      },
+      {
+        stage_id: 8,
+        percent: 0,
+        info: null,
+        stage: {
+          name: 'Облицовка фасада',
+          calendar_dull: '#F1FFD9',
+          calendar_vivid: '#D2FF80',
+          color: '#A5FF00',
+        },
+      },
+      {
+        stage_id: 11,
+        percent: 67.2406362329954,
+        info: null,
+        stage: {
+          name: 'Работы завершены',
+          calendar_dull: '#D9FFF1',
+          calendar_vivid: '#80FFD2',
+          color: '#00FFA5',
+        },
+      },
+      {
+        stage_id: 9,
+        percent: 0,
+        info: null,
+        stage: {
+          name: 'Остекление',
+          calendar_dull: '#FFF2DF',
+          calendar_vivid: '#FFD394',
+          color: '#FFA629',
+        },
+      },
+      {
+        stage_id: 10,
+        percent: 100,
         info: null,
         stage: {
           name: 'Благоустройство',

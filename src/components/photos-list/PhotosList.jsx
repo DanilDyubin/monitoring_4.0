@@ -193,7 +193,7 @@ const PhotosList = ({
   onDelete,
   onUpload,
   onDeleteDBPhotos,
-  photosUrl,
+  photosDB,
 }) => {
   // const [uploading, setUploading] = useState(false);
 
@@ -213,7 +213,7 @@ const PhotosList = ({
 
   return (
     <div className={s['photos-uploaded']}>
-      {photosUrl?.length > 0 && (
+      {photosDB?.length > 0 && (
         <button
           style={{ fontSize: '16px', fontWeight: '500', marginBottom: '10px' }}
           onClick={onDeleteDBPhotos}
@@ -230,8 +230,8 @@ const PhotosList = ({
               onDelete={onDelete}
             />
           ))}
-        {photosUrl?.length > 0 &&
-          photosUrl.map((url, i) => <PhotoItem key={i} url={url} />)}
+        {photosDB?.length > 0 &&
+          photosDB.map((photo, i) => <PhotoItem key={i} id={photo.id} />)}
         {photosId?.length > 0 && <PhotoPickerSmall onUpload={onUpload} />}
       </div>
     </div>

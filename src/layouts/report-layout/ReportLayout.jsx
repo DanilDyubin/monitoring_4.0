@@ -70,6 +70,13 @@ const ReportLayout = () => {
     };
   });
 
+  // находим stage у которой есть report_date
+  const stageWithReportDate = mainReportSorted.find(
+    (item) =>
+      item?.stage?.calendars?.length > 0 && item.stage.calendars[0].report_date
+  );
+  const reportDate = stageWithReportDate?.stage?.calendars?.[0]?.report_date;
+
   const isDataLoaded = projectData && mainReport.length && photosReport.length;
 
   console.log(`formData - ${JSON.stringify(projectData)}`);
@@ -135,6 +142,7 @@ const ReportLayout = () => {
           {/* {isDataLoaded && (
             <ReportDocumentViewer
               formData={projectData}
+              reportDate={reportDate}
               stages={mainReportSorted}
               reportByImage={photosReportSorted}
             />

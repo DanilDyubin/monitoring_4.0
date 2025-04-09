@@ -325,7 +325,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const ReportDocument = ({ formData, stages, reportByImage }) => (
+const ReportDocument = ({ formData, reportDate, stages, reportByImage }) => (
   <Document>
     <Page size="A4" style={styles.page}>
       <View style={styles.title}>
@@ -343,10 +343,7 @@ const ReportDocument = ({ formData, stages, reportByImage }) => (
             <Text style={styles.label}>Дата съемки *</Text>
             <View style={styles.input}>
               <Text style={styles.text}>
-                {moment(stages[0].stage.calendars[0].report_date).format(
-                  'DD.MM.YYYY'
-                )}
-                {/* {stages[3].percent} */}
+                {moment(reportDate).format('DD.MM.YYYY')}
               </Text>
             </View>
           </View>
@@ -400,9 +397,6 @@ const ReportDocument = ({ formData, stages, reportByImage }) => (
                         'DD.MM'
                       )}`
                     : `-`}
-                  {/* {stage.stage.calendars[0].plan_start
-                    ? stage.stage.calendars[0].plan_start
-                    : '-'} */}
                 </Text>
               </View>
               {/* <View style={styles.colPlan}>
@@ -465,12 +459,3 @@ const ReportDocument = ({ formData, stages, reportByImage }) => (
 );
 
 export default ReportDocument;
-
-{
-  /* {stages[0].stage.calendars.report_date} */
-}
-{
-  /* {Array.isArray(stages) && stages.length > 0
-                  ? stages[0].percent
-                  : '—'} */
-}

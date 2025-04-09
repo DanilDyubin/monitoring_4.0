@@ -47,7 +47,7 @@ const ProjectPage = () => {
   const getCalendarAndDispatch = async (projectId) => {
     try {
       const data = await getCalendar(projectId);
-
+      console.log(JSON.stringify(data));
       dispatch(addRequestItems(transFormItem(data)));
       dispatch(setCalendarItemsReport(transFormItemReport(data)));
       dispatch(addPercentToGroups(data));
@@ -60,6 +60,16 @@ const ProjectPage = () => {
     getCalendarAndDispatch(projectId);
   }, [projectId]);
 
+  const updateCalendar = async (projectId) => {
+    try {
+      await createCalendar(projectId);
+      await getCalendarAndDispatch(projectId);
+      setIsEditing(false);
+    } catch (error) {
+      console.error('Ошибка получения календаря:', error);
+    }
+  };
+
   return (
     <div className={s.container}>
       <Subtitle subtitle="Основная информация" />
@@ -69,7 +79,7 @@ const ProjectPage = () => {
       <div className={s.wrapper}>
         <Subtitle subtitle="График строительных работ" />
         {isEditing ? (
-          <button className={s.btn} onClick={() => setIsEditing(false)}>
+          <button className={s.btn} onClick={() => updateCalendar(projectId)}>
             Сохранить
           </button>
         ) : (
