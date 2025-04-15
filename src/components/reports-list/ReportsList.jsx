@@ -9,9 +9,12 @@ const ReportsList = ({ currentItems }) => {
         {currentItems.map((report, i) => (
           <li className={s.item} key={i}>
             <span className={s.name}>{report.name}</span>
-            <a className={s.link} href={report.link} download={report.name}>
+            {/* <a className={s.link} href="#" download={report.name}>
               <FiDownload className={s.icon} />
-            </a>
+            </a> */}
+            <div className={s.link} href="#" download={report.name}>
+              <FiDownload className={s.icon} />
+            </div>
           </li>
         ))}
       </ul>

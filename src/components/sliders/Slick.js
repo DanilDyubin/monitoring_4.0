@@ -54,6 +54,7 @@ const Slick = ({ images }) => {
     dots: true,
     dotsClass: 'slider-one-dots',
     infinite: images.length > 1,
+    // infinite: false,
     slidesToShow: showSlides,
     slidesToScroll: 1,
     speed: 500,

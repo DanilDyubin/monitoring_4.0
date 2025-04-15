@@ -16,20 +16,15 @@ import {
   setCalendarItemsReport,
   setMainReport,
   setPhotosReport,
-  clearReport,
 } from '../../redux/slices/reportSlice';
-import {
-  clearSchedule,
-  addPercentToGroups,
-} from '../../redux/slices/scheduleSlice';
-import { useSendRequest } from '../../hooks/useSendRequest';
+import { addPercentToGroups } from '../../redux/slices/scheduleSlice';
+import ReportDocumentViewer from '../../pages/pdf-page/ReportDocumentViewer';
 import NavigationMenu from '../../components/navigation-menu/NavigationMenu';
 import ReportDocument from '../../pages/pdf-page/ReportDocument';
 import Button from '../../ui/button/Button';
 import PageSkeleton from '../../ui/skeletons/page-skeleton/PageSkeleton';
 
 import s from './reportPage.module.scss';
-import ReportDocumentViewer from '../../pages/pdf-page/ReportDocumentViewer';
 
 const ReportLayout = () => {
   const [loading, setLoading] = useState(false);
@@ -44,23 +39,12 @@ const ReportLayout = () => {
   const { getProject, getCalendar, getMainReport, getPhotosReport } =
     useApiService();
 
-  // const projectData = useSelector((state) => state.report.projectData);
-  // const calendarItemsReport = useSelector(
-  //   (state) => state.report.calendarItemsReport
-  // );
-  // const mainReport = useSelector((state) => state.report.mainReport);
-
-  const groups = useSelector((state) => state.report.groupsReport);
-
   const projectData = useSelector((state) => state.report.projectData);
   const mainReport = useSelector((state) => state.report.mainReport || []);
   const mainReportSorted = [...mainReport]
     .sort((a, b) => a.stage_id - b.stage_id)
     .slice(0, -1);
   const photosReport = useSelector((state) => state.report.photosReport || []);
-  // const photosReportSorted = [...photosReport].map((item) =>
-  //   item.report.sort((a, b) => a.stage_id - b.stage_id).slice(0, -1)
-  // );
   const photosReportSorted = photosReport.map((item) => {
     return {
       ...item,
@@ -82,16 +66,6 @@ const ReportLayout = () => {
   console.log(`formData - ${JSON.stringify(projectData)}`);
   console.log(`mainReportSorted - ${JSON.stringify(mainReport)}`);
   console.log(`photosReport - ${JSON.stringify(photosReport)}`);
-
-  // const formData = useSelector((state) => state.report.formData);
-  // const stages = useSelector((state) => state.report.total.stages || []);
-  // const stagesSort = [...stages].sort((a, b) => a.id - b.id);
-  // const reportByImage = useSelector(
-  //   (state) => state.report.groupsReportByImage
-  // );
-  // const loadingPage = useSelector((state) => state.report.loadingPage);
-  const loadingPage = false; // временно
-  // const isDataLoaded = formData && stages && reportByImage;
 
   useEffect(() => {
     setLoading(true);
@@ -120,12 +94,7 @@ const ReportLayout = () => {
       });
   }, [projectId, uploadId]);
 
-  console.log(JSON.stringify(groups));
-
   const handleStateClear = () => {
-    // dispatch(clearReport());
-    // dispatch(clearSchedule());
-    // persistor.purge();
     dispatch(resetAllSlices());
     navigate('/');
   };
@@ -160,6 +129,7 @@ const ReportLayout = () => {
                     formData={projectData}
                     stages={mainReportSorted}
                     reportByImage={photosReportSorted}
+                    reportDate={reportDate}
                   />
                 }
                 fileName="Отчет.pdf"
